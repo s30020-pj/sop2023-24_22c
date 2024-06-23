@@ -1,0 +1,19 @@
+/*
+Napisz program obliczający sumę liczb wprowadzonych przez użytkownika
+(ze standardowego wejścia) i wypisujący wynik na standardowe wyjście.
+*/
+
+#include <stdio.h>
+#include <stdbool.h>
+
+int main() {
+        int sum = 0, a;
+        bool cond = true;
+        while (cond){
+                printf("Podaj liczbe do dodania: ");
+                scanf("%d", &a);
+                sum += a;
+                printf("Suma: %d\n", sum);
+        }
+        return 0;
+}

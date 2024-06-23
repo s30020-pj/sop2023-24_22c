@@ -1,0 +1,17 @@
+#!/bin/bash
+
+#Napisz skrypt, który sprawdzi, czy podano więcej niż jeden parametr. Jeśli tak, to niech wyświetli pierwszy parametr. 
+#Jeśli nie, to niech wyświetli komunikat, że nie podano parametrów.
+
+one=$1
+two=$2
+
+if [[ -n $two ]]; then
+	echo "$one"
+else
+	echo "Nie podano argumentów"
+fi
+
+#Skrypt sprawdza, czy zmienna "two" nie jest pusta. Jeśli nie, oznacza to, że
+#podano więcej niż jeden argument. Jeśli jest pusta, wyświetla informację, że nie podano argumentów.
+

@@ -1,0 +1,8 @@
+plik=$1
+
+if [ ! -f "$plik" ]; then
+    echo "Plik $plik nie istnieje."
+    exit 1
+fi
+
+sed 's/\(Patryk\)/\o033[31m\1\o033[0m/g' "$plik"

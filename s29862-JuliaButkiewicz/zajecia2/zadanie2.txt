@@ -1,0 +1,58 @@
+Zadanie 2
+Zobacz taką serię poleceń:
+
+X=tekst
+echo $X
+bash
+echo $X
+
+Co się stało? Czy potrafisz wyjaśnić?
+
+Odpowiedź:
+Do zmiennej X zostało przypisane słowo "tekst" (jakieś dane).
+Echo $X spowodowało, że dane zosatły wyprintowane w terminalu.
+W tym przypadku był to "tekst". W dalszej części bash otworzyło
+nową powłokę. Po ponownym wpisaniu echo $X nic nie zostaje wydrukowane
+gdyż w nowej powłoce nie została przypisana zmienna.
+
+Zobacz:
+
+X=Tekst dłuższy
+echo $X
+
+Co jest nie tak? Jak to naprawić?
+
+Odpowiedź:
+Wpisanie "X=Tekst dłuższy" powoduje, że terminal wyrzuca linijkę o treści
+"bash: dluzszy: nie znaleziono polecenia". W tym przypadku spacja
+sprawiła, że ten błąd został wyrzucony. Po wpisaniu X='Tekst dłuższy' błąd
+już nie występował. W tym przypadku użycie cudzysłowia/apostrofów 
+jest konieczne!
+
+Zobacz:
+
+X="Tekst 1"
+Y="tekst:$X"
+echo "$Y"
+Y='tekst:$X'
+echo "$Y"
+Y=tekst:$X
+echo "$Y"
+
+Jaka jest różnica między " a '?
+
+Odpowiedź:
+Pierwsze echo dało mi: tekst:Tekst 1
+Drugie echo: tekst:$X
+Trzecie echo: tekst:Tekst1
+Tylko przy użyciu cudzysłowia zmienna była egzekwowana. W przypadku apostrofa
+nie była. To zadanie pokazało jak kluczowe jest uważne używanie cudzysłowia
+lub apostrofa.
+
+Zobacz:
+
+A=Ala
+echo $A ma kota, a kot ma ${A}ę
+
+Odpowiedź:
+Po wpisaniu powyższych, w terminalu wyświetliło się Ala ma kota, a kot ma Alaę.

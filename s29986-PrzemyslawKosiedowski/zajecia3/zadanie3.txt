@@ -1,0 +1,105 @@
+Do wykonania zadań skorzystałem z dokumentacji basha:
+https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html
+oraz mana.
+
+===============================================================================
+Ćwiczenia 3
+===============================================================================
+Przygotuj skrypt z funkcją która będzie wypisywała tekst pokolorowany na
+zadany kolor. Niech funkcja ta przyjmuje dwa argumenty - tekst i kolor.
+Zobacz man console_codes oraz składnię komendy echo (lub przykład z
+poprzednich zajęć).
+-------------------------------------------------------------------------------
+
+Skrypt:
+function colours() {
+        text="$1"
+        colour="$2"
+
+        case $colour in
+                "red")
+                        colour="31" ;;
+                "green")
+                        colour="32" ;;
+                "brown")
+                        colour="33" ;;
+                "blue")
+                        colour="34" ;;
+                "magenta")
+                        colour="35" ;;
+                "cyan")
+                        colour="36" ;;
+                "white")
+                        colour="37" ;;
+                "black")
+                        colour="30" ;;
+                *)
+                        echo "Tego koloru nie obsługuję." ;;
+        esac
+
+        echo -e "\e[${colour}m${text}\e[0m"
+}
+
+colours "$1" "$2"
+
+
+Wynik:
+s29986@szuflandia22:~/zadania/zajecia3/cw3$ ./cw3_1 "Dzień dobry" "black"
+Dzień dobry (czarne tło, więc nic nie widać)
+s29986@szuflandia22:~/zadania/zajecia3/cw3$ ./cw3_1 "Dzień dobry" "red"
+Dzień dobry (czerwony)
+s29986@szuflandia22:~/zadania/zajecia3/cw3$ ./cw3_1 "Dzień dobry" "magenta"
+Dzień dobry (magenta)
+s29986@szuflandia22:~/zadania/zajecia3/cw3$ ./cw3_1 "Dzień dobry" "yellow"
+Tego koloru nie obsługuję.
+ellowmDzień dobry
+
+
+Wniosek:
+Skrypt zadziałał poprawnie, nauczyłem się dzięki temu zadaniu jak tworzyć i
+używać funkcje w Bashu.
+
+
+
+===============================================================================
+Przygotuj funkcję obliczającą rekurencyjnie ciąg Fibonacciego. Niech wynik
+zwraca za pomocą return. Czy są jakieś ograniczenia?
+Rekurencyjnie i return czyli:
+
+Nie używamy pętli
+
+Nie używamy echo
+
+Wartość ma być zwracana przez literał return
+-------------------------------------------------------------------------------
+
+Skrypt:
+#!/bin/bash
+function fibonacci() {
+        if [[ $1 -eq 0 ]]; then
+                return 0;
+        elif [[ $1 -eq 1 ]]; then
+                return 1;
+        else
+                fibonacci $(($1-1))
+                local a=$?
+                fibonacci $(($1-2))
+                local b=$?
+                return $((a + b))
+        fi
+}
+fibonacci $1
+
+
+Wynik:
+Wynik sprawdzałem poleceniem echo $? - dzięki temu wiem, że skrypt działa
+prawidłowo, np. 10 liczba ciągu to 55.
+
+Wniosek:
+Ten skrypt ma swoje ograniczenia tj. jest w stanie sprawdzić tylko 13 liczb
+ciągu. Dzieje się tak, ponieważ return może zwracać wartości od 0 do 255.  
+Dla 14 wynik powinien wynosić 377 (skrypt zwraca 121) co jest poza zakresem.
+
+Informacje dot. return znalazłem na tej stronie:
+https://ioflood.com/blog/bash-function-return-value/
+

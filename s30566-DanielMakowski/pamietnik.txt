@@ -1,0 +1,6 @@
+19.03.2024
+Moj kochany pamietniczku, ostatnie zajecia, które odbyły się 10.03.2024 dostarczyły mi wiedzę na temat 
+środowiska wirtualizacyjnego virtualbox. Wiele wiedzy posiadałem już wcześniej lecz było to zdecydowanym 
+uzupełnieniem braków. Nie zanotuję tutaj rzeczy których się dowiedziałem na zajęciach, gdyż zapisane jest 
+to już w zadaniu z tych zajęć znajdującym się w katalogu instalacja_debiana. Przyjęta przezemnie wiedza nie
+ogranicza się jedynie do virtualboxa, a dotyczy również instalacji debiana.

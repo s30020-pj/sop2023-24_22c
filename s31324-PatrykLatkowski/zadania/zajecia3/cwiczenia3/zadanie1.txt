@@ -1,0 +1,22 @@
+colorize_text() {
+    local text="$1"
+    local color="$2"
+    case "$color" in
+        "czerwony")
+            echo -e "\033[31m$text\033[0m"
+        "zielony")
+            echo -e "\033[32m$text\033[0m"
+        "zolty")
+            echo -e "\033[33m$text\033[0m"
+        "niebieski")
+            echo -e "\033[34m$text\033[0m"
+        "rozowy")
+            echo -e "\033[35m$text\033[0m"
+        "cyjanowy")
+            echo -e "\033[36m$text\033[0m"
+        "bialy")
+            echo -e "\033[37m$text\033[0m"
+        *)
+            echo "Podaj inny kolor."
+    esac
+}

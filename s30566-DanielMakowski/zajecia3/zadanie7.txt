@@ -1,0 +1,14 @@
+#!/bin/bash
+
+#Napisz skrypt, który wypisze listę plików i katalogów bieżącego katalogu poprzedzając każdą nazwę pliku tekstem "Patrzcie Państwo, oto plik: ".
+
+
+for file in $(ls ./); do
+	if [[ -f $file ]]; then
+
+		echo "Patrzcie Państwo, oto plik: ${file}"
+	
+	else
+		echo "$file"
+	fi
+done

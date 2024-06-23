@@ -1,0 +1,87 @@
+ćw.1
+
+Tworzę plik o nazwie skrypt1.bat w którym zapisuję:
+
+	#!/bin/bash
+
+	echo -e "       Witamy w terminalu"
+
+Po uruchomieniu przy pomocy komendy ./skrypt1 skrypt uruchamia się wypisując "Witamy w terminalu"
+
+ćw.2
+
+Po wpisaniu komend:
+
+X=tekst
+echo $X
+
+Zostało wypisane słowo tekst, które zostało przypisane do X i wywołane przez komendę echo $X
+
+Następnie po wpisaniu komend bash
+echo $X
+
+Zostaje wypisane nic, tworzy się nowa linijka tekstu w której nie ma nic napisane
+
+Gdy próbuje się przypisać do X "Tekst dłuższy" konsola uważa dłuższy za kolejną komendę,
+zamiast za dalszą część tekstu
+Gdy dopisję "" na początku i na końcu tekstu wysztko działa poprawnie
+
+Różnica między ' a " polega na tym że przy przypisywaniu tekstu do zmiennej przy pomocy ',
+wszystko co zostało zapisane bezpośrednio będzie przypisane do zmiennej.
+Natomiast przy " jeżeli zostaną wprowadzone zmienne mogą zostać wypisane wartości tych zmiennych.
+
+Przypisałem do zmiennej A słowo Ala
+po wpisaniu komendy
+
+echo $A ma kota, a kot ma ${A}ę
+
+pojawiło się "Ala ma kota, a kot ma Alaę"
+
+ćw.3
+
+Po wpisaniu komend:
+
+echo $(wybrana_zmienna)
+
+dla każdej ze zmiennych otrzymałem następujące wyniki:
+
+PATH- /usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
+są to ścieżki przeszukiwań, są one potrzebne do korzystania z jakichkolwiek komend w bashu
+
+RANDOM- po wpisaniu "echo $RANDOM" otrzymywałem za każdym razem inną wartość,
+która była maksymalnie 5-cyfrowa
+
+PWD- /home/PJWSTK/s30157
+jest to ścieżka w której aktualnie się znajduję, przydatne żeby się nie pogubić w katalogach
+
+PS1- \[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\u@\h:\w\$
+Zmienna ta zawiera wszystko to co jest wyświetlane przed polem wprowadzania poleceń
+
+USER- s30157
+wyświetla nazwę użytkownika
+
+HOSTNAME- szuflandia22
+wyświetla nazwę hosta
+
+OSTYPE- linux-gnu
+wyświetla rodzaj systemu operacyjnego na którym pracujemy,
+jest to przydatne gdy korzystamy z maszyny wirtualnej
+gdy nie wiemy na jakim systemie operacyjnym działa
+
+ćw.4
+
+przypisałem do zmiennej X komendę ls -l za pomocą:
+
+X=$(ls -l)
+
+po próbie wywołania komendy:
+echo $X
+
+wyświetla się wszytko co powinno
+tyle że zapisane w jednym ciągu zamiast w posortowanej formie
+
+żeby to naprawić dodałem " do komendy
+
+echo "$X"
+
+dzięki czemu wszystko wyświetla się poprawnie poza oznaczeniami kolorystycznymi

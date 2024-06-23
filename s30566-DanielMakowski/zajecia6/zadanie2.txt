@@ -1,0 +1,89 @@
+/*
+Przygotuj program, który będzie pozwalał na uruchomienie tylko jednej swojej instancji. 
+Dodatkowo w momencie próby uruchomienia drugiej instancji będzie powiadamiał już uruchomiony proces o tym.
+Można to zrobić tak:
+
+Program uruchamia się i sprawdza, czy jest plik /tmp/lock
+
+Jeśli taki plik nie istnieje, wtedy:
+
+tworzony jest taki plik. Do niego zapisywany jest PID bieżącego procesu
+
+program instaluje obsługę sygnału USR1, która w momencie otrzymania sygnału wypisuje tekst: 
+Wyrkyto probe uruchomienia drugiej instancji programu.
+
+program instaluje obsługę sygnału generowanego przez CTRL+C (poszukaj jaki to sygnał), która w momencie 
+otrzymania tego sygnału skasuje plik /tmp/lock i spowoduje wyjście z pętli nieskończonej (patrz następny punkt)
+
+program wykonuje pętlę nieskończoną zawierającą tylko instrukcję sleep.
+
+Jeśli taki plik istnieje, wtedy:
+
+Wczytywana jest zawartość tego pliku - pid procesu uruchomionego
+
+generowany jest sygnał USR1 do procesu o pid takim jak wczytany
+
+program kończy pracę
+*/
+
+#define _POSIX_C_SOURCE 200112L
+
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <sys/types.h>
+#include <signal.h>
+
+#define LOCK_FILE "/tmp/irmgrd.lock"
+
+bool wait = true;
+
+void usr1Handler(int sig) {
+    printf("Wykryto probe uruchomienia drugiej instancji programu.\n");
+}
+
+void sigintHandler(int sig) {
+    if (unlink(LOCK_FILE) != 0) {
+        perror("Nie mozna usunac pliku lock");
+    }
+    exit(EXIT_SUCCESS);
+}
+
+int amIAlone(){
+    pid_t PID;
+    FILE *test = fopen("/tmp/irmgrd.lock", "r");
+    if (fopen(LOCK_FILE, "r")){
+        fscanf(test, "%d", &PID);
+        fclose(test);
+        printf("Wykryto dzialanie programu! PID: %d\n", PID);
+        kill(PID, SIGUSR1);
+        exit(EXIT_FAILURE);
+    }
+    else{
+        test = fopen(LOCK_FILE, "w");
+        if (!test) {
+            perror("Nie mozna utworzyc pliku lock");
+            exit(EXIT_FAILURE);
+        }
+        fprintf(test, "%d", getpid());
+        fclose(test);
+        wait = false;
+    }
+    return 0;
+}
+
+int main(){
+    signal(SIGUSR1, usr1Handler);
+    signal(SIGINT, sigintHandler);
+
+    amIAlone();
+
+    while (!wait)
+    {
+        pause();
+    }
+
+    return 0;
+    
+}

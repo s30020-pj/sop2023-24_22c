@@ -1,4 +1,4 @@
-2024-03-09
+2024-03-10
 Mój kochany pamietniczku na dzisiejszych zajeciach nauczylem sie:
 	jak korzystac z VirtualBoxa,
 	jak instalowac Debiana,
@@ -8,6 +8,58 @@ Do douczenia:
 	konfiguracja LVM,
 	tworzenie partycji,
 	opcje montowania.
+
+Do pozniej o7
+
+-------------------------------------------------------------------------------
+2024-03-24
+Mój kochany pamietniczku na dzisiejszych zajeciach nauczylem sie:
+	jak pisać skrypty
+	jak operować na ciągach znaków
+	jak korzystać z sed-a i kodów ucieczki ANSI
+
+Do pozniej o7
+
+-------------------------------------------------------------------------------
+2024-04-14
+Mój kochany pamietniczku na dzisiejszych zajeciach nauczylem sie:
+	... w sumie to nic, bo mnie na nich nie było.
+	
+Do pozniej o7
+
+-------------------------------------------------------------------------------
+2024-04-28
+Mój kochany pamietniczku na dzisiejszych zajeciach nauczylem sie:
+	jak pisać programy w C,
+	jak kompilować kod,
+	jak działać na plikach,
+	podstaw korzystania ze wskaźników.
+
+Do douczenia:
+	lista jednostronnie wiązana
+	lista dwustronnie wiązana
+
+Do pozniej o7
+
+-------------------------------------------------------------------------------
+2024-05-12
+Mój kochany pamietniczku na dzisiejszych zajeciach nauczylem sie:
+	jak działa funkcja fork()
+	jak manipulować procesami rodzica i potomka z użyciem wait(),
+		waitpid() i sleep()
+	jak drukować drzewo procesów z użyciem pstree()
+	
+
+Do pozniej o7
+
+-------------------------------------------------------------------------------
+2024-05-26
+Mój kochany pamietniczku na dzisiejszych zajeciach nauczylem sie:
+	jak korzystać z sygnałów
+	jak uniemożliwić przerwanie programu przez CTRL+C (sigaction)
+	
+W trakcie nauki:
+	sockety (wydaje mi się, że coś rozumiem, ale pewnie nie rozumiem)
 
 Do pozniej o7
 

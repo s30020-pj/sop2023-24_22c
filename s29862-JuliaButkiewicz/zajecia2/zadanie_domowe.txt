@@ -1,0 +1,15 @@
+Zadanie domowe
+Przygotuj skrypt, który odczyta plik (jego nazwa ma być argumentem skryptu)
+i wypisze go na terminalu tak, aby wszystkie wystąpienia twojego imienia były
+podświetlone na czerwono.
+
+Odpowiedź:
+#!/bin/bash
+
+imie="$1"
+
+sed "s/Julia/$(printf '\033[91m&\033[0m' )/gI" "$imie"
+
+Powyższy skrypt, gdy uruchomiłam go wpisując nazwę pliku "plik", wykolorował
+mi moje imie na czerwony kolor, reszte pozostawiając białą (w kolorze
+domyślnym).

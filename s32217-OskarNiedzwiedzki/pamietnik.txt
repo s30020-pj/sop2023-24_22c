@@ -1,0 +1,40 @@
+10.03.2024
+
+Drogi pamiętniczku, dzisiaj miałem pierwsze zajęcia z systemów operacyjnych.
+Udało mi się zainstalować Debiana na maszynie wirtualnej!
+Początkowo czułem się przytłoczony ilością dostępnych opcji,
+ale po przeszukaniu internetu i dokładnym obejrzeniu wykładów, wszystko zaczęło nabierać sensu.
+Debian może nie jest jeszcze najwygodniejszym dla mnie środowiskiem do pracy, ale z pewnością z czasem nabiorę doświadczenia, które pozwoli powoli osiągać mi mistrzostwo w jego obsłudze.
+
+24.03.2024
+
+Drogi pamiętniczku, dzisiaj miałem okazję nauczyć się basha. 
+Bash jest językiem skryptowym przeznaczonym specjalnie do programowania powłoki o tej samej nazwie. 
+Bash nie jest skomplikowany na pierwszy rzut oka, jednak znaczące problemy sprawia jego niewygodna składnia, która jest wrażliwa szczególnie na dodatkowe spacje, lub ich brak.
+Do basha także należy znać dobrze komendy z linuxa, bo to głównie na nich opieramy swój kod. Jest to dziwne doświadczenie, bo nigdy nie pisałem w podobnym języku.
+
+
+07.04.2023
+
+Drogi pamiętniczku, na dziejszych zajęciach dalej ćwiczyliśmy basha.
+Poznaliśmy standardowe konstrukcje językowe, w tym instrukcje: if, switch oraz pętle.
+Ich składnia jest co najmniej dziwna, ale z powodzeniem udało mi się je opanować.
+Nauczyłem się także lepiej składni wyrażeń regularnych regex.
+Łatwo nie było, ale zrobienie wszystkich zadań z pewnością pomogło mi bardziej okiełznać basha.
+
+
+21.04.2023
+
+
+Drogi pamiętniczku, dzisiaj poznałem podstawy języka C do programowania w systemie linux.
+C nie jest trudny dla mnie, bo mam w nim trochę doświadczenia.
+Nowością za to jest dla mnie biblioteka standardowa linuxa, na szczęście nie jest skomplikowana, a dokumentację można na spokojnie znaleźć w internecie.
+Programowanie w C oceniam jako bardzo przyjemne.
+
+12.05.2023
+
+Drogi pamiętniczku, znowu ćwiczyliśmy programowanie w języku C.
+Dzisiaj uczyliśmy się programować procesy. Procesy pozwalają nam na tworzenie kodu, który korzysta z m.in. wielowątkowości.
+Wielowątkowość w języku C nie należy do łatych do ogarnięcia. Problemy przede wszystkim na początku sprawia sposób w jaki tworzymy nowe wątki.
+Trzeba trochę poćwiczyć, żeby ogarnąć jak pisać kod, który pozwala stworzyć nowy kod za pomocą funkcji fork().
+Poznałem także funkcję clone(), która trochę bardziej kojarzy mi się z kodem wielowątkowym z innych języków, jest jednak ona dosyć zaawansowana i także wymaga ćwiczeń, tak by tworzyć jak najlepsze wątki pod nasze potrzeby

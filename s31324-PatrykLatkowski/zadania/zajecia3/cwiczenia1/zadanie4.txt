@@ -1,0 +1,9 @@
+file_count=$(ls -p | grep -v / | wc -l)
+
+Sprawdzenie, czy liczba plików przekracza 5
+if [ "$file_count" -gt 5 ]; then
+    echo "W bieżącym katalogu jest więcej niż 5 plików."
+else
+    echo "W bieżącym katalogu nie ma więcej niż 5 plików."
+fi
+

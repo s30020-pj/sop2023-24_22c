@@ -1,0 +1,9 @@
+Zajecia 1
+Drogi pamietniczku.
+Dzis dowiedzialem sie o zasasadch zaliczenia przedmiotu.
+Dowiedzialem sie jak zainstalowac debiana i parametry maszyny wirtualnej.
+
+
+Zajecia 2
+Drogi pamietniczku.
+Dzis dowiedzialem sie o pisaniu skryptow w bashu.

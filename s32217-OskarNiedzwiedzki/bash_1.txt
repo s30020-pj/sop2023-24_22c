@@ -1,0 +1,141 @@
+Ćwiczenie 1:
+Napisz skrypt wyświetlający na terminalu tekst "Witamy w terminalu". Skorzystaj z komendy echo oraz informacji podanych powyżej. Pamiętaj o atrybutach i o tym jak się wywołuje programy.
+
+    #!/bin/bash
+    echo "Witamy w terminalu"
+
+Ćwiczenie 2:
+
+    X=tekst
+    echo $X
+    bash
+    echo $X
+
+Za pierwszym razem zmienna jest normalnie wyświetlana, za 2 razem nie jest wyswietlana.
+Jest to spowodowane, że komendą bash otwieramy nową powłokę, w której już tej zmiennej nie ma
+Kiedy wyjdziemy z aktualnej powłoki komendą "exit" zmienna znowu istnieje
+
+    X = Siema siema o tej porze
+    echo $X
+
+Bez cudzysłowów niestety jest wyrzucany błąd, że komenda siema nie istnieje, wystarczy dodać cudzysłowy
+    X="Siema siema o tej porze" LUB X='siema siema o tej porze'
+I nasza zmienna zostanie poprawnie ustawiona
+
+    X="Tekst 1"
+    Y="tekst:$X"
+    echo "$Y"
+    Y='tekst:$X'
+    echo "$Y"
+    Y=tekst:$X
+    echo "$Y"
+
+W tym przypadku cudzysłowy nie pozwalają nam na używanie zmiennych, apostrofy pozwalają normalnie na odwoływanie się do zmiennych
+
+Ćwiczenie 3:
+Zobacz co przechowują zmienne i opisz jak rozumiesz uzyskany wynik.
+
+    PATH     -> przechowuje ścieżki do folderów, w których są programy, dzięki czemu system szybciej może je znaleźć.
+                Możemy użyć komendy which [command] aby zobaczyć ścieżkę do skryptu z daną komendą
+    RANDOM    -> Generuje nową zmienną losową, zmienna losowa jest przechowywana w pliku (/dev/random), jego zawartość jest zmieniana za każdym razem, gdy odniesiemy się do zmiennej random
+                 Nie radzę wpisywać cat /dev/random
+    PWD       -> Print working directory
+    PS1       -> Tekst wyświetlany przed naszym kursorem w terminalu
+    USER      -> Aktualny użytkownik
+    HOSTNAME  -> Nazwa hosta
+    OSTYPE    -> System operacyjny
+
+Ćwiczenie 4:
+Wykonaj komendę ls -l w podpowłoce i przypisz ją do zmiennej X.
+Wyświetl zawartość tej zmiennej.
+
+    X=$(ls -l)
+    echo $X -> Tak se
+    echo "$X" -> w miare git bez kolorow
+
+Rezultat nie jest najlepszy, domyślam się, że faktem może być, że dzięki cudzysłowom nie są pomijane znaki nowej linii w outputcie, dlaczego tak jest nie wiem
+
+
+Ćwiczenie 5a:
+
+    A=Ala
+    echo $A ma kota, a kot ma ${A:0:2}ę LUB echo $A ma kota, a kot ma ${A/a/''}ę LUB echo $A ma kota, a kot ma ${A/a/}ę
+
+<------------------------------------------------------------------------------------------------------------------------>
+    #!/bin/bash
+    if [ $# -ne 1 ]
+    then
+            echo "Not enough arguments"
+            exit 0
+    fi
+
+    name=$1
+
+    if [ ${name: -1} -eq 'a' ] ; then
+        echo $name ma kota, kot ma ${name/a/}ę
+    else
+        echo $name ma kota, kot ma ${name}a
+    fi
+<------------------------------------------------------------------------------------------------------------------------>
+
+Ćwiczenie 5b:
+Napisz skrypt, który wczyta jako argument jakiś tekst. Skrypt ten wypisze kolejno:
+Pierwszy znak z argumentu
+Ostatni znak z argumentu
+Zamieni w argumencie każdy tekst SOP na tekst poniżej (zastosuj echo z przełącznikiem -e):
+
+<------------------------------------------------------------------------------------------------------------------------>
+    #!/bin/bash
+
+    if [ $# -ne 1 ] ; then
+        echo "String argument is required"
+        exit 0
+    fi
+
+    arg=$1
+
+    echo Argument: $arg
+    echo First Character: ${arg:0:1}
+    echo Last Character: ${arg: -1}
+    echo -e "Fancy text: ${arg//[Ss][Oo][Pp]/\\e[32mSOP\\e[0m}"
+
+<------------------------------------------------------------------------------------------------------------------------>
+
+Ćwiczenie 6:
+
+<------------------------------------------------------------------------------------------------------------------------>
+    #!/bin/bash
+
+    if [ $# -ne 1 ]
+    then
+            echo "Not enough arguments"
+            exit 0
+    fi
+
+    odmienione="$(echo $1 | sed s/a$/ę/g | sed 's/\([^ę]\)$/\1a/g')"
+
+    echo $1 ma kota, a kot ma $odmienione
+<------------------------------------------------------------------------------------------------------------------------>
+
+Zadanie Domowe:
+
+<------------------------------------------------------------------------------------------------------------------------>
+
+    #!/bin/bash
+
+    if [ $# -ne 1 ] ; then
+        echo "You have to pass file argument"
+        exit 0
+    fi
+
+    if [ ! -f $1 ] ; then
+        echo "File does not exist!"
+        exit 0
+    fi
+
+    content="$(cat $1)"
+
+    echo "Fancy text:"
+    echo -e $(sed 's/\(\b[Oo][Ss][Kk][Aa][Rr]\)/\\e[31m\1\\e[0m/g' <<< $content)
+
+<------------------------------------------------------------------------------------------------------------------------>

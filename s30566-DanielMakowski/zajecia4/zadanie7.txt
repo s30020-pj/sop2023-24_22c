@@ -1,0 +1,69 @@
+/*
+Napisz program z 3 funkcjami, każda funkcja niech będzie miała taką sygnaturkę:
+ int (*f)(int,int)
+
+Niech będą to funkcje: maksimum, minimum oraz suma.
+
+Zapamiętaj wskaźniki do tych funkcji w tablicy trójelementowej
+
+Niech program pobiera kolejno wartości:
+
+functionId - liczba od 0 do 2 oznaczająca indeks funkcji w tablicy
+
+elementCount - liczba elementów ciągu do pobrania
+
+kolejno liczby w ilości elementCount
+
+Niech program przetwarza wczytaną tablicę w taki sposób, że:
+
+Niech v przyjmie wartość pierwszego elementu
+
+w pętli po wszystkich elementach od drugiego (indeks 1 w tablicy)
+
+wykona funkcję o numerze functionId przekazując jako argumenty v oraz element o aktualnym indeksie. Niech wynik zostanie zapisany do v
+
+Wypisze wartość v na koniec
+*/
+
+#include <stdio.h>
+
+int maximum(int a, int b){
+	return (a > b) ? a : b;
+}
+
+int minimum(int a, int b){
+	return (a < b) ? a : b;
+}
+
+int suma(int a, int b){
+	return a + b;
+}
+
+int forAll(int *tablica, int elementCount, int (*compare)(int, int)){
+	int i;
+	int result = tablica[0];
+	for (i = 1; i < elementCount; i++){
+		result = compare(result, tablica[i]);
+	}
+
+	return result;
+}
+
+int main(){
+
+	int tablica[] = {67, 12, 76 ,10, 5, 26 ,81, 95};
+	int elementCount = sizeof(tablica) / sizeof(tablica[0]);
+	int maxResult, minResult, sumResult;
+
+	maxResult = forAll(tablica, elementCount, maximum);
+	printf("Maksimum: %d\n", maxResult);
+
+	minResult = forAll(tablica, elementCount, minimum);
+	printf("Minimum: %d\n", minResult);
+
+	sumResult = forAll(tablica, elementCount, suma);
+	printf("Suma: %d\n", sumResult);
+	
+	return 0;
+
+}

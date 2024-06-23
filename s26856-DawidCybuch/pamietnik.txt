@@ -1,0 +1,14 @@
+10.03.2024
+
+Drogi pamietniczku, dzis byly pierwsze zajecia z systemow operacyjncych
+nauczylem sie jak poprawnie postawic debiana na maszynie wirtualnej i DZIALA
+Na poczatku bylem troche przytloczony iloscia opcji ale po dokladnym szukaniu w internecie
+oraz dokladnemu obejrzeniu materialu z wykladu, udalo mi sie to zrozumiec
+Musze sie jeszcze nauczyc jak poprawnie wydzielac miejsca na dysku dla maszyny wirutalnej
+bo jedyne co na ten moment zrobilem podczas instalacji debiana to wersja z prowadzeniem za raczke
+
+
+24.03.2024
+
+Drogi pamietniczku, niestety nie bylem na zajeciach z powodu choroby, ale to nie oznacza ze nie zrobie z tym nic
+Obejrze materialy wideo i napisze dobre skrypty, a jak bede wiedzial nad czym popracowac to uzupelnie

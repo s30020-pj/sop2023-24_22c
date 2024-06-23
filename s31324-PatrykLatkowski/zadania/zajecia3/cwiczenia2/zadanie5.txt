@@ -1,0 +1,13 @@
+for file in "$@"; do
+    echo "Zawartość pliku $file od początku:"
+    while IFS= read -r line; do
+        echo "$line"
+    done < "$file"
+
+    echo "Zawartość pliku $file od końca:"
+    lines=$(wc -l < "$file")
+    for (( i = lines; i >= 1; i-- )); do
+        sed -n "${i}p" "$file"
+    done
+done
+

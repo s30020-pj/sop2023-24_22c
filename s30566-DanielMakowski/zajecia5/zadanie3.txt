@@ -1,0 +1,70 @@
+/*Napisz program, który będzie pobierał jeden argument z wiersza poleceń  i będzie obliczał w 2 procesach:
+
+Proces rodzica: Wartość sumy liczb od 0 do wartości zadanej jako pierwszy argument wykonania programu.
+
+Proces potomny: Wypisujący liczby nieparzyste od 1 do wartości zadanej jako pierwszy argument wykonania programu.
+
+Program powinien wypisać wyniki w kolejności takiej, że najpierw wypisze wynik proces potomny, a następnie proces rodzica. 
+
+Nie korzystaj z komendy sleep.*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+
+void sum(int n){
+    int suma = 0;
+    int i;
+    for(i = 0; i <= n; ++i){
+        suma += i;
+    }
+
+    printf("Parent: Suma liczb od 0 do %d wynosi %d\n", n, suma);
+}
+
+void odd(int n){
+    int i;
+    printf("Child: Liczby nieparzyste od 1 do %d: ", n);
+    for (i = 1; i <= n; ++i){
+        if (i % 2 != 0){
+            printf("%d, ", i);
+        }
+    }
+    printf("\n");
+}
+
+int main(int argc, char *argv[]){
+
+    pid_t child;
+    int n = atoi(argv[1]);
+    if (argc != 2){
+        printf("Podaj jeden argument!");
+        return 1;
+    }
+
+    if (n <= 0 ){
+        printf("Podany argument nie jest liczba naturalna!\n");
+        return 1;
+    }
+
+    child = fork();
+    if  (child == 0){
+        odd(n);
+        exit(0);
+    }
+    else if (child < 0){
+        printf("Wystapil blad!");
+    }
+    else {
+        
+        wait(NULL);
+        sum(n);
+
+    }
+
+    
+
+    return 0;
+}

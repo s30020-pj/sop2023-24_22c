@@ -1,0 +1,320 @@
+Ćwiczenie 1:
+
+Napisz skrypt, który sprawdzi, czy podano więcej niż jeden parametr. Jeśli tak, to niech wyświetli pierwszy parametr. Jeśli nie, to niech wyświetli komunikat, że nie podano parametrów.
+1.
+<------------------------------------------------------------------------------------------------------------------------>
+
+    #!/bin/bash
+
+    if [ $# -le 1 ]; then
+        echo "Not enough arguments!"
+        exit 0
+    fi
+
+    echo First argument: $1
+
+<------------------------------------------------------------------------------------------------------------------------>
+
+Napisz skrypt, który:
+sprawdzi, czy istnieje plik config.cfg w bieżącym katalogu.
+Jeśli taki plik istnieje, to niech go wykona.
+Jeśli nie istnieje, to niech sprawdzi, czy podano argument i wykona plik o nazwie takiej jak wartość argumentu (parametru) skryptu.
+Jeśli żadne z powyższych nie nastąpiło, to niech wyświetli komunikat o błędzie.
+
+2.
+<------------------------------------------------------------------------------------------------------------------------>
+
+    #!/bin/bash
+
+    if [ -a "./config.cfg" ]; then
+            ./config.cfg
+            exit 0
+    elif [ $# -ge 1 ]; then
+            if [ -a ./$1 ]; then
+                    ./$1
+                    exit 0
+            else
+                    echo "Given file does not exist!"
+                    exit 0
+            fi
+    else
+            echo "Error - config.cfg does not exist, file was not specified"
+    fi
+
+
+<------------------------------------------------------------------------------------------------------------------------>
+
+sprawdzi, czy jego nazwa kończy się .sh .
+Jeśli nie, to niech zmieni swoją nazwę poprzez dopisanie tego rozszerzenia (rozszerzenie nazwy pliku). Sprawdzenie można zrobić na kilka sposobów, polecam przetestować 3 typowe:
+dopasowanie do wyrażenia regularnego (to jest bardziej uniwersalny sposób)
+porównanie ostatnich 3 liter nazwy skryptu
+użyć wbudowanego w basha mechanizmu do wyciągania części napisów ${%}, ${%%}, ${#}, ${##} 
+3.
+<------------------------------------------------------------------------------------------------------------------------>
+
+    #!/bin/bash
+
+    pattern='\.sh$'
+    [[ $0 =~ $pattern ]] || mv $0 "$0.sh"
+
+<------------------------------------------------------------------------------------------------------------------------>
+
+sprawdzi, czy w bieżącym katalogu jest więcej niż 5 plików. 
+Jeśli tak, to wypisze odpowiedni komunikat z informacją że tak jest.
+
+4.
+<------------------------------------------------------------------------------------------------------------------------>
+
+    #!/bin/bash
+
+    #mialo byc w nietypowy sposob, wiec jest
+    str=$(tree . | tail -n 1 | tr -d '[:alpha:][,]')
+    dircount=$(echo "$str" | cut -d' ' -f1)
+    filecount=$(echo "$str" | cut -d' ' -f3)
+
+    if [ "$((dircount+filecount))" -gt 5 ]; then
+            echo "Directory contains more than 5 files"
+    else
+            echo "Directory contains less than 5 files"
+    fi
+
+<------------------------------------------------------------------------------------------------------------------------>
+
+Ćwiczenie 2:
+
+Napisz skrypt, który będzie wypisywał liczby od 10 do 1 co 2
+1.
+<------------------------------------------------------------------------------------------------------------------------>
+
+    #!/bin/bash
+
+    for i in $(seq 10 -2 1); do
+            echo $i
+    done
+
+<------------------------------------------------------------------------------------------------------------------------>
+
+Napisz skrypt, który będzie wypisywał wszystkie argumenty wywołania skryptu (pamiętaj o tym, że argument może w sobie zawierać jakieś spacje) napisane w cudzysłowach.
+2.
+<------------------------------------------------------------------------------------------------------------------------>
+
+    #!/bin/bash
+
+    args=("$@")
+    for str in "${args[@]}"; do
+            echo $str
+    done
+
+<------------------------------------------------------------------------------------------------------------------------>
+
+Napisz skrypt, który wypisze listę plików i katalogów bieżącego katalogu poprzedzając każdą nazwę pliku tekstem "Patrzcie Państwo, oto plik: ".
+Podpowiedź: https://en.wikipedia.org/wiki/Internal_field_separator
+3.
+<------------------------------------------------------------------------------------------------------------------------>
+
+    #!/bin/bash
+
+    for file in *; do
+            echo "Patrzcie Państwo, oto plik: $file"
+    done
+
+    #nie wiem gdzie tutaj mam zastosowac ten IFS, a nie chce go wciskac nigdzie na sile
+
+<------------------------------------------------------------------------------------------------------------------------>
+
+Napisz skrypt, który dla każdego pliku w bieżącym katalogu, który ma rozszerzenie .c wykona taką komendę:
+
+cc (tu_nazwa_pliku) -o (tu_nazwa_pliku_bez_rozszerzenia)
+Oczywiście zamień (tu_nazwa_pliku) na nazwę pliku, a (tu_nazwa_pliku_bez_rozszerzenia) na nazwę pliku z obciętym rozszerzeniem. Jeśli chcesz przykładowe pliki do potestowania, oto one :-) http://lmgtfy.com/?q=example+c+file -> link nie działa jak coś, moja przeglądarka uważa go za tak niebezpieczny, że nawet nie mogę jej powiedzieć żeby mu zaufała
+4.
+<------------------------------------------------------------------------------------------------------------------------>
+
+    #!/bin/bash
+
+    pattern='\.c$'
+    for file in *; do
+            if [ -f $file ] && [[ $file =~ $pattern ]]; then
+                    cc $file -o "$(basename $file .c)"
+            fi
+    done
+
+<------------------------------------------------------------------------------------------------------------------------>
+
+
+Napisz skrypt, który wczyta listę plików do wypisania z wiersza poleceń, a następnie wypisze ich zawartości raz w kolejności od początku do końca, a raz na odwrót. Podpowiedzi:
+indeksy ujemne tablicy mogą się przydać
+można wyliczać wartości wyrażeń arytmetycznych (i+1)
+przyda się for
+może się przydać: cat oraz tac ale postaraj się zrobić to bez używania tych poleceń (drukowanie znak po znaku od początku do końca i od końca do początku)
+5.
+<------------------------------------------------------------------------------------------------------------------------>
+
+#!/bin/bash
+
+args=("$@")
+
+for str in "${args[@]}"; do
+    if [ -f "$str" ]; then
+        printf "Forward Read: \n"
+
+        lines=()
+        while read -r str; do
+            echo "$str"
+            lines+=("$str")
+        done < "$str"
+
+        printf "Backward Read: \n"
+        for (( i=${#lines[@]}-1; i>=0; i--)) do
+            echo "${lines[$i]}" | rev
+        done
+
+    fi
+    
+done
+
+<------------------------------------------------------------------------------------------------------------------------>
+
+Ćwiczenie 3:
+
+Przygotuj skrypt z funkcją która będzie wypisywała tekst pokolorowany na zadany kolor. Niech funkcja ta przyjmuje dwa argumenty - tekst i kolor.
+Zobacz man console_codes oraz składnię komendy echo (lub przykład z poprzednich zajęć).
+1.
+<------------------------------------------------------------------------------------------------------------------------>
+
+#!/bin/bash
+
+function color_text {
+  if [ $# -ne 2 ]; then
+    printf "Text and color arguments are required!"
+    return
+  fi
+
+  color="$1"
+  text="$2"
+  color_code="\\e[32m"
+
+  case "$color" in
+    "red")
+        color_code="\\e[31m"
+    ;;
+    "green")
+        color_code="\\e[32m"
+    ;;
+        "yellow")
+        color_code="\\e[33m"
+    ;;
+        "blue")
+        color_code="\\e[34m"
+    ;;
+    *)
+        color_code="\\e[31m" #set to red by default
+    ;;
+  esac
+
+  echo -e "${color_code}${text}\\e[0m"
+
+}
+
+if [ $# -ne 2 ]; then
+    printf "Text and color arguments are required!"
+    exit
+fi
+
+color_text "$1" "$2"
+
+<------------------------------------------------------------------------------------------------------------------------>
+
+Przygotuj funkcję obliczającą rekurencyjnie ciąg Fibonacciego. Niech wynik zwraca za pomocą return. Czy są jakieś ograniczenia?
+Rekurencyjnie i return czyli:
+Nie używamy pętli
+Nie używamy echo
+Wartość ma być zwracana przez literał return
+2.
+<------------------------------------------------------------------------------------------------------------------------>
+
+#!/bin/bash
+
+if [ $# -lt 1 ]; then
+    echo "Not enough arguments!"
+    exit
+fi
+
+if [ $(($1)) -le 0 ]; then
+    echo "Input is not an integer, or is string!"
+    exit
+fi
+
+function fibonacci {
+    if [[ $1 -eq 1 || $1 -eq 2 ]]; then
+        return 1
+    fi
+
+    fibonacci $(($1-1))
+    local n1=$?
+    fibonacci $(($1-2))
+    local n2=$?
+
+    return $((n1+n2))
+}
+
+fibonacci $1
+
+<------------------------------------------------------------------------------------------------------------------------>
+
+Dla ambitnych: Napisz swoją funkcję do autouzupełniania komend. Tu można puścić wodze fantazji :). 
+Zobacz: funkcja do uzupełniania tekstu - https://www.gnu.org/software/bash/manual/html_node/Programmable-Completion.html
+
+3.
+To należy umieścić w naszym pliku .bashrc
+
+if [ -f /home/PJWSTK/sxxxxx/command-comp.sh ]; then
+   . /home/PJWSTK/sxxxxx/command-comp.sh
+fi
+
+<------------------------------------------------------------------------------------------------------------------------>
+
+_wget_completion() {
+    local cur prev
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+    options="google.com pja.edu.pl/pjatk/ https://sites.google.com/pjwstk.edu.pl/t0meck-sop"
+
+    case "${prev}" in
+        wget)
+            COMPREPLY=( $(compgen -W "${options}" -- ${cur}) )
+            return 0
+            ;;
+        *)
+            ;;
+    esac
+}
+
+complete -F _wget_completion wget
+
+<------------------------------------------------------------------------------------------------------------------------>
+
+Przygotuj wyrażenie regularne, które będzie sprawdzało, czy tekst jest poprawnie napisanym polskim imieniem (od wielkiej litery, może mieć tylko litery i zawierać polskie znaki).
+Przygotuj wyrażenie regularne sprawdzające czy tekst jest kodem pocztowym (cały tekst, czyli zaczyna się od cyfry i kończy się cyfrą).
+Przygotuj wyrażenie regularne sprawdzające e-mail.
+Zadanie domowe:
+<------------------------------------------------------------------------------------------------------------------------>
+
+#!/bin/bash
+
+if [ $# != 1 ]; then
+   echo "Not enough arguments"
+   exit 0
+fi
+
+if [[ $1 =~ ^[A-Z][a-z]* ]]; then
+    echo "This is Polish name"
+elif [[ $1 =~ ^[0-9]{2}-[0-9]{3}$ ]]; then                        # ^ i $ na koncu sprawia, ze kazdy kod typu xx-xxx przechodzi, ale xxx-xxx juz nie
+    echo "This is postal code"
+elif [[ $1 =~ [A-Za-z0-9._%+-]+@[A-Za-z0-9]+\.[a-z]{2,} ]]; then  #zeby nie bylo ze nie rozumiem
+    echo "This is an email"                                       #[]+ -> matchuje wszystkie literki i inne symbole 1 lub wiecej razy az napotka malpe
+else                                                              #potem wczytuje sobie nazwe domeny, wymaga kropki, na koniec jakies .pl, .com
+    echo "I do not reckognize this!"
+fi
+
+<------------------------------------------------------------------------------------------------------------------------>

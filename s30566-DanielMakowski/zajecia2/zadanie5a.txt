@@ -1,0 +1,47 @@
+Pamiętasz jedno z zadań poprzednich?
+
+A=Ala
+
+echo $A ma kota, a kot ma ${A}ę
+
+Przerób je tak, aby tekst wypisywał się poprawnie.
+
+Napisz skrypt, który będzie wypisywał taki tekst także dla imion męskich. Pomijamy zdrobnienia i imiona które się dziwnie odmieniają (na przykład Marek). Niech skrypt ten przyjmuje jeden argument - imię. Przykładowe wywołanie:
+
+$ ./pszetżkole Ala
+
+Ala ma kota, a kot ma Alę
+
+$ ./pszetżkole Justyna
+
+Justyna ma kota, a kot ma Justynę
+
+$ ./pszetżkole Stefan
+
+Stefan ma kota, a kot ma Stefana
+
+Czy jest to możliwe w czystym bash-u?
+
+
+Poniżej skrypt:
+
+#!/bin/bash
+
+B=$( echo "${A: -1}")
+B2=$(echo $A | awk '{print substr($A, 1, length($A)-1)}')
+
+if [ "$B" = "a" ]; then
+        echo "$A ma kota, a kot ma ${B2}ę"
+else
+        echo "$A ma kota, a kot ma ${A}a"
+fi
+
+
+Skrypt po zadeklarowaniu powłoki ustanawia zmienne:
+B - ostatni znak zawartości zmiennej A
+B2 - przerobiona zmienna A bez ostatniego znaku
+
+Następnie skrypt sprawdza, czy ostatnią literą tekstu w zmiennej jest "a". Jeżeli tak, wydrukuje
+tekst pod żeńskie imię, jeżeli nie - wydrukuje tekst pod męskie imię.
+
+Jest to jak najbardziej możliwe w czystym bash-u.

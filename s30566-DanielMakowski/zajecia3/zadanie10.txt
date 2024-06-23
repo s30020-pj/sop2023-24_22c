@@ -1,0 +1,37 @@
+#!/bin/bash
+
+
+#Przygotuj skrypt z funkcją która będzie wypisywała tekst pokolorowany na zadany kolor. Niech funkcja ta przyjmuje dwa argumenty - tekst i kolor.
+#Zobacz man console_codes oraz składnię komendy echo (lub przykład z poprzednich zajęć).
+
+
+text=$1
+color=$2
+
+	case "$color" in
+		"czarny")
+			code="\033[30m" ;;
+		"czerwony")
+                	code="\033[31m" ;;
+    		"zielony")
+        		code="\033[32m" ;;
+    		"żółty")
+        		code="\033[33m" ;;
+    		"niebieski")
+        		code="\033[34m" ;;
+    		"magenta")
+        		code="\033[35m" ;;
+    		"turkusowy")
+        		code="\033[36m" ;;
+    		"biały")
+        		code="\033[37m" ;;
+    		*)
+        		echo "Nieznany kolor: $color"
+        		exit
+        		;;
+	esac
+
+echo -e "${code}${text}\033[0m"
+
+#Skrypt pierw ustawia kod koloru w zależności od podanego koloru, następnie drukuje podany
+#w argumencie tekst pokolorowany w podanym kolorze

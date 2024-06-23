@@ -1,0 +1,174 @@
+Do wykonania zadań skorzystałem z dokumentacji basha:
+https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html
+oraz mana.
+
+===============================================================================
+Ćwiczenia 1
+===============================================================================
+Napisz skrypt, który sprawdzi, czy podano więcej niż jeden parametr. Jeśli
+tak, to niech wyświetli pierwszy parametr. Jeśli nie, to niech wyświetli
+komunikat, że nie podano parametrów.
+-------------------------------------------------------------------------------
+
+Skrypt:
+#!/bin/bash
+if [[ "$1" != "" ]]; then
+        echo "$1"
+else
+        echo "Nie podano parametrów"
+fi
+
+Wynik:
+s29986@szuflandia22:~/zadania/zajecia3$ ./cw1_1
+Nie podano parametrów
+s29986@szuflandia22:~/zadania/zajecia3$ ./cw1_1 abc
+abc
+s29986@szuflandia22:~/zadania/zajecia3$ ./cw1_1 abc ab a
+abc
+
+Wniosek:
+Skrypt zadziałał poprawnie. Dzięki temu zadaniu nauczyłem się jak wygląda
+praktyczne zastosowanie instrukcji warunkowej w bash-u.
+
+
+
+===============================================================================
+Napisz skrypt, który:
+
+ - sprawdzi, czy istnieje plik config.cfg w bieżącym katalogu.
+
+ - Jeśli taki plik istnieje, to niech go wykona.
+
+ - Jeśli nie istnieje, to niech sprawdzi, czy podano argument i wykona plik o
+   nazwie takiej jak wartość argumentu (parametru) skryptu.
+
+ - Jeśli żadne z powyższych nie nastąpiło, to niech wyświetli komunikat o
+   błędzie.
+-------------------------------------------------------------------------------
+
+Skrypt:
+#!/bin/bash
+if [[ -f "config.cfg" ]]; then
+        if [ -x "config.cfg" ]; then
+                ./config.cfg
+        else
+                echo "Błąd - plik istnieje, jednak nie ma uprawnień do
+uruchomienia"
+        fi
+elif [[ -n "$1" ]]; then
+        if [[ -f "$1" ]]; then
+                ./"$1"
+        else
+                echo "Błąd - plik o podanej nazwie nie istnieje"
+        fi
+else
+        echo "Błąd - plik config.cfg nie istnieje"
+fi
+
+
+Wynik:
+s29986@szuflandia22:~/zadania/zajecia3/cw1$ ./cw1_2
+Błąd - plik config.cfg nie istnieje
+s29986@szuflandia22:~/zadania/zajecia3/cw1$ ./cw1_2 config.cfg
+Błąd - plik o podanej nazwie nie istnieje
+s29986@szuflandia22:~/zadania/zajecia3/cw1$ touch config.cfg
+s29986@szuflandia22:~/zadania/zajecia3/cw1$ ./cw1_2
+Błąd - plik istnieje, jednak nie ma uprawnień do uruchomienia
+
+Wniosek:
+Skrypt działa poprawnie. Do wykonania zadania skorzystałem z parametrów które
+znalazłem pod man test.
+
+
+
+===============================================================================
+Napisz skrypt, który:
+
+ - sprawdzi, czy jego nazwa kończy się .sh .
+
+ - Jeśli nie, to niech zmieni swoją nazwę poprzez dopisanie tego rozszerzenia
+   (rozszerzenie nazwy pliku). Sprawdzenie można zrobić na kilka sposobów,
+   polecam przetestować 3 typowe:
+
+ - dopasowanie do wyrażenia regularnego (to jest bardziej uniwersalny sposób)
+
+ - porównanie ostatnich 3 liter nazwy skryptu
+
+ - użyć wbudowanego w basha mechanizmu do wyciągania części napisów ${%}, 
+   ${%%}, ${#}, ${##} 
+-------------------------------------------------------------------------------
+
+Skrypt:
+#!/bin/bash
+
+#1 - dopasowanie do wyrażenia regularnego
+#if [[ ! "$0" =~ \.sh$ ]]; then
+#       mv "$0" "${0}.sh"
+#       echo "Nazwa pliku została zmieniona na ${0}.sh"
+#fi
+
+#2 - porównanie ostatnich 3 liter nazwy skryptu
+#if [[ "${0: -3}" != ".sh" ]]; then
+#       mv "$0" "${0}.sh"
+#       echo "Nazwa pliku została zmieniona na ${0}.sh"
+#fi
+
+#3 - wybudowany mechanizm bash-a
+#if [[ "${0##*.}" != "sh" ]]; then
+#       mv "$0" "${0}.sh"
+#       echo "Nazwa pliku została zmieniona na ${0}.sh"
+#fi
+
+
+Wynik:
+Każda metoda zadziałała prawidłowo. Podczas sprawdzania jednej metody
+pozostałe miałem zakomentowane, by ułatwić sobie sprawdzanie i nie pisać 
+trzech skryptów osobno.
+
+Wniosek:
+Dzięki temu zadaniu lepiej zrozumiałem w jaki sposób można manipulować ciągami
+znaków w Bashu.
+
+
+
+===============================================================================
+Napisz skrypt, który 
+
+ - sprawdzi, czy w bieżącym katalogu jest więcej niż 5 plików. 
+
+ - Jeśli tak, to wypisze odpowiedni komunikat z informacją że tak jest.
+   Podpowiem:
+
+	ls - wyświetla listę plików
+
+	wc - word count - zlicza znaki, słowa i linie
+
+	grep ma parametr który też może podawać ilość wystąpień wzorca w 
+	strumieniu - poszukać w manualu jaki to parametr
+
+	może warto użyć także innego polecenia by znaleźć pliki?
+-------------------------------------------------------------------------------
+
+Skrypt:
+#!/bin/bash
+if [[ $(ls -1 | wc -l) -gt 5 ]]; then
+        echo "Jest więcej niż 5 plików"
+else
+        echo "Jest 5 lub mniej plików"
+fi
+
+Wynik:
+Skrypt zadziałał prawidłowo, w moim przypadku wyświetlił komunikat "Jest 5 lub
+mniej plików", ponieważ w moim katalogu są tylko 4 pliki.
+
+Wniosek:
+Mój skrypt działa tak, że ls -1 wypisuje każdy plik w nowej linii, a wc -l je
+zlicza. W manie znalazłem, że można by to zrobić używając grepa z parametrem
+-c zamiast wc (grep -c zlicza liczbę linii, które pasują do wzorca). Jako
+wzorzec można by użyć ^ - oznacza to początek każdej linii, więc ls -1 | grep
+-c '^' dałby ten sam wynik.
+Widząc pogrubione słowo "znaleźć" domyśliłem się, że można użyć również
+polecenia find. Polecenie wyglądałoby tak: find . -maxdepth 1 -type f | wc -l,
+gdzie . oznacza bieżący katalog, -maxdepth 1 ogranicza przeszukiwanie do
+bieżącego katalogu, a -type f znajduje tylko pliki.
+

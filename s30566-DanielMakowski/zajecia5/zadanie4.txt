@@ -1,0 +1,41 @@
+/*
+Napisz program, który uruchomi 100 procesów w taki sposób, że każdy kolejny potomek stworzy potomka. 
+Niech każdy proces poczeka na zakończenie procesu potomka. Możesz korzystać z oczekiwania na wejście 
+lub z komendy sleep i zobacz czy drzewko procesów jest takie jak się spodziewasz (możesz w tym celu 
+ograniczyć liczbę procesów do 10). Zobacz podpowiedź na początku tej strony.
+
+Czyli drzewo procesów ma wynikowo wyglądać tak: główny -> potomek1 -> potomek2 -> ... -> potomek99 -> potomek100
+
+Przydatne przy sprawdzaniu: Drzewo procesów można wydrukować poleceniem pstree
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/wait.h>
+
+#define procCount 10
+
+int main() {
+    pid_t child;
+    int i;
+
+    for (i = 0; i < procCount; i++) {
+        child = fork();
+
+        if (child < 0) {
+            printf("Blad podczas tworzenia procesu.\n");
+            return 1;
+        } else if (child == 0) {
+            printf("Proces %d, PID: %d, PPID: %d\n", i + 1, getpid(), getppid());
+            continue;
+        } else {
+            wait(NULL);
+            break;
+        }
+    }
+
+    sleep(10);
+
+    return 0;
+}

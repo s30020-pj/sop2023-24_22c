@@ -1,0 +1,23 @@
+Po wykonaniu poleceń: echo $(wybrana_zmienna)
+
+Otrzymałem następujące wyniki dla każdej zmiennych:
+
+-> PATH: /usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
+  - Zawiera ścieżki przeszukiwań, niezbędne do korzystania z komend w bashu.
+
+-> RANDOM: Każdorazowo otrzymywałem różne wyniki, maksymalnie pięciocyfrowe wartości. Jest to losowa liczba.
+
+-> PWD: /home/PJWSTK/s30157
+  - Określa bieżącą ścieżkę, przydatną do nawigacji po katalogach.
+
+-> PS1: \[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\u@\h:\w\$
+  - Zmienna zawiera tekst wyświetlany przed polem wprowadzania poleceń.
+
+-> USER: s30157
+  - Wyświetla nazwę aktualnie zalogowanego użytkownika.
+
+-> HOSTNAME: szuflandia22
+  - Pokazuje nazwę hosta, czyli identyfikatora mojego komputera w sieci.
+
+-> OSTYPE: linux-gnu
+  - Informuje o rodzaju systemu operacyjnego, co jest przydatne np. przy korzystaniu z maszyn wirtualnych.

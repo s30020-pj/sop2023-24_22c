@@ -1,0 +1,30 @@
+#!/bin/bash
+
+#Napisz skrypt, który:
+#
+#sprawdzi, czy istnieje plik config.cfg w bieżącym katalogu.
+#
+#Jeśli taki plik istnieje, to niech go wykona.
+#
+#Jeśli nie istnieje, to niech sprawdzi, czy podano argument i wykona plik o nazwie takiej jak wartość argumentu (parametru) skryptu.
+#
+#Jeśli żadne z powyższych nie nastąpiło, to niech wyświetli komunikat o błędzie.
+
+one=$1
+
+if [ $(find . -maxdepth 1 -mindepth 1 -name config.cfg -type f) ]; then
+	./config.cfg
+elif [[ -n $one ]]; then
+	if [ $(find . -maxdepth 1 -mindepth 1 -name "$one" -type f) ]; then
+		./${one}
+	else
+		echo "Błąd"
+	fi
+else
+	echo "Błąd"
+fi
+
+#Skrypt sprawdza, czy w bieżącym katalogu znajduje się plik o nazwie "config.cfg" za pomocą finda. 
+#Dla pewności find jest ograniczony do zaglądania tylko do bieżącego katalogu.
+#Jeśli plik config.cfg nie zostanie znaleziony, następuje sprawdzanie, czy w bieżącym katalogu znajduje się plik o nazwie podanej w pierwszym argumencie.
+#Jeśli oba przypadki nie zostaną spełnione, skrypt zwróci tekst "błąd"

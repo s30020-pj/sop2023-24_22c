@@ -1,0 +1,82 @@
+Ćwiczenie 2
+===============================================================================
+
+To zadanie należy wykonać wpisując polecenia w terminalu normalnie. Nie należy
+tworzyć skryptu z tymi poleceniami.
+
+Zobacz taką serię poleceń:
+
+X=tekst
+echo $X
+bash
+echo $X
+
+Co się stało? Czy potrafisz wyjaśnić?
+-------------------------------------------------------------------------------
+
+Odpowiedź:
+X=tekst - do zmiennej X przypisuję słowo tekst
+echo $X - wyświetlam  zawartość zmiennej X - wypisuję "tekst"
+bash - uruchamiam nową instancję powłoki bash w bieżącym terminalu
+echo $X - ponownie wyświetlam zawartość zmiennej X - tym razem nic nie
+wypisuję. Dzieje się tak, ponieważ nowa instancja basha nie ma dostępu do
+zmiennych w starej powłoce.
+
+Wniosek:
+To zadanie nauczyło mnie, że po utworzeniu nowej powłoki nie mamy dostępu do
+zmiennych utworzonych na wcześniejszej powłoce. Można to wykorzystać np. do
+testowania skryptów.
+
+
+===============================================================================
+Zobacz:
+
+X=Tekst dłuższy
+echo $X
+
+Co jest nie tak? jak to naprawić? Zobacz czy pomoże zastosowanie cudzysłowów i
+apostrofów.
+-------------------------------------------------------------------------------
+
+Wynik:
+Po wpisaniu X=Tekst dłuższy bash wyrzucił komunikat: 
+bash: dłuższy: nie znaleziono polecenia
+Po wpisaniu echo $X znowu nic się nie pokazało.
+
+Odpowiedź:
+Bash potraktował spację jako separator argumentów do polecenia, dlatego
+wyrzucił błąd. Można to naprawić umieszczając wartość, którą chcemy przypisać
+do zmiennej, w cudzysłowach lub apostrofach (tak jak Pan to zasugerował), np.
+X="Tekst dłuższy".
+
+Wniosek:
+To zadanie nauczyło mnie, aby używać cudzysłowów lub apostrofów, kiedy chcemy
+do zmiennej przypisać ciąg znaków zawierający spacje. 
+
+
+===============================================================================
+Zobacz:
+
+X="Tekst 1"
+Y="tekst:$X"
+echo "$Y"
+Y='tekst:$X'
+echo "$Y"
+Y=tekst:$X
+echo "$Y"
+
+Jaka jest różnica między " a ' ?
+-------------------------------------------------------------------------------
+
+Wynik:
+W pierwszym przypadku otrzymałem komunikat: tekst:Tekst 1
+W drugim: tekst:$X
+W trzecim: tekst:Tekst 1
+
+Odpowiedź:
+Różnica jest taka, że cudzysłowia pozwalają na interpretację zmiennych oraz
+znaków specjalnych, gdzie apostrofy traktują je jako zwykły tekst.
+
+Wniosek:
+To zadanie nauczyło mnie jaka jest różnica między cudzysłowami a apostrofami. 
+

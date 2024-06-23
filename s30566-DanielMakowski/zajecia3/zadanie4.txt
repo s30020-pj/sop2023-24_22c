@@ -1,0 +1,27 @@
+#!/bin/bash
+
+#Napisz skrypt, który 
+#
+#sprawdzi, czy w bieżącym katalogu jest więcej niż 5 plików. 
+#
+#Jeśli tak, to wypisze odpowiedni komunikat z informacją że tak jest.
+#Podpowiem:
+#
+#ls - wyświetla listę plików
+#
+#wc - word count - zlicza znaki, słowa i linie
+#
+#grep ma parametr który też może podawać ilość wystąpień wzorca w strumieniu - poszukać w manualu jaki to parametr
+#
+#może warto użyć także innego polecenia by znaleźć pliki?
+
+ilosc=$(find . -maxdepth 1 -mindepth 1 -type f | wc -l)
+
+if [[ $ilosc -eq 5 ]]; then
+	echo "W bieżącym katalogu jest dokładnie $ilosc plików"
+fi
+
+#Skrypt za pomocą polecenia find sprawdza ilość plików w bieżącym katalogu i zapisuje wartość do zmiennej ilosc.
+#Wyniki z finda są pipowane do word countera, który zlicza ilość linii. Każdy plik będzie oznaczać kolejną linię.
+#Warunek sprawdza, czy wartość w zmiennej ilosc jest równa 5. Jeśli tak, to zwraca tekst potwierdzający, że jest pięć plików. Jeśli nie, nie robi nic.
+

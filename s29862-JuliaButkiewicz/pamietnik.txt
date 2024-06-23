@@ -1,0 +1,12 @@
+2024-03-10 Instalacja Debiana
+Drogi pamiętniczku, na dzisiejszych zajęciach ćwiczyłam instalacje 
+systemu operacyjnego Linux Debian. Kierując się wykładem nauczyłam
+się różnych funkcji Virtual Boxa, tego jak stworzyć maszynę wirtualną
+i zainstalować wspomniany wyżej system operacyjny. Zadanie nie
+przysporzyło mi wielkich trudności, jednak było to na tyle nowe,
+że niektóre ze skrótów musiałam wyszukiwać w internecie. Tak jak i
+zapoznać się, z niektórymi zasobami Virtual Boxa bliżej niż tylko
+podczas jednej próby postawienia wirtualnej maszyny.
+
+
+

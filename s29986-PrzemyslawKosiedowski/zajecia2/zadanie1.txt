@@ -1,0 +1,18 @@
+Ćwiczenie 1
+Napisz skrypt wyświetlający na terminalu tekst "Witamy w terminalu".
+Skorzystaj z komendy echo oraz informacji podanych powyżej. Pamiętaj o 
+atrybutach i o tym jak się wywołuje programy.
+
+Skrypt:
+#!/bin/bash
+echo -e "Witamy w terminalu"
+
+Uruchomienie: 
+./willkommen
+
+Wynik:  
+Wyświetlił się napis "Witamy w terminalu".
+
+Wniosek:
+Dzięki temu zadaniu nauczyłem się jak pisać oraz uruchamiać skrypty.
+

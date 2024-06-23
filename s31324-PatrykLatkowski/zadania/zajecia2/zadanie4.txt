@@ -1,0 +1,7 @@
+Polecenie `ls -l` wypisuje szczegółowe informacje o plikach i katalogach w bieżącym katalogu. Aby przypisać wynik tego polecenia do zmiennej w powłoce, użyję następującej składni:
+X=$(ls -l)
+
+Teraz, jeśli wyświetlimy zawartość zmiennej X za pomocą `echo $X`, nie uzyskamy dokładnie tego samego wyjścia, ponieważ znaki nowej linii zostaną zastąpione spacjami. Możemy jednak użyć `echo "$X"`, aby zachować oryginalną strukturę z nowymi liniami:
+echo "$X"
+
+Dzięki temu zachowamy dokładną strukturę wyjścia, która jest identyczna z wynikiem polecenia `ls -l`.

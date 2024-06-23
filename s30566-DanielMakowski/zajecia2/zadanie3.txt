@@ -1,0 +1,69 @@
+Zobacz co przechowują zmienne i opisz jak rozumiesz uzyskany wynik. Do czego on jest i kiedy może się wg Ciebie przydać:
+
+PATH
+RANDOM
+PWD
+PS1
+USER
+HOSTNAME
+OSTYPE
+
+Rozwiązanie:
+
+Zmienna PATH przechowuje taką wartość:
+
+#s30566@szuflandia22:~/playgroud/sop/zajecia2$ echo $PATH
+#/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
+
+Zmienna PATH zawiera katalogi z wykonywalnymi programami. Pomaga to w wykonywaniu programów bez znania ich dokładnej lokalizacji.
+Poniżej przykładowa wartość zmiennej PATH:
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+Załóżmy, że zainstalowaliśmy nowe oprogramowaniew /opt, które chcemy wygodnie uruchamiać.
+Niech będzie to IntellijIdea, a jego ścieżka to będzie /opt/jetbrains/intellij/idea.
+Wówczas wyeksportujemy zmodyfikowaną zmienną PATH - export PATH=/opt/jetbrains/intellij:$PATH
+Zazwyczaj będziemy chcieli ustawić to permamentnie, można wówczas dodać tę komendę do ~/.profile, aby zachować kompatybilność z powłokami.
+Jeśli chcemy, aby inni użytkownicy też mieli tę ścieżkę w path, możemy dodać to polecenie do pliku .sh w /etc/profile.d/. 
+Wówczas każdy inny użytkonik przy zalogowaniu od razu będzie mieć możliwość uruchomienia 
+programu z tej ścieżki za pomocą terminala bez wpisywania ścieżki bezwzględnej, wystarczy wpisać "idea".
+
+RANDOM
+
+Ta zmienna jest wykorzystywana do generowania randomowych liczb 16-bitowych z zakresu 0 - 32767
+Każdy odczyt zmiennej zwraca inną liczbę. Może się to przydać do nazywania plików tymczasowych, lub np. do testowania różnych przypadków w skryptach.
+
+PWD
+
+W zmiennej PWD przechowywana jest lokalizacja w której obecnie się znajdujemy.
+Może się ona przydać do zapisywania obecnej lokalizacji w logu skryptu, lub do przeprowadzania operacji na plikach.
+
+PS1
+
+Z manuala BASH wynika, że wartość tej zmiennej jest interpretowana i używana jako główny łańcuch zachęty.
+Domyślną wartością jest "\s-\v\$ ". W moim przypadku zmienna zwraca:
+
+#s30566@szuflandia22:~$ echo $PS1
+#${debian_chroot:+($debian_chroot)}\u@\h:\w\$
+
+Czyli: 
+${debian_chroot:+($debian_chroot)} - ewentualne wyświetlenie zmiennej środowiskowej
+debian_chroot. Jeśli zostanie wyświetlona, pokaże się w nawiasach okrągłych.
+\u - nazwa bieżącego użytkownika
+\h - nazwa hosta do pierwszej kropki
+\w - bieżący katalog roboczy, z $HOME zapisanym w skrócie tyldą
+$ - jeżeli UID bieżącego użytkownika jest 0, to wyświetlany jest #, w przeciwnym wypadku $.
+
+
+debian_chroot - jeśli zmienna jest pusta a istnieje plik /etc/debian_chroot i jest dostępny do odczytu, to
+zmienna przyjmuje zawartość tego pliku. Plik ten występuje kiedy posiadamy chrootowanego debiana w innym debianie
+(takim przykładem jest Ubuntu). Sam chroot to operacja która zmienia najwyższy katalog dla danego procesu i jego dzieci.
+Przydaje się głównie w celach informacyjnych. Mówi użytkownikowi gdzie się znajduje i z jakiego konta obecnie korzysta.
+
+USER - przechowuje nazwę obecnego użytkownika. Może się przydać do personalizacji outputu skryptu, np. aby napisać "Witaj $USER". Przyda się również do uzyskiwania dostępu do ścieżek użytkownika (np. /home/USER/foo)
+
+HOSTNAME - zmienna przechowuje nazwę hosta systemu. Może przydać się do informowania,
+na jakim serwerze wystąpił problem. 
+Na przykład: jeśli skrypt wykryje, że jest coś nie tak i nie może się wykonać, to wyśle maila z informacją co się stało na jakim serwerze.
+
+OSTYPE - Zmienna opisująca system operacyjny, w jakim właśnie działa powłoka. Może przysłużyć się do tworzenia skryptów 
+z zachowaniami specyficznymi dla danego systemu operacyjnego. Np. w przykładu linuxa wykona się dana
+sekwencja poleceń, a w przypadku BSD inna.

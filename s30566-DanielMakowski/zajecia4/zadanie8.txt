@@ -1,0 +1,76 @@
+/*Napisz program implementujący listę jednostronnie wiązaną.*/
+
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Wezel {
+    int dane;
+    struct Wezel *next;
+} Wezel;
+
+Wezel* stworzWezel(int dane){
+    Wezel *nowyWezel = (Wezel *)malloc(sizeof(Wezel));
+    if (nowyWezel == NULL) {
+        printf("Blad alokacji pamieci!\n");
+        exit(EXIT_FAILURE);
+    }
+    nowyWezel->dane = dane;
+    nowyWezel->next = NULL;
+    return nowyWezel;
+}
+
+void dopisz(Wezel **headRef, int dane) {
+    Wezel *nowyWezel = stworzWezel(dane);
+
+    if (*headRef == NULL) { 
+        *headRef = nowyWezel;
+    } else {
+        Wezel *current = *headRef;
+        while (current->next != NULL) {
+            current = current->next;
+        }
+        current->next = nowyWezel;
+    }
+}
+
+void displayList(Wezel *head) {
+    Wezel *current = head;
+    while (current != NULL)
+    {
+        printf("%d -> ", current->dane);
+        current = current->next;
+    }
+    printf("NULL\n");
+    
+}
+
+void freeList(Wezel **headRef){
+    Wezel *current = *headRef;
+    while (current != NULL)
+    {
+        Wezel *temp = current;
+        current = current->next;
+        free(temp);
+    }
+    *headRef = NULL;
+    
+}
+
+int main(){
+    Wezel *head = NULL;
+
+    dopisz(&head, 1);
+    dopisz(&head, 2);
+    dopisz(&head, 3);
+    dopisz(&head, 4);
+    dopisz(&head, 5);
+    dopisz(&head, 6);
+
+    printf("Lista: ");
+    displayList(head);
+
+    freeList(&head);
+
+    return 0;
+
+}

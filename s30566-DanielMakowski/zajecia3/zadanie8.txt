@@ -1,0 +1,14 @@
+#!/bin/bash
+
+#Napisz skrypt, który dla każdego pliku w bieżącym katalogu, który ma rozszerzenie .c wykona taką komendę:
+
+#  cc (tu_nazwa_pliku) -o (tu_nazwa_pliku_bez_rozszerzenia)
+
+for file in *.c; do
+	if [[ -f "$file" ]]; then
+
+		short="${file%.c}"
+
+		cc "$file" -o "$short";
+	fi
+done

@@ -1,0 +1,50 @@
+Ćwiczenie 3
+Zobacz co przechowują zmienne i opisz jak rozumiesz uzyskany wynik. Do czego
+on jest i kiedy może się wg Ciebie przydać:
+PATH, RANDOM, PWD, PS1, USER, HOSTNAME, OSTYPE
+===============================================================================
+
+Wykonanie: Wyświetlałem zawartość zmiennych poleceniem echo:
+$PATH - /usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
+$RANDOM - 29978, 2403, 13297, 31669 (sprawdzałem cztery razy)
+$PWD - /home/PJWSTK/s29986/zadania/zajecia2
+$PS1 - \[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\u@\h:\w\$
+$USER - s29986
+$HOSTNAME - szuflandia22
+$OSTYPE - linux-gnu
+-------------------------------------------------------------------------------
+
+Odpowiedź:
+$PATH - przechowuje ścieżki do katalogów, w których znajdują się pliki
+wykonywalne (oddzielone dwukropkiem). Przydatne, np. kiedy byśmy chcieli 
+dodać własny katalog z programami, by móc wykonywać je z dowolnego miejsca w
+systemie bez konieczności podawania pełnej ścieżki za każdym razem.
+
+$RANDOM - przechowuje losową liczbę całkowitą, może być przydatne np. w 
+skryptach do generowania losowych wartości.
+
+$PWD - przechowuje ścieżkę do bieżącego katalogu, może być przydatne np. w
+skryptach do zarządzania plikami w bieżącym katalogu.
+
+$PS1 - przechowuje ustawienia terminala, może się przydać, gdybyśmy chcieli
+zmienić jego wygląd dla potrzeb naszych bądź naszego programu.
+
+$USER - przechowuje nazwę użytkownika, może być przydatna np. do tworzenia
+spersonalizowanych komunikatów czy też tworzenia ścieżki dostępu do bieżącego
+katalogu użytkownika.
+
+$HOSTNAME - przechowuje nazwę hosta komputera, może się przydać do rozpoznania
+maszyny w sieci
+
+$OSTYPE - przechowuje nazwę typu systemu operacyjnego, można ją użyć np. kiedy
+tworzymy skrypt, który ma działać tylko na systemie Linux.
+-------------------------------------------------------------------------------
+
+Wniosek:
+Zmienne środowiskowe z pewnością mogą się przydać do pisania skryptów i nie
+tylko. Umożliwiają m.in. konfigurowanie środowiska pracy (PS1) czy też po
+prostu ułatwiają pracę (PATH lub PWD).
+
+Strona, z której skorzystałem:
+https://book.hacktricks.xyz/linux-hardening/linux-environment-variables#common-variables
+

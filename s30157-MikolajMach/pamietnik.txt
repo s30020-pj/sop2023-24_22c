@@ -1,0 +1,9 @@
+Zajecia 1
+
+Na dzisiejszych zajeciach nauczylem sie instalowac system na wirtualnej maszynie.
+Na zajeciach wykorzystalismy virtualboxa oraz debiana.
+Dodatkowo rozmawialismy na temat dyskow i roznic miedzy nimi.
+
+Zajecia 2
+
+Na dzisiejszych zajeciach nauczylismy sie tworzyc podstawowe skrypty w BASH-u.

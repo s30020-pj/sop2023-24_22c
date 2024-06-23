@@ -1,0 +1,22 @@
+Przypisanie "tekst" do zmiennej X i wyświetlenie jej wartości:
+X="tekst"
+echo $X
+
+Wejście do nowej instancji powłoki i próba wyświetlenia zmiennej X.
+bash
+echo $X
+
+Zmienna jest niedostępna, gdyż tworzona jest w konkretnej instancji powłoki, a nie globalnie - wydrukowało pustą linijkę.
+
+Gdy próbuję przypisać do zmiennej X "Tekst dłuższy", używając pojedyńczegocudzysłowia konsola traktuje "dłuższy" jako kolejną komendę, zamiast jako część tekstu. Aby uniknąć tego problemu, należy otoczyć tekst podwójnymi cudzysłowami, czyli:
+X="Tekst dłuższy"
+
+Wyświetlenie wartości zmiennej X
+echo $X
+
+Przypisanie "Ala" do zmiennej A
+A="Ala"
+
+Wyświetlenie zdania z wykorzystaniem zmiennej A i dodanie polskich znaków
+echo "${A} ma kota, a kot ma ${A}ę"
+Wynik: Ala ma kota, a kot ma Alaę"

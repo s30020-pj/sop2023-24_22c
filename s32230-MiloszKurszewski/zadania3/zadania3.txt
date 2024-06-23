@@ -1,0 +1,210 @@
+Ćwiczenia 1
+Napisz skrypt, który sprawdzi, czy podano więcej niż jeden parametr. J
+eśli tak, to niech wyświetli pierwszy parametr. Jeśli nie, 
+to niech wyświetli komunikat, że nie podano parametrów.
+
+Skrypt:
+#!/bin/bash
+Argumenty= $#
+if ["$Argumenty" -gt 1]; then
+   echo "$1"
+elif [ "$Argumenty" -eq 0 ]; then
+   echo "Nie podano żadnych parametrów"
+else 
+   echo "Podano tylko jeden argument"
+fi
+Wniosek: Skrypt działa, instrukcje warunkowe w bashu są łatwe w konstrukcji, żeby sprawdzić
+czy podano więcej niż jeden parametr użyłem dwóch poleceń
+-gt sprawdza czy liczba parametrów w $# jest większa niż 1
+-eq sprawdza czy liczba parametrów w $# jest równa 0, żeby wypisać że nie podano żadnych
+else na podstawie warunku że, parametrów nie jest więcej niż 2 i nie są równe zeru, wypisuje
+ze zostal podany jeden.
+
+
+#bin/bash
+
+Napisz skrypt, który:
+
+sprawdzi, czy istnieje plik config.cfg w bieżącym katalogu.
+
+Jeśli taki plik istnieje, to niech go wykona.
+
+Jeśli nie istnieje, to niech sprawdzi, czy podano argument i wykona plik o nazwie takiej jak
+wartość argumentu (parametru) skryptu.
+
+Jeśli żadne z powyższych nie nastąpiło, to niech wyświetli komunikat o błędzie.
+
+Skrypt:
+#!/bin/bash
+
+if [ -f "config.cfg" ]; then
+    ./config.cfg
+elif [ "$#" -gt 0 ]; then
+    ./"$1"
+else
+    echo "Błąd"
+fi
+Wniosek: Wykonałem skrypt o bardzo prostej strukturze,
+zastosowałem logikę z poprzedniego zadania.
+Jeżeli w katalogu znajduje się config.cfg to zostanie wykonany,
+jeżeli nie znajduje się, a ilość parametrów w skrypcie jest większa od 0,
+to pierwszy parametr zostanie wykonany.
+Jeżeli żadne z tych warunków się nie sprawdzi, zostanie wypisany błąd.
+Napisz skrypt, który:
+
+
+sprawdzi, czy jego nazwa kończy się .sh .
+
+Jeśli nie, to niech zmieni swoją nazwę poprzez dopisanie tego rozszerzenia (rozszerzenie nazwy pliku). 
+Sprawdzenie można zrobić na kilka sposobów, polecam przetestować 3 typowe:
+
+dopasowanie do wyrażenia regularnego (to jest bardziej uniwersalny sposób)
+
+porównanie ostatnich 3 liter nazwy skryptu
+
+użyć wbudowanego w basha mechanizmu do wyciągania części napisów ${%}, ${%%}, ${#}, ${##} 
+
+Żeby wykonać ten skrypt zastosowałem moim zdaniem najprostszą metodę, czyli porównanie ostatnich 3 liter nazwy pliku.
+
+Skrypt:
+#bin/bash
+nazwapliku="$0"
+
+if [ "${nazwapliku: -3" != ".sh"]; then
+     mv "$nazwapliku" "${nazwapliku}.sh"
+     nazwapliku="{$nazwapliku}.sh"
+fi
+Wniosek: Dowiedziałem się, że pierwszy argument jaki posiada w sobie skrypt czyli argument $0 to właśnie nazwa pliku wykonywalnego.
+
+
+Napisz skrypt, który 
+
+sprawdzi, czy w bieżącym katalogu jest więcej niż 5 plików. 
+
+Jeśli tak, to wypisze odpowiedni komunikat z informacją że tak jest.
+Podpowiem:
+
+ls - wyświetla listę plików
+
+wc - word count - zlicza znaki, słowa i linie
+
+grep ma parametr który też może podawać ilość wystąpień wzorca w strumieniu - poszukać w manualu 
+jaki to parametr
+
+może warto użyć także innego polecenia by znaleźć pliki?
+
+Przeszukując internet znalazłem lepsze i prostsze polecenie do zliczania plików w danym katalogu.
+Strona z której korzystałem
+https://math2001.github.io/article/bashs-find-command/
+Skrypt:
+#bin/bash
+pliki=$(find . -maxdepth 1 -type f | wc -l)
+if [ "$pliki" -gt 5]; then
+    echo "W katalogu jest więcej niż 5 plików"
+else
+    echo "W katalogu jest mniej niz 5 plików"
+fi
+
+W swoim skrypcie zastosowałem polecenie find, o parametrach maxdepth -1 i -type f,
+parametr maxdepth odnosi się do głębokości w której find ma szukać plików, przed ustawieniem
+maxdepth find zliczałby również podkatalogi, type -f to typ file, a wc -l, to zliczanie linii.
+
+Ćwiczenia 2
+Napisz skrypt, który będzie wypisywał liczby od 10 do 1 co 2
+
+Skrypt:
+
+#!/bin/bash
+
+for ((i=10; i>=1; i-=2)); do 
+     echo $i
+done
+
+
+Napisz skrypt, który będzie wypisywał wszystkie argumenty wywołania skryptu (pamiętaj o tym, że argument może w sobie zawierać jakieś spacje) napisane w cudzysłowach.
+
+#!/bin/bash
+
+for argument in "$@"
+do
+    echo "\"$argument\""
+done
+
+Wniosek: Dowiedziałem się, że do wykonania skryptu potrzebna jest zmienna $@, która zawiera listę wszystkich argumentów przekazanych do skryptu.
+
+
+Napisz skrypt, który wypisze listę plików i katalogów bieżącego katalogu poprzedzając każdą nazwę pliku tekstem "Patrzcie Państwo, oto plik: ".
+Podpowiedź: https://en.wikipedia.org/wiki/Internal_field_separator
+
+#!/bin/bash
+
+IFS=$'\n'
+
+for plik in $(ls)
+do
+    echo "Patrzcie Państwo, oto plik: $plik"
+done
+
+
+Napisz skrypt, który dla każdego pliku w bieżącym katalogu, który ma rozszerzenie .c wykona taką komendę:
+
+   cc (tu_nazwa_pliku) -o (tu_nazwa_pliku_bez_rozszerzenia)
+Oczywiście zamień (tu_nazwa_pliku) na nazwę pliku, a (tu_nazwa_pliku_bez_rozszerzenia) na nazwę pliku z obciętym rozszerzeniem. Jeśli chcesz przykładowe pliki do potestowania, oto one :-) http://lmgtfy.com/?q=example+c+file
+
+Napisz skrypt, który wczyta listę plików do wypisania z wiersza poleceń, a następnie wypisze ich zawartości raz w kolejności od początku do końca, a raz na odwrót. Podpowiedzi:
+
+indeksy ujemne tablicy mogą się przydać
+
+można wyliczać wartości wyrażeń arytmetycznych (i+1)
+
+przyda się for
+
+może się przydać: cat oraz tac ale postaraj się zrobić to bez używania tych poleceń (drukowanie znak po znaku od początku do końca i od końca do początku)
+
+Ćwiczenia 3
+Przygotuj skrypt z funkcją która będzie wypisywała tekst pokolorowany na zadany kolor. Niech funkcja ta przyjmuje dwa argumenty - tekst i kolor.
+Zobacz man console_codes oraz składnię komendy echo (lub przykład z poprzednich zajęć).
+
+Przygotuj funkcję obliczającą rekurencyjnie ciąg Fibonacciego. Niech wynik zwraca za pomocą return. Czy są jakieś ograniczenia?
+Rekurencyjnie i return czyli:
+
+Nie używamy pętli
+
+Nie używamy echo
+
+Wartość ma być zwracana przez literał return
+
+Dla ambitnych: Napisz swoją funkcję do autouzupełniania komend. Tu można puścić wodze fantazji :). 
+Zobacz: funkcja do uzupełniania tekstu - https://www.gnu.org/software/bash/manual/html_node/Programmable-Completion.html
+
+Zadanie domowe
+W przypadku bardzo podobnych rozwiazań nie będę ich uznawał.
+
+Przygotuj wyrażenie regularne, które będzie sprawdzało, czy tekst jest poprawnie napisanym polskim imieniem (od wielkiej litery, może mieć tylko litery i zawierać polskie znaki).
+
+Przygotuj wyrażenie regularne sprawdzające czy tekst jest kodem pocztowym (cały tekst, czyli zaczyna się od cyfry i kończy się cyfrą).
+
+Przygotuj wyrażenie regularne sprawdzające e-mail.
+
+
+Napisz skrypt który będzie pobierał jeden argument z linii komend i wypisywał informację o tym, czy jest to imie, kod pocztowy, czy też email. Na przykład
+
+./coto Janusz
+
+imię
+
+./coto 68-221
+
+kod pocztowy
+
+./coto 'muniek+spam@gmail.com'
+
+email
+
+
+
+
+
+
+
+

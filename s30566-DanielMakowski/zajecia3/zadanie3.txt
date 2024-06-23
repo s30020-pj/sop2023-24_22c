@@ -1,0 +1,27 @@
+#!/bin/bash
+
+#Napisz skrypt, który:
+#
+#sprawdzi, czy jego nazwa kończy się .sh .
+#
+#Jeśli nie, to niech zmieni swoją nazwę poprzez dopisanie tego rozszerzenia (rozszerzenie nazwy pliku). Sprawdzenie można zrobić na kilka sposobów, polecam przetestować 3 typowe:
+#
+#dopasowanie do wyrażenia regularnego (to jest bardziej uniwersalny sposób)
+#
+#porównanie ostatnich 3 liter nazwy skryptu
+#
+#użyć wbudowanego w basha mechanizmu do wyciągania części napisów ${%}, ${%%}, ${#}, ${##}
+
+mylocation=$0
+myname=$(basename $0)
+
+if [[ $myname =~ ".sh$" ]]; then
+	echo "Besos"
+else
+	echo "Zmieniam tożsamość"
+	mv $mylocation ${mylocation}.sh
+fi
+
+#Skrypt pobiera swoją lokalizacje oraz swoją nazwę, następnie sprawdza, czy jego nazwa kończy się na .sh.
+#Jeśli jego nazwa kończy się na .sh, to drukuje tekst "Besos". Jeśli nie, to drkuje tekst "Zmieniam tożsamość" 
+#i zmienia swoją nazwę na taką, która kończy się na .sh.

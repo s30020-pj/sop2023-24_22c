@@ -1,0 +1,178 @@
+Do wykonania zadań skorzystałem z dokumentacji basha:
+https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html
+oraz mana.
+
+===============================================================================
+Ćwiczenia 2
+===============================================================================
+Napisz skrypt, który będzie wypisywał liczby od 10 do 1 co 2
+-------------------------------------------------------------------------------
+
+Skrypt:
+#!/bin/bash
+for (( i = 10; i > 1; i-=2)); do
+        echo $i
+done
+
+Wynik:
+Wypisane zostały 10, 8, 6, 4, 2, każda w osobnej linii.
+
+Wniosek:
+Dzięki temu zadaniu nauczyłem się jak wygląda składnia pętli for w Bashu.
+
+
+
+===============================================================================
+Napisz skrypt, który będzie wypisywał wszystkie argumenty wywołania skryptu
+(pamiętaj o tym, że argument może w sobie zawierać jakieś spacje) napisane w
+cudzysłowach.
+-------------------------------------------------------------------------------
+
+Skrypt:
+#!/bin/bash
+for i in "$@"; do
+        echo "$i";
+done
+
+Wynik:
+Skrypt wywowałem z argumentami a, b i "a a a" - zadziałał prawidłowo, wypisałe
+każdy w nowej linii.
+
+Wniosek:
+Dzięki użyciu "$@" zamiast $@, argumenty, które zawierają w sobie spację, są
+poprawnie traktowane jako pojedyncze argumenty.
+
+
+
+===============================================================================
+Napisz skrypt, który wypisze listę plików i katalogów bieżącego katalogu
+poprzedzając każdą nazwę pliku tekstem "Patrzcie Państwo, oto plik: ".
+Podpowiedź: https://en.wikipedia.org/wiki/Internal_field_separator
+-------------------------------------------------------------------------------
+
+Skrypt:
+#!/bin/bash
+defIFS=$IFS
+IFS=<newline>
+
+for file in *; do
+        echo "Patrzcie Państwo, oto plik: $file"
+done
+
+IFS=$defIFS
+
+Wynik:
+Patrzcie Państwo, oto plik: cw2_1
+Patrzcie Państwo, oto plik: cw2_2
+Patrzcie Państwo, oto plik: cw2_3
+
+
+Wniosek:
+Skrypt zadziałał prawidłowo. IFS to zmienna środowiskowa w Bashu, która
+definiuje separator używany do podziału tekstu na pola (domyślnie spacja,
+tabulator i nowa linia). Zmieniłem jej wartość na <newline> (można by też użyć
+$'\n'), aby skrypt był w stanie poprawnie wypisywać wszystkie pliki i
+katalogi, również te zawierające spację.
+
+
+
+===============================================================================
+Napisz skrypt, który dla każdego pliku w bieżącym katalogu, który ma 
+rozszerzenie .c wykona taką komendę:
+
+   cc (tu_nazwa_pliku) -o (tu_nazwa_pliku_bez_rozszerzenia)
+
+   Oczywiście zamień (tu_nazwa_pliku) na nazwę pliku, a
+   (tu_nazwa_pliku_bez_rozszerzenia) na nazwę pliku z obciętym rozszerzeniem.
+   Jeśli chcesz przykładowe pliki do potestowania, oto one :-)
+   http://lmgtfy.com/?q=example+c+file
+-------------------------------------------------------------------------------
+
+Skrypt:
+#!/bin/bash
+for file in *.c; do
+        if [[ -f "$file" ]]; then
+                cc "$file" -o "${file%.c}"
+        fi
+done
+
+Wykonanie:
+s29986@szuflandia22:~/zadania/zajecia3/cw2$ cat p1.c
+#include <stdio.h>
+int main() {
+        printf("Dobry\n");
+
+        return 0;
+}
+
+s29986@szuflandia22:~/zadania/zajecia3/cw2$ ./cw2_4
+s29986@szuflandia22:~/zadania/zajecia3/cw2$ ./p1
+Dobry
+s29986@szuflandia22:~/zadania/zajecia3/cw2$
+
+
+Wniosek:
+Na potrzeby zadania napisałem prosty program w C. Skrypt zadziałał prawidłowo,
+tj. znalazł plik p1.c i go skompilował zmieniając przy tym jego nazwę. Można
+taki skrypt wykorzystać do automatyzacji procesu kompilacji wielu plików
+źródłowych w bashu - moim zdaniem jest to bardzo użyteczne.
+
+
+
+===============================================================================
+Napisz skrypt, który wczyta listę plików do wypisania z wiersza poleceń, a
+następnie wypisze ich zawartości raz w kolejności od początku do końca, a raz
+na odwrót. Podpowiedzi:
+
+indeksy ujemne tablicy mogą się przydać
+
+można wyliczać wartości wyrażeń arytmetycznych (i+1)
+
+przyda się for
+
+może się przydać: cat oraz tac ale postaraj się zrobić to bez używania tych
+poleceń (drukowanie znak po znaku od początku do końca i od końca do
+początku). Pamiętaj, że nie tylko kolejność całych wierszy ma być odwrócona
+ale także kolejność znaków w wierszu.
+-------------------------------------------------------------------------------
+
+Skrypt:
+#!/bin/bash
+for file in "$@"; do
+        if [[ -f "$file" ]]; then
+                #Tworzę pustą tablicę i wprowadzam do niej dane
+                array=()
+                while IFS= read -r line; do
+                        array+=("$line")
+                done < "$file"
+
+                #Wypisuję zawartość tablicy
+                echo "Zawartość $file od początku do końca:"
+                for (( i=0; i<${#array[@]}; i++ )); do
+                        echo "${array[i]}"
+                done
+
+                echo "Zawartość $file od końca do początku:"
+                for (( i=${#array[@]}-1; i>=0; i-- )); do
+                        echo "${array[i]}"
+                done
+        else
+                echo "Plik o podanej nazwie nie istnieje."
+        fi
+done
+
+
+Wynik:
+Skrypt poprawnie wypisuje zawartości podanych plików.
+
+Wniosek:
+W tym skrypcie tworzę pustą tablicę, uzupełniam ją liniami, które zawiera plik
+przekierowując jego zawartość do pętli while, następnie wypisuję jej zawartość
+pętlami for, odpowiednio od początku do końca i od końca do początku tablicy. 
+IFS= zapewnia, że cała linia jest odczytywana dokładnie tak, jak jest, bez 
+usuwania początkowych i końcowych białych znaków. Do odczytywania danych z pliku
+wykorzystuję polecenie read, które służy do odczytywania linii ze stdin (w tym
+przypadku przekierowuję do pętli plik), a parametr -r zapobiega interpretowaniu
+znaku \ jako znaku ucieczki.
+Znalazłem to polecenie tutaj: https://linuxcommand.org/lc3_man_pages/readh.html
+

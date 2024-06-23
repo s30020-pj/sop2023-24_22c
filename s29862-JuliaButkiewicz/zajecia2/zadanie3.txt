@@ -1,0 +1,37 @@
+Zadanie 3
+Zobacz co przechowują zmienne i opisz jak rozumiesz uzyskany wynik.
+Do czego on jest i kiedy może się wg ciebie przydać.
+[Zmienne: PATH, RANDOM, PWD, PS1, USER, HOSTNAME, OSTYPE]
+
+Odpowiedź:
+PATH - jest to zmienna która przechowuje listę katalogów, w których
+system będzie szukał wykonywanych programów jeśli wpiszemy ich nazwę 
+w wierszu poleceń. W moim przypadku po wpisuaniu echo $PATH w terminalu
+wyświetliło się: /usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games.
+Jest to istotna zmienna gdyż dzięki niej możemy wykonywać programy z 
+poziomu terminala.
+RANDOM - po wpisaniu echo $RANDOM wygenerowało mi losową liczbę. Po 
+przeczytaniu informacji w internecie dowiedziałam się, że właśnie
+temu służy ta zmienna. Przechowuje losową liczbę całkowitą od 0 do 32767
+za każdym razem gdy jest wywołana. Przydaje się gdy chcemy wprowadzić gdzieś
+losowe dane.
+PWD - przechowuje bieżący katalog w którym znajduje się obecnie użytkownik.
+Przydatne gdy skrypty na których pracujemy operują na bieżącym katalogu.
+PS1 - w tej zmiennej przechowuje się ciąg znaków. Zawiera on pewną
+sekwencje która pozwala na wyświetlanie informacji takich jak np.: nazwa
+użytkownika, hosta i tym podobne. W tym przypadku można modyfikować
+wyświetlanie danych użytkownika, co może okazać się przydatne.
+USER - tu przechowywana jest nazwa użytkownika który rozpoczął bieżącą sesje.
+Tutaj na myśl przychodzi mi jedynie tworzenie działań w skryptach które
+mogą być np.: zależne od użytkownika.
+HOSTNAME - jak sama nazwa wskazuje, tu przechowywana jest nazwa hosta.
+Można zidentyfikować w ten sposób hosta danej sieci. Przydatne gdy chcemy
+rozpoznać daną jednostkę w sieci.
+OSTYPE - przechowuje typ systemu operacyjnego. Zawiera informacje o wersji 
+i rodzaju danego systemu. Może być użyte w skryptach do wykonania operacji
+zależnych od systemu operacyjnego.
+
+Wnioski:
+Poznałam tu wiele zmiennych, które mogą przydać się gdy przyjdzie co do
+automatyzacji zadań czy pisania skryptów zależnych od [zmiennej]. Myślę
+że z pewnością przyda się to w przyszłych zadaniach.

@@ -1,0 +1,159 @@
+To zadanie należy wykonać wpisując polecenia w terminalu normalnie. Nie należy tworzyć skryptu z tymi poleceniami.
+
+Zobacz taką serię poleceń:
+
+X=tekst
+echo $X
+bash
+echo $X
+
+Co się stało? Czy potrafisz wyjaśnić?
+
+
+Zobacz:
+
+X=Tekst dłuższy
+echo $X
+
+Co jest nie tak? jak to naprawić? Zobacz czy pomoże zastosowanie cudzysłowów i apostrofów.
+
+
+Zobacz:
+
+X="Tekst 1"
+Y="tekst:$X"
+echo "$Y"
+Y='tekst:$X'
+echo "$Y"
+Y=tekst:$X
+echo "$Y"
+
+Jaka jest różnica między " a ' ?
+
+
+A=Ala
+echo $A ma kota, a kot ma ${A}ę
+
+Tak, tu coś będzie nie tak, zaraz to naprawimy. Nie będziemy modyfikować wartości zmiennej A.
+
+
+Rozwiązanie:
+
+X=tekst
+
+Przypisuje dane do zmiennej X. W tym przypadku tekst "tekst"
+
+echo $X
+
+Drukuje zawartość zmiennej X
+
+bash
+
+Otwieram nową sesję powłoki, upewniłem się w poniższy sposób:
+
+#s30566@szuflandia22:~/playgroud/sop/zajecia2$ ps f
+#    PID TTY      STAT   TIME COMMAND
+#2748887 pts/4    Ss     0:00 -bash
+#2751482 pts/4    S      0:00  \_ bash
+#2751526 pts/4    R+     0:00      \_ ps f
+
+echo $X
+
+Drukuje zawartosc zmiennej X. Komenda zwraca pustą linię, ponieważ w tej sesji powłoki nic nie jest zapisane
+w tej zmiennej. Gdybym wcześniej wyeksportował zmienną X (w wyższej sesji powłoki), to po wywołaniu tej komendy 
+zwróciłoby mi tekst "tekst", ponieważ eksportowanie zmiennych tworzy zmienne środowiskowe, które są dziedziczone.
+
+
+
+
+
+
+Zobacz:
+
+X=Tekst dłuższy
+echo $X
+
+Co jest nie tak? jak to naprawić? Zobacz czy pomoże zastosowanie cudzysłowów i apostrofów.
+
+
+X=Tekst dłuższy
+
+Przypisywanie danych do zmiennej przeprowadza się podając tylko jeden argument. Jako, iż nie ma cudzyłowów 
+ani apostrofów, interpreter widzi to jako przypisanie do zmiennej i wykonanie komendy "dłuższy", przez co dostałem
+taką odpowiedź:
+
+#s30566@szuflandia22:~/playgroud/sop/zajecia2$ X=Tekst dłuższy
+#-bash: dłuższy: nie znaleziono polecenia
+
+echo $X
+
+W związku z tym co napisałem wcześniej, przypisany do zmiennej został jedynie tekst "Tekst" bez "dłuższy".
+Po wywołaniu, zgodnie z oczekiwaniami, otrzymałem to:
+
+#s30566@szuflandia22:~/playgroud/sop/zajecia2$ echo $X
+#Tekst
+
+
+
+
+
+Zobacz:
+
+X="Tekst 1"
+Y="tekst:$X"
+echo "$Y"
+Y='tekst:$X'
+echo "$Y"
+Y=tekst:$X
+echo "$Y"
+
+
+W tym przypadku można zaobserwować różnicę pomiędzy cudzyłowem a apostrofem.
+
+X="Tekst 1"
+
+Przypisuję test "Tekst 1" do zmiennej X
+
+Y="tekst:$X"
+
+Przypisuję do zmiennej Y tekst "tekst:" oraz zaraz po tym zawartość zmiennej X. W wyniku dostaję:
+
+#s30566@szuflandia22:~/playgroud/sop/zajecia2$ echo "$Y"
+#tekst:Tekst 1
+
+Y='tekst:$X'
+
+Teraz do zmiennej Y przypisuję tekst "tekst:$X". Dzieje się tak, ponieważ w apostrofie wartość zmiennej
+nie jest rozwiązywana.
+
+Y=tekst:$X
+
+Do zmiennej przypisuję tekst "test:" oraz zawartość zmiennej X. Jeśli bym nie chciał używać apostrofu 
+ale nadal bym nie chciał rozwiązywać zawartości zmiennej, mógłbym to zrobić w poniższy sposób:
+
+#s30566@szuflandia22:~/playgroud/sop/zajecia2$ Y=tekst:\$X
+#s30566@szuflandia22:~/playgroud/sop/zajecia2$ echo "$Y"
+#tekst:$X
+
+Po podaniu znaku ucieczki "\", znak dolara będzie traktowany dosłownie jako część tekstu.
+
+
+
+A=Ala
+echo $A ma kota, a kot ma ${A}ę
+
+Tak, tu coś będzie nie tak, zaraz to naprawimy. Nie będziemy modyfikować wartości zmiennej A.
+
+#s30566@szuflandia22:~/playgroud/sop/zajecia2$ echo $A ma kota, a kot ma ${A}ę
+#Ala ma kota, a kot ma Alaę
+
+Naprawić to można wyciągając podciąg tego ciągu znaków:
+
+s30566@szuflandia22:~$ echo $A ma kota, a kot ma ${A:0:-1}ę
+Ala ma kota, a kot ma Alę
+
+W tym przypadku wykorzystałem podciąg rozpoczynający się od znaku o indeksie 0 i kończący na przedostatnim znaku ciągu.
+
+echo $A ma kota, a kot ma ${A:0:2}ę
+
+W tym przypadku wykorzystałem podciąg rozpoczynający się od znaku o indekcie 0 i kończący na znaku o indeksie 2. Ten sposób jest mniej uniwersalny.

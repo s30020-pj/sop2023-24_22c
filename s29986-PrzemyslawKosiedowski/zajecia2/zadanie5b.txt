@@ -1,0 +1,40 @@
+Ćwiczenie 5b
+
+Napisz skrypt, który wczyta jako argument jakiś tekst. Skrypt ten wypisze
+kolejno:
+
+1. Pierwszy znak z argumentu
+2. Ostatni znak z argumentu
+3. Zamieni w argumencie każdy tekst SOP na tekst poniżej (zastosuj echo z
+   przełącznikiem -e):
+
+   \e[32mSOP\e[0m
+
+Przykładowy tekst testowy:
+SOP! SOP w imieniu prawa! SOP w imieniu prawa!
+
+Wynikowo ma to wyglądać tak:
+SOP! SOP w imieniu prawa! SOP w imieniu prawa! (zielony SOP)
+===============================================================================
+
+Skrypt:
+#!/bin/bash
+tekst="$1"
+echo "Pierwszy znak: ${tekst:0:1}"
+echo "Ostatni znak: ${tekst: -1}"
+echo -e "${tekst//SOP/\\e[32mSOP\\e[0m}"
+
+Wykonanie:
+./SOP "SOP! SOP w imieniu prawa! SOP w imieniu prawa!"
+
+Wynik:
+Uzyskałem poprawny wynik po zmodyfikowaniu \e[32mSOP\e[0m - użyłem podwójnego
+backslasha. Do wykonania zadania wykorzystałem notację:
+${tekst//pattern/replacement}. 
+
+Wniosek:
+To zadanie nauczyło mnie jak zmieniać kolor tekstu w bashu. Tak to rozumiem:
+\e[32m -  kod koloru w terminalu.
+SOP - tekst, którego kolor ma być zmieniony.
+\e[0m - kod kończący formatowanie koloru.
+

@@ -1,0 +1,35 @@
+#!/bin/bash
+
+#Przygotuj funkcję obliczającą rekurencyjnie ciąg Fibonacciego. Niech wynik zwraca za pomocą return. Czy są jakieś ograniczenia?
+#Rekurencyjnie i return czyli:
+#
+#Nie używamy pętli
+#
+#Nie używamy echo
+#
+#Wartość ma być zwracana przez literał return
+
+n=$1
+
+ciag(){
+	local n=$1
+	
+	if [ "$n" -eq 0 ]; then
+        	return 0
+    	elif [ "$n" -eq 1 ]; then
+        	return 1
+    	fi
+
+	ciag $((n - 1))
+	local fib1="$?"
+	ciag $((n - 2))
+	local fib2="$?"
+
+	return $((fib1 + fib2))
+}
+
+ciag $n
+
+#echo "Wynik dla n=${n}: $?" #do testów
+
+#funkcja liczy podany element ciągu Fibonacciego

@@ -1,0 +1,8 @@
+for file in *.c; do
+    if [ -e "$file" ]; then
+        filename="${file%.*}"
+        cc "$file" -o "$filename"
+        echo "Skompilowano $file"
+    fi
+done
+

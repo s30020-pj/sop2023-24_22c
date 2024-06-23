@@ -1,0 +1,19 @@
+Napisz skrypt wyświetlający na terminalu tekst "Witamy w terminalu". 
+Skorzystaj z komendy echo oraz informacji podanych powyżej. Pamiętaj o atrybutach i o tym jak się wywołuje programy.
+
+
+Rozwiazanie:
+
+#!/bin/bash
+
+#Skrypt wykorzystuje komende echo do wyswietlenia napisu
+
+echo "Witamy w terminalu"
+
+
+
+Jest to prosty skrypt. 
+W pierwszej linii jest deklaracja (shebang), z jakiego interpretera system powinien skorzystac, aby
+przeanalizowac i wykonac skrypt. Następnie jest notatka mówiąca, co poniższa sekwencja robi. Niżej
+zapisana jest komenda echo z podanym tekstem. Powoduje to wydrukowanie napisu "Witamy w terminalu"
+w stdout.

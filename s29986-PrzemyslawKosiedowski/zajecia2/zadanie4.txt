@@ -1,0 +1,33 @@
+Ćwiczenie 4
+
+Wykonaj komendę ls -l w podpowłoce i przypisz ją do zmiennej X.
+Wyświetl zawartość tej zmiennej.
+Spraw, aby nie było różnicy (co najwyżej kolorki) między zwykłym wykonaniem
+komendy:
+
+ls -l
+
+a wypisaniem zawartości zmiennej X. Nie będzie dobrego rezultatu gdy zrobimy
+tak:
+
+echo $X
+
+Zastanów się dlaczego.
+===============================================================================
+
+Wykonanie:
+X=$(ls -l)
+echo "$X"
+
+Wynik:
+Wyświetla się wynik polecenia ls -l w tym samym formacie, tylko bez kolorów.
+Używając echo $X również wyświetla się ten sam wynik, jednak bez formatowania,
+tj. w jednej linii.
+
+Wniosek:
+Zmienna X przechowuje tekst, a za formatowanie wizualne odpowiada terminal.
+Użycie cudzysłowów sprawia, że w trakcie kompilacji terminal zaczyna
+interpretować wynik polecenia jako jeden argument, przez co zachowuje
+formatowanie, które jest używane przy poleceniu ls -l.
+To zadanie nauczyło mnie jak przekazywać wynik poleceń do zmiennej oraz jak
+wyświetlać go z formatowaniem.

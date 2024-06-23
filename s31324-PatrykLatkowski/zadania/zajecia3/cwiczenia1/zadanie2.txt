@@ -1,0 +1,14 @@
+if [ -f "config.cfg" ]; then
+    echo "Wykonuję plik config.cfg..."
+    ./config.cfg
+elif [ $# -gt 0 ]; then
+    if [ -f "$1" ]; then
+        echo "Wykonuję plik $1..."
+        ./"$1"
+    else
+        echo "Błąd: Plik $1 nie istnieje."
+    fi
+else
+    echo "Błąd: Nie znaleziono pliku config.cfg ani nie podano argumentu."
+fi
+

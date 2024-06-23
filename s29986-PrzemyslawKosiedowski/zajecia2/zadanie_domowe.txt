@@ -1,0 +1,36 @@
+Zadanie domowe
+Przygotuj skrypt, który odczyta plik (jego nazwa ma być argumentem skryptu) i
+wypisze go na terminalu tak, aby wszystkie wystąpienia Twojego imienia były
+podświetlone na czerwono.
+===============================================================================
+
+Skrypt:
+#!/bin/bash
+plik="$1"
+sed -E "s/Przemysław/\x1B[31m&\x1B[0m/g" "$plik"
+
+Wynik:
+Przemysław ... mango, banan, słoma, Przemysław ... nie potrafię wymyślać
+tekstów Przemysław (imię poprawnie wyświetliło się w kolorze czerwonym)
+
+Wniosek:
+Dzięki temu zadaniu nauczyłem się jak działa sed. Parametr -E pozwala używaż
+rozszerzonych wyrażeń regularnych. Składnia komendy s (od substitute):
+s/regexp/replacement/flags. W moim przypadku zastępuję ciąg znaków Przemysław 
+kodami ucieczki ANSI. Pomiędzy kodami użyłem &, aby formatowanie odnosiło się
+do całego wzoru (mojego imienia). Na końcu używam flagi g, żeby stosować to 
+formatowanie globalnie, tj. za każdym razem, jak sed znajdzie moje imię w 
+pliku. Dowiedziałem się również, że kody z zadania 5b to kody ucieczki ANSI. W
+przypadku sed-a działał mi jedynie prefiks \x1B. [31m oznacza wyświetlanie
+tekstu w kolorze czerwonym, a [0m resetuje formatowania koloru oraz tekstu do
+ustawień domyślnych.
+
+-------------------------------------------------------------------------------
+Strony, z których skorzystałem:
+
+sed: 
+https://www.gnu.org/software/sed/manual/sed.html#The-_0022s_0022-Command
+
+Kody ucieczki ANSI:
+https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797?permalink_comment_id=3857871
+

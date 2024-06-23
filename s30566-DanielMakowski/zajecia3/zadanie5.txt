@@ -1,0 +1,10 @@
+#!/bin/bash
+
+
+#Napisz skrypt, który będzie wypisywał liczby od 10 do 1 co 2
+
+for i in $(seq 10 -2 2); do
+	echo $i
+done
+
+#Skrypt za pomocą funkcji seq odlicza od 10 do 1

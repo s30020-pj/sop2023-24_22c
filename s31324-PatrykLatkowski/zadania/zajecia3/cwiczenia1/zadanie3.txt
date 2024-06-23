@@ -1,0 +1,10 @@
+filename="$1"
+
+if [[ ! "$filename" =~ \.sh$ ]]; then
+    new_filename="${filename}.sh"
+    mv "$filename" "$new_filename"
+    echo "Zmieniono nazwę pliku na: $new_filename"
+else
+    echo "Nazwa pliku jest poprawna: $filename"
+fi
+

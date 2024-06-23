@@ -1,0 +1,68 @@
+Ćwiczenie 5a
+===============================================================================
+Pamiętasz jedno z zadań poprzednich?
+
+A=Ala
+
+echo $A ma kota, a kot ma ${A}ę
+
+Przerób je tak, aby tekst wypisywał się poprawnie.
+
+-------------------------------------------------------------------------------
+
+Wykonanie:
+A=Ala
+echo "$A ma kota, a kot ma ${A/%a/ę}"
+
+Wynik:
+Ala ma kota, a kot ma Alę
+Uzyskałem go korzystając ze strony:
+http://www.thegeekstuff.com/2010/07/bash-string-manipulation/
+
+
+===============================================================================
+Napisz skrypt, który będzie wypisywał taki tekst także dla imion męskich.
+Pomijamy zdrobnienia i imiona które się dziwnie odmieniają (na przykład
+Marek). Niech skrypt ten przyjmuje jeden argument - imię. Przykładowe
+wywołanie:
+
+$ ./pszetżkole Ala
+Ala ma kota, a kot ma Alę
+
+$ ./pszetżkole Justyna
+Justyna ma kota, a kot ma Justynę
+
+$ ./pszetżkole Stefan
+Stefan ma kota, a kot ma Stefana
+
+Czy jest to możliwe w czystym bash-u?
+
+-------------------------------------------------------------------------------
+
+Skrypt:
+#!/bin/bash
+imie="$1"
+if [[ "$imie" == *[a] ]]; then
+        echo "$imie ma kota, a kot ma ${imie/%a/ę}"
+else
+        echo "$imie ma kota, a kot ma ${imie}a"
+fi
+
+Wykonanie:
+chmod +x pszetżkole
+./pszetżkole Julia
+./pszetżkole Janusz
+
+Wynik:
+Julia ma kota, a kot ma Julię
+Janusz ma kota, a kot ma Janusza
+
+Odpowiedź:
+Można to zrobić za pomocą czystego bash-a, wykorzystuję w tym celu operator
+manipulacji ciągami znaków. Do stworzenia warunku skorzystałem z tej strony:
+https://www.ibm.com/docs/en/informix-servers/12.10?topic=matching-metacharacters  
+
+Wniosek:
+W tym zadaniu nauczyłem się jak manipulować ciągami znaków za pomocą
+specjalnych operatorów.  
+

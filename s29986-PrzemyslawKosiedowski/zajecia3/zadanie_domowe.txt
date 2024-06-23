@@ -1,0 +1,100 @@
+Do wykonania zadań skorzystałem z dokumentacji basha:
+https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html
+oraz mana.
+
+===============================================================================
+Zadanie domowe
+===============================================================================
+W przypadku bardzo podobnych rozwiazań nie będę ich uznawał.
+
+Przygotuj wyrażenie regularne, które będzie sprawdzało, czy tekst jest
+poprawnie napisanym polskim imieniem (od wielkiej litery, może mieć tylko
+litery i zawierać polskie znaki).
+
+Przygotuj wyrażenie regularne sprawdzające czy tekst jest kodem pocztowym
+(cały tekst, czyli zaczyna się od cyfry i kończy się cyfrą).
+
+Przygotuj wyrażenie regularne sprawdzające e-mail.
+
+
+Napisz skrypt który będzie pobierał jeden argument z linii komend i wypisywał
+informację o tym, czy jest to imie, kod pocztowy, czy też email. Na przykład
+
+./coto Janusz
+
+imię
+
+./coto 68-221
+
+kod pocztowy
+
+./coto 'muniek+spam@gmail.com'
+
+email
+-------------------------------------------------------------------------------
+
+Wyrażenie 1:
+^([A-Z]|[ĄĆĘŁŃÓŚŹŻ])([a-z]|[ąćęłńóśźż]){1,}$
+
+gdzie:
+^ i $ - początek i koniec wyrażenia
+([A-Z]|[ĄĆĘŁŃÓŚŹŻ]) - dopasowuje jedną wielką literę, uwzględnia polskie znaki
+([a-z]|[ąćęłńóśźż]) - dopasowuje jedną lub więcej liter, uwzględnia polskie
+	znaki
+
+
+Wyrażenie 2:
+^[0-9]{2}[-]{1}[0-9]{3}$
+
+gdzie
+^[0-9]{2} - dopasowuje dwie cyfry na początku
+[-]{1} - po czym dopasowuje jeden myślnik
+[0-9]{3}$ - na sam koniec dopasowuje trzy cyfry
+
+
+Wyrażenie 3:
+^[a-zA-Z0-9._%+-]{1,}@[a-zA-Z0-9.-]{1,}\.[a-zA-Z]{2,}$ 
+
+gdzie:
+^[a-zA-Z0-9._%+-]{1,} - to wyrażenie dopasowuje jeden lub więcej znaków
+	alfanumerycznych, kropek, podkreślników, procentów, plusów lub minusów
+@ - dopasowanie @
+[a-zA-Z0-9.-]{1,}\. - kolejne dopasowanie jednego lub więcej znaków, po czym
+	dopasowuje kropkę
+[a-zA-Z]{2,}$ - kolejne dopasowanie znaków (2 lub więcej)
+
+
+
+Skrypt:
+#!/bin/bash
+if [[ $1 =~ ^([A-Z]|[ĄĆĘŁŃÓŚŹŻ])([a-z]|[ąćęłńóśźż]){1,}$ ]]; then
+        echo "imię"
+elif [[ $1 =~ ^[0-9]{2}[-]{1}[0-9]{3}$ ]]; then
+        echo "kod pocztowy"
+elif [[ $1 =~ ^[a-zA-Z0-9._%+-]{1,}@[a-zA-Z0-9.-]{1,}\.[a-zA-Z]{2,}$ ]]; then
+        echo "email"
+else
+        echo "Nie wiem co to jest, precz mi z tym."
+fi
+
+
+
+Wynik:
+29986@szuflandia22:~/zadania/zajecia3$ ./zadanie_domowe Adam
+imię
+s29986@szuflandia22:~/zadania/zajecia3$ ./zadanie_domowe 80-231
+kod pocztowy
+s29986@szuflandia22:~/zadania/zajecia3$ ./zadanie_domowe
+fajnymail@fajnadomena.com
+email
+s29986@szuflandia22:~/zadania/zajecia3$ ./zadanie_domowe qwertyu1231
+Nie wiem co to jest, precz mi z tym.
+
+
+
+Wniosek:
+Trochę mi to zajęło, zanim skrypt zaczął działać jak powinien. Nauczyłem
+się dzięki temu zadaniu, że ważne jest dokładne sprawdzenie i testowanie
+wyrażeń regularnych, aby upewnić się, że działają poprawnie i zgodnie z
+oczekiwaniami.
+

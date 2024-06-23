@@ -1,0 +1,37 @@
+Napisz skrypt, który wczyta jako argument jakiś tekst. Skrypt ten wypisze kolejno:
+
+Pierwszy znak z argumentu
+
+Ostatni znak z argumentu
+
+Zamieni w argumencie każdy tekst SOP na tekst poniżej 
+(zastosuj echo z przełącznikiem -e): \e[32mSOP\e[0m
+
+Rozwiązanie:
+
+#!/bin/bash
+
+txt=$1
+
+txtFirst=$(printf %.1s "$txt")
+SOP=$( echo "$txt" | sed -e 's/SOP/\\e[32mSOP\\e[0m/g')
+
+echo $txtFirst
+echo "${txt: -1}"
+echo -e $SOP
+
+
+Skrypt wykonywany jest w bashu. Zapisuje pierwszy argument do zmiennej "txt".
+
+Zmienna txtFirst - Za pomocą printf zwraca pierwszy znak z argumentu.
+
+Zmienna SOP - Za pomocą narzędzia sed zmienia tekst "SOP" na "\e[32mSOP\e[0m". Dzięki
+flagi "g", zmiany zastosują się dla wszystkich wystąpień.
+
+echo $txtFirst - drukuje pierwszy znak z argumentu.
+echo "${txt: -1}" - drukuje ostatni znak z argumentu za pomocą operatora podciągu.
+echo -e $SOP - drukuje sformatowaną wersję tekstu z argumentu.
+
+
+Wynik działania skryptu jest zgodnie z oczekiwaniami. Fajny jest fakt, że
+można kolorować tekst w bashu.

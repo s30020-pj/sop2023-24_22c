@@ -1,0 +1,10 @@
+current_dir=$(pwd)
+
+for item in "$current_dir"/*; do
+    if [ -f "$item" ]; then
+        echo "Patrzcie Państwo, oto plik: $(basename "$item")"
+    elif [ -d "$item" ]; then
+        echo "Patrzcie Państwo, oto katalog: $(basename "$item")"
+    fi
+done
+

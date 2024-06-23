@@ -1,0 +1,16 @@
+Zadanie 4
+Wykonaj komendę ls -l w podpowłoce i przypisz ją do zmiennej X.
+Wyświetl zawartość zmiennej. Spraw, aby nie było różnicy (co najwyżej
+kolorki) między zwykłym wykonaniem komendy: ls -l a wypisaniem
+zawartości zmiennej X. Nie będzie dobrego rezultatu gdy zrobimy tak:
+echo $X. 
+Zastanów się dlaczego.
+
+Odpowiedź:
+Po uruchomieniu podpowłoki (wpisaniu "bash"), wykonuje polecenie ls -l
+by zobaczyć jaka zawartość zostanie wyświetlona. Następnie do zmiennej
+X przypisuję te polecenie. Wygląda to tak X=$(ls -l). Nastepnie wpisuje
+echo "$X". Wyświetla mi się to samo co po wpisaniu ls -l z tym, że 
+nie ma tam koloru zielonego na jednej z nazw plików. Dzieje się tak
+bo zmienna przechowała sam tekst, co oznacza, że nie jest odpowiedzialna
+za formatowanie.

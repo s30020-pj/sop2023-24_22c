@@ -1,0 +1,25 @@
+a)
+
+
+Tak, to jest możliwe w czystym bash-u.
+
+ imie=$1
+
+ if [[ $imie == *[aA] ]]; then
+    echo "$imie ma kota, a kot ma $imieę"
+ else
+    echo "$imie ma kota, a kot ma ${imie}a"
+ fi
+
+
+
+
+
+
+b)
+
+tekst=$1
+echo "Pierwszy znak: ${tekst:0:1}"
+echo "Ostatni znak: ${tekst: -1}"
+echo -e "${tekst//SOP/\e[32mSOP\e[0m}"
+

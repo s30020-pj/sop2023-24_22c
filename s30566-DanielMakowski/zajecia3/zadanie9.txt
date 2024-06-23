@@ -1,0 +1,47 @@
+#!/bin/bash
+
+#Napisz skrypt, który wczyta listę plików do wypisania z wiersza poleceń, a następnie wypisze ich zawartości raz w kolejności od początku do końca, a raz na odwrót. Podpowiedzi:
+
+#indeksy ujemne tablicy mogą się przydać
+#
+#można wyliczać wartości wyrażeń arytmetycznych (i+1)
+#
+#przyda się for
+#
+#może się przydać: cat oraz tac ale postaraj się zrobić to bez używania tych poleceń (drukowanie znak po znaku od początku do końca i od końca do początku)
+
+### funkcje ###
+
+
+print() {
+    local file="$1"
+    while IFS= read -r -n1 char; do
+        printf "%s" "$char"
+    done < "$file"
+    echo
+}
+
+tnirp() {
+    local file="$1"
+    content=$(< "$file")
+    length=${#content}
+    for ((i = length - 1; i >= 0; i--)); do
+        printf "%s" "${content:i:1}"
+    done
+    echo
+}
+
+### główna część ###
+
+for file in "$@"; do
+    if [[ -f "$file" ]]; then
+        echo "Zawartość pliku $file w kolejności od początku do końca:"
+        print "$file"
+        
+        echo "Zawartość pliku $file w odwrotnej kolejności:"
+        tnirp "$file"
+    else
+        echo "Plik $file nie istnieje."
+    fi
+done
+

@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int maximum(int a, int b){
+	return (a > b) ? a : b;
+}
+
+int minimum(int a, int b){
+	return (a < b) ? a : b;
+}
+
+int suma(int a, int b){
+	return a + b;
+}
+
+int main(){
+
+	int (*f[3])(int, int) = {maximum, minimum, suma};
+
+	int functionId, elementCount, i;
+
+	int *elements;
+	
+	int *v;
+
+	printf("Podaj numer funkcji:\n0.Maximum\n1.Minimum\n2.Suma\n");
+	scanf("%d", &functionId);
+	
+	printf("Podaj liczbe elementow ciagu:\n");
+	scanf("%d", &elementCount);
+
+        elements = (int *)malloc(elementCount * sizeof(int));
+
+	v = &elements[0];
+
+	printf("Podaj %d elementy:\n", elementCount);
+	for (i = 0; i < elementCount; i++) {
+		scanf("%d", &elements[i]);
+	}
+
+	for (i = 1; i < elementCount; i++){
+		*v = f[functionId](*v, elements[i]);
+	}
+
+	printf("Wynik: %d\n", *v);
+	
+	free(elements);
+
+	return 0;
+
+}

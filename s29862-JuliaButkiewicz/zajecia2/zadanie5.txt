@@ -1,0 +1,57 @@
+Zadanie 5a.
+Pamiętasz jedno z poprzednich zadań?
+
+A=Ala
+echo $A ma kota, a kot ma ${A}ę
+
+Przerób je tak aby tekst wypisywał się poprawnie.
+
+Odpowiedź:
+Poprawnie przerobiona wersja tego polecenia wygląda tak:
+echo "$A ma kota, a kot ma ${A/%a/ę}". Tak wpisane polecenie
+sprawia, że literka "a" w słowie Ala zostaje zastąpiona literką "ę".
+
+Napisz skrypt który będzie wypisywał taki tekst także dla imion
+męskich. Pomijajmy zdrobnienia i imiona które dziwnie się odmieniają.
+Niech skrypt przyjmuje jeden argument - imię.
+Czy jest to możliwe w czystym bashu?
+
+Odpowiedź:
+
+#!/bin/bash
+imie="$1"
+
+zmiana_koncowki() {
+	imie="$1"
+	if [[ "$imie" == *[a] ]]; then
+		echo "${imie/%a/ę}"
+	else
+		echo "${imie}a"
+	fi
+}
+
+echo "$imie ma kota, a kot ma $(zmiana_koncowki "$imie")"
+
+Powyżej wykonany skrypt pozwolił mi zmienić tekst również dla imion męskich.
+Czy jest to możliwe w czystym bashu? Tak, możemy to wykonać w czystym bashu.
+
+Zadanie 5b.
+Napisz skrypt, który wczyta jako argument jakiś tekst. Skrypt ten wypisze
+kolejno:
+1. Pierwszy znak argumentu.
+2. Ostatni znak argumentu.
+3. Zamieni w argumencie każdy tekst SOP na tekst poniżej:
+\e[32mSOP\e[0m
+
+Odpowiedź:
+#!/bin/bash
+
+echo "Pierwszy znak: ${1:0:1}"
+
+echo "Ostatni znak: ${1: -1}"
+
+echo -e "${1//SOP/\\e[32mSOP\\e[0m}"
+
+Powyższy skrypt podświetlił mi, po wpisaniu ./zadanie5b.sh "SOP! SOP w imieniu
+prawa! SOP w imieniu prawa!, słowa SOP na jasno zielony kolor. Dzieje się tak
+gdyż \e[32m\\e[0m odpowiada za formatowanie koloru danego słowa.

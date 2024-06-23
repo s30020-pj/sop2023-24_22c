@@ -1,0 +1,103 @@
+/*
+Napisz prosty program chat-u, który będzie korzystał z pliku w katalogu /tmp do przekazywania wiadomości. Zastanów się jak to zrobić.
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/wait.h>
+#include <sys/types.h>
+#include <time.h>
+
+#define FILE_PATH "/tmp/czat.txt"
+#define TIMEOUT 10
+
+char *get_username() {
+    return getenv("USER");
+}
+
+void writer(char *name) {
+    char message[256];
+    FILE *file;
+
+    while (1) {
+        printf("[%s] Wpisz wiadomość: ", name);
+        fgets(message, sizeof(message), stdin);
+
+        file = fopen(FILE_PATH, "a");
+        if (file == NULL) {
+            printf("Nie można otworzyć pliku");
+            exit(EXIT_FAILURE);
+        }
+
+        fprintf(file, "[%s]: %s", name, message);
+        fclose(file);
+
+        if (strncmp(message, "exit", 4) == 0) {
+            break;
+        }
+    }
+}
+
+void reader() {
+    char message[256];
+    FILE *file;
+    long last_pos = 0;
+    time_t last_read_time = time(NULL);
+    int new_message = 0;
+    while (1) {
+        file = fopen(FILE_PATH, "r");
+        if (file == NULL) {
+            printf("Nie można otworzyć pliku");
+            exit(EXIT_FAILURE);
+        }
+
+        fseek(file, last_pos, SEEK_SET);
+
+
+        while (fgets(message, sizeof(message), file) != NULL) {
+            printf("Odebrano: %s", message);
+            last_pos = ftell(file);
+            new_message = 1;
+            last_read_time = time(NULL);
+        }
+
+        fclose(file);
+
+        if (!new_message && (time(NULL) - last_read_time >= TIMEOUT)) {
+            printf("Brak nowych wiadomości przez %d sekund. Pakuje manatki.\n", TIMEOUT);
+            exit(0);
+        }
+
+        if (strncmp(message, "exit", 4) == 0) {
+            break;
+        }
+
+        sleep(1);
+    }
+}
+
+int main() {
+
+    char *name = get_username();
+    pid_t pid = fork();
+    if (name == NULL) {
+        printf("Nie można pobrać nazwy użytkownika systemu.\n");
+        return 1;
+    }
+
+
+
+    if (pid < 0) {
+        printf("Błąd podczas tworzenia procesu");
+        return 1;
+    } else if (pid == 0) {
+        reader();
+    } else {
+        writer(name);
+        wait(NULL);
+    }
+
+    return 0;
+}

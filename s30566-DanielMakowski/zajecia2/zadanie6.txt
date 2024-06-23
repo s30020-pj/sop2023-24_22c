@@ -1,0 +1,22 @@
+Teraz postaraj się zrobić to zadanie z haczykiem i podmianą fragmentu zmiennej (Ala ma ...)
+
+Rozwiązanie:
+
+#!/bin/bash
+
+A=$1
+B=$( echo "${A: -1}")
+
+if [ "$B" = "a" ]; then
+        A2=$(echo "$A" | sed 's/a$/ę/g' | sed 's/\([^ę]\)$/\1a/g')
+else
+        A2=$(echo "${A}a")
+fi
+
+echo "$A ma kota, a kot ma ${A2}"
+
+A - przechowuje pierwszy argument
+B - ostatnia litera zawatości zmiennej A
+
+Następnie zachodzi sprawdzanie, czy imie jest męskie, czy żeńskie. W zależności
+od płci, do zmiennej A2 przypisywane jest imię w dopełniaczu 

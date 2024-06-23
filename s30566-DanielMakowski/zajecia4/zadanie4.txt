@@ -1,0 +1,131 @@
+/*
+Napisz program wczytujący z pliku tekstowego ciąg liczb.
+
+Format pliku jest taki:
+
+liczba elementów ciągu (jako liczba naturalna)
+
+Kolejne liczby - każda w nowej linii
+
+Przykład:
+
+3
+5
+
+1
+
+9
+
+Opis przykładu:
+
+3 liczby do wczytania
+
+liczby: 5, 1, 9
+
+Niech program wypisze je w odwrotnej kolejności. Program powinien przyjmować zero albo jeden argument:
+
+jeśli nie podano argumentu, to ma wczytywać ze standardowego wejścia
+
+jeśli podano argument, to jest to nazwa pliku do wczytania
+
+Skorzystaj z:
+
+fopen
+
+fclose
+
+fscanf
+
+Zabezpiecz przed przepełnieniem bufora.
+
+Skorzystaj z funkcji do dynamicznej rezerwacji/alokacji pamięci:
+
+malloc lub calloc
+
+free
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_BUFFER_SIZE 1024
+
+int main(int argc, char *argv[]) {
+	FILE *plik = NULL;
+	char buffer[MAX_BUFFER_SIZE];
+	int elements;
+	int i;
+	int *liczby;
+	char nazwa_pliku[MAX_BUFFER_SIZE];
+
+	/*otwieranie pliku*/
+	if (argc != 2){
+		printf("Podaj nazwe pliku: ");
+		if (fgets(nazwa_pliku, MAX_BUFFER_SIZE, stdin) == NULL) {
+			printf("Błąd przy wczytywaniu nazwy pliku\n");
+			return 1;
+		}
+		nazwa_pliku[strcspn(nazwa_pliku, "\n")] = '\0';
+		plik = fopen(nazwa_pliku, "r");
+		if (plik == NULL) {
+			printf("Nie można otworzyć pliku %s\n", nazwa_pliku);
+			return 1;
+									        }
+	}
+	else {
+		plik = fopen(argv[1], "r");
+		if (plik == NULL) {
+			printf("Nie mozna otworzyc pliku %s\n", argv[1]);
+			return 1;
+		}
+	}
+
+	/*wczytanie liczby elementow*/
+	if (fgets(buffer, MAX_BUFFER_SIZE, plik) == NULL) {
+		printf("Blad przy wczytywaniu liczby elementow\n");
+		if (plik != stdin) fclose(plik);
+		return 1;
+		}
+	if (sscanf(buffer, "%d", &elements) != 1) {
+		printf("Blad przy konwersji liczby elementow\n");
+		if (plik != stdin) fclose (plik);
+		return 1;
+	}
+	
+	/*alokacja pamieci*/
+	liczby = (int *)malloc(elements * sizeof(int));
+	if (liczby == NULL) {
+		printf("Nie udalo sie zaalokowac pamieci\n");
+		if (plik != stdin) fclose(plik);
+		return 1;
+	}
+
+	/*wczytywanie liczb*/
+	for (i = 0; i < elements; i++){
+		if (fgets(buffer, MAX_BUFFER_SIZE, plik) == NULL) {
+			printf("Blad przy konwersji liczby\n");
+			free (liczby);
+			if (plik != stdin) fclose(plik);
+			return 1;
+		}
+
+		if(sscanf(buffer, "%d", &liczby[i]) != 1) {
+			printf("Blad przy konwersji liczby \n");
+			free(liczby);
+			if (plik != stdin) fclose(plik);
+			return 1;
+		}
+	}
+
+	if (plik != stdin) fclose(plik);
+
+	printf("Liczby w odwrotnej kolejnosci:\n");
+	for (i = elements - 1; i >= 0; i--){
+		printf("%d\n", liczby[i]);
+	}
+
+	free(liczby);
+
+	return 0;
+}

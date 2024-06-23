@@ -1,0 +1,44 @@
+Wykonaj komendę ls -l w podpowłoce i przypisz ją do zmiennej X.
+
+Wyświetl zawartość tej zmiennej.
+
+Spraw, aby nie było różnicy (co najwyżej kolorki) między zwykłym wykonaniem komendy:
+
+ls -l
+
+a wypisaniem zawartości zmiennej X. Nie będzie dobrego rezultatu gdy zrobimy tak:
+
+echo $X
+
+Zastanów się dlaczego.
+
+
+Rozwiązanie:
+
+Uruchamiam podpowłokę
+
+bash
+
+Wykonuję polecenie
+
+ls -l
+
+Przypisuję polecenie do zmiennej
+
+X=`ls -l`
+ 
+(Zrobiłem z początku w ten sposób. Zdaję sobie sprawę, że jest on przestarzały i odradza się już jego stosowania. 
+Obecnie lepszą i bardziej elastyczną metodą jest "X=$(ls -l)".)
+
+Odczytuję zawartość zmiennej. Zmienna zamknięta jest w cudzysłów, ponieważ bez niego otrzymałbym wszystko w jednej linii.
+
+echo "$X"
+
+Wynik:
+
+#s30566@szuflandia22:~$ echo "$X"
+#razem 16
+#drwxr-xr-x 4 s30566 domain users 4096 03-24 15:12 dosbox
+#drwxr-xr-x 3 s30566 domain users 4096 04-13 20:56 playgroud
+#-rwxr--r-- 1 s30566 domain users  171 03-24 12:20 skrypt.sh
+#-rw-r--r-- 1 s30566 domain users   39 03-24 12:21 witamy.sh

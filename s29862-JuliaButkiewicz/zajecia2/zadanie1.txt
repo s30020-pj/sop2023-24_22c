@@ -1,0 +1,18 @@
+Zadanie 1
+Napisz skrypt wyświetlający na terminalu tekst "Witamy w terminalu" [...]
+
+Odpowiedź:
+Tworzę plik hello.sh w którym zawieram taki skrypt:
+
+#!/bin/bash
+echo "Witamy w terminalu"
+
+By uruchomić skrypt wpisuję "./hello.sh".
+
+Wyniki i wnioski:
+Na terminalu wyświetla się napis "Witam w terminalu".
+Pierwsza linijka to tzw. shebang. Mówi on powłoce jakim programem
+ma interpretować skrypt po wykonaniu. W tym przypadku uruchamiany
+i interpretowany jest przez powłokę bash. W dalszej części używam
+echo by wyprintować tekst na terminalu. Nauczyłam się pisać prosty
+skrypt oraz nauczyłam się jak go uruchomić.

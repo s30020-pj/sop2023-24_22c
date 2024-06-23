@@ -1,0 +1,11 @@
+#!/bin/bash
+
+#Przygotuj wyrażenie regularne sprawdzające czy tekst jest kodem pocztowym (cały tekst, czyli zaczyna się od cyfry i kończy się cyfrą).
+
+postal=$1
+
+if [[ $postal =~ ^[0-9]{2}[\-][0-9]{3}$ ]]; then
+	echo "Podano poprawny kod pocztowy"
+else
+	echo "To nie jest kod pocztowy"
+fi

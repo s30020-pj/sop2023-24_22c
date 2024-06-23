@@ -1,0 +1,230 @@
+Ćwiczenie 1
+Napisz skrypt wyświetlający na terminalu tekst "Witamy w terminalu". 
+Skorzystaj z komendy echo oraz informacji podanych powyżej. Pamiętaj
+o atrybutach i o tym jak się wywołuje programy.
+
+Wykonanie: Utworzyłem plik skrypt.sh, zawartość skryptu:
+'echo "Witamy w terminalu"'
+Wniosek: Po wprowadzeniu polecenia bash skrypt.sh, wyświetlił się
+tekst "Witamy w terminalu", skrypt działa poprawnie.
+
+Ćwiczenie 2
+To zadanie należy wykonać wpisując polecenia w terminalu normalnie. 
+Nie należy tworzyć skryptu z tymi poleceniami.
+
+Zobacz taką serię poleceń:
+X=tekst
+echo $X
+bash
+echo $X
+
+Co się stało? Czy potrafisz wyjaśnić?
+
+Wyjaśnienie: Po wpisaniu podanych poleceń, zmienna "tekst" wyswietlila tylko jeden raz.
+
+Wniosek: Zastanawiałem się dlaczego zmienna X została wypisana tylko jeden raz. Znalazłem powód.
+Polecenie 'bash' znajdujące się pomiędzy poleceniami echo, tworzy nową instancję i powłokę basha,
+która nie ma możliwości korzystania ze zmiennych pierwszej powłoki. Żeby polecenie działało
+zgodnie z przeznaczeniem zmienna X musiała by również zostać zdefiniowana po bashu.
+Dzieje się tak z powodu sposobu w jakim Linux zarząda procesami i środowiskiem.
+Żeby zmienna X miałaby się znajdować w obu powłokach basha, trzeba by było ją zdefiniować
+globalnie, nie zagłębiałem się w jaki sposób dokładnie.
+
+
+Zobacz:
+X=Tekst dłuższy
+echo $X
+
+Co jest nie tak? jak to naprawić? Zobacz czy pomoże zastosowanie cudzysłowów i apostrofów.
+
+Wyjaśnienie: Po wpisaniu danego polecenia output wyglądał następująco:
+"bash: dłuższy: nie znaleziono polecenia", ponieważ, żeby zdefiniować poprawnie zmienną,
+która ma zawierać znak spacji lub polecenie po danej zmiennej potrzebny jest cudzysłów.
+Gdy nie użyjemy "" podczas definiowania zmiennej system doszukuje się kolejnego polecenia
+po użyciu spacji.
+
+Wniosek: Żeby polecenie działało poprawnie, musi wyglądać następująco:
+X="Tekst dłuższy"
+echo $X
+
+
+Zobacz:
+X="Tekst 1"
+Y="tekst:$X"
+echo "$Y"
+Y='tekst:$X'
+echo "$Y"
+Y=tekst:$X
+echo "$Y"
+
+Jaka jest różnica między 'a'?
+
+Wyjaśnienie: W bashu ' a " ma inne zastosowanie.
+"" - Podwójny cudzysłów pozwala na definicje zmiennych wewnątrz ciągu znaków,
+dlatego przy Y="tekst:$X" wyświetlane było tekst:tekst 1
+'' - Pojedyńczy cudzysłow pozwala na definicje zmiennych w sposób dosłowny, nie
+pozwala na rozwijanie zmiennych dlatego przy Y='tekst:$X' wyświetlane było tekst:$X
+
+Wniosek: Warto wiedzieć jakie nawiasy stosować, żeby uniknąć błędu.
+
+A=Ala
+Echo $A ma kota, a kot ma ${A}ę
+
+Tak, tu coś będzie nie tak, zaraz to naprawimy. Nie będziemy modyfikować wartości zmiennej A.
+
+Wykonanie: Po wypisaniu tego polecenia output to: Ala ma kota, a kot ma Alaę.
+Żeby tekst wyświetlał się zgodnie z założeniem na samym początku z przyzwyczajenia 
+zastosowałem cudzysłów i odniosłem się do końca polecenia czyli ${A}ę.
+Żeby polecenie wyświetlało tylko dwie pierwsze litery imienia, trzeba zastosować 
+polecenie ${A:0:2}ę polecenie to oznacza w skrócie pobierz dwa pierwsze znaki
+z łańcucha znaków, które znajdują się w zmiennej A.
+A=Ala
+echo "$A ma kota, a kot ma ${A:0:2}ę"
+
+Ćwiczenie 3
+Zobacz co przechowują zmienne i opisz jak rozumiesz uzyskany wynik. Do czego on
+jest i kiedy może się wg Ciebie przydać:
+
+PATH
+RANDOM - Losowa liczba, w moim przypadku 7941, 14044. Głównym zastosowaniem jest element losowości w skrypcie.
+
+PWD - Ścieżka w której aktualnie się znajdujemy w moim przypadku: /home/PJWSTK/s32230/sop/zajecia2 Potrzebne w momencie gdy chcemy sprawdzić
+gdzie aktualnie się znajdujemy.
+
+PS1 - To inaczej 'Prompt String 1' Nie za bardzo wiedziałem co to jest dokładnie za zmienna, po researchu w internecie dowiedziałem się, że
+jest to zmienna która dotyczy głownie wiersza poleceń. Można ją dostosowywać aby wyświetlała różne rzeczy, przykładowo nazwa komputera,
+użytkownika czy nazwe katalogu. Ta zmienna to ten pasek w którym pisuje polecenia terminala. Przydatne gdy chcemy mieć jakieś informacje typowo
+na wyciągnięcie ręki bez wykonywania żadnych poleceń.
+USER - ta zmienna wyświetla nazwę użytkownika. Przydatne gdy nie wiemy jaką mamy nazwe użytkownika.
+HOSTNAME - To nazwa hosta serwera na którym się znajdujemy, szuflandia22
+OSTYPE - To nazwa systemu operacyjnego.
+
+Zmienne ''
+Pod wartość zmiennej można przypisać standardowe wyjście jakiejś komendy. 
+Robi się to na dwa sposoby. Bezpieczniejszy, ale dłuższy, oraz krótszy, 
+ale w niektórych sytuacjach nie zadziała:
+
+ZM=$(ls -la)
+
+ZM=`ls -la`
+
+Pierwszy sposób jest bezpieczniejszy - jest starszy i zawsze działa, ale wymaga
+3 różnych znaków, natomiast drugi jest bardziej przejrzysty. Oba w tym przykładzie dadzą taki sam efekt.
+
+Ćwiczenie 4 
+Wykonaj komendę ls -l w podpowłoce i przypisz ją do zmiennej X.
+Wyświetl zawartość tej zmiennej.
+Spraw, aby nie było różnicy (co najwyżej kolorki) między zwykłym wykonaniem komendy:
+ls -l
+a wypisaniem zawartości zmienej X. Nie będzie dobrego rezultatu gdy zrobimy tak:
+echo $X
+Zastanów się dlaczego.
+
+Wykonanie: Przypisałem komendę ls -l do zmiennej X, za pomocąpolecenia X=$(ls -l), następnie dla testu
+pierwotnie wywołałem komendę polecenie echo $X żeby sprawdzić jaka jest różnica w wyświetlaniu.
+Zauważyłem że polecenie normalnie się wykonuje, jednakże output nie zawiera w sobie znaku nowej linii, 
+wszystko zostało wypisane jednym ciągiem. Po chwili researchu dowiedziałem się, że aby polecenie
+wypisywało się tak samo jak podczas użycia tej komendy muszę zastosować atrybut -e przy echo.
+echo -e "$X" - po wykonaniu tego polecenia jedyna różnica jaka była to wspomniane wcześniej kolorki.
+atrybut -e, pozwala na dodatkową interpretacji specjalnych znaków i sekwencji w tekście przykładowo nowa linia,
+tabulator itd.
+Wniosek: Nie wiedziałem o czymś takim wcześniej, bardzo przydatne gdy nasza zmienna właśnie zawiera w sobie takie
+znaki specjalne i chcemy ją poprawnie wypisać.
+
+Ćwiczenie 5a
+Pamiętasz jedno z zadań poprzednich?
+
+A=Ala
+
+echo $A ma kota, a kot ma ${A}ę
+
+Przerób je tak, aby tekst wypisywał się poprawnie.
+
+Napisz skrypt, który będzie wypisywał taki tekst także dla imion męskich. Pomijamy zdrobnienia i imiona które się dziwnie odmieniają (na przykład Marek). Niech skrypt ten przyjmuje jeden argument - imię. Przykładowe wywołanie:
+
+$ ./pszetżkole Ala
+
+Ala ma kota, a kot ma Alę
+
+$ ./pszetżkole Justyna
+
+Justyna ma kota, a kot ma Justynę
+
+$ ./pszetżkole Stefan
+
+Stefan ma kota, a kot ma Stefana
+
+Czy jest to możliwe w czystym bash-u?
+
+Wykonany skrypt:
+IMIE = $1
+
+ostatni_znak="$IMIE: -1}"
+
+if [ "$ostatni_znak" = "a" ]; then
+ODMIANA="${IMIE%?}"
+       echo "$IMIE ma kota, a kot ma ${ODMIANA}ę"
+else
+       echo "$IMIE ma kota, a kot ma ${IMIE}a"
+-------------------------------------------------------
+Skrypt działa tak jak należy, wykrywa ostatni znak imienia, jeżeli imie jest żeńskie to dodaje ę,
+a jezeli męskie to dodaje a.
+Wniosek: Pisanie skryptów w czystym bashu wydaje się być miare proste i logiczne.
+
+Ćwiczenie 5b
+Napisz skrypt, który wczyta jako argument jakiś tekst. Skrypt ten wypisze kolejno:
+
+Pierwszy znak z argumentu
+
+Ostatni znak z argumentu
+
+Zamieni w argumencie każdy tekst SOP na tekst poniżej (zastosuj echo z przełącznikiem -e):
+
+\e[32mSOP\e[0m
+
+Przykładowy tekst testowy:
+SOP! SOP w imieniu prawa! SOP w imieniu prawa!
+
+Wynikowo ma to wyglądać tak:
+
+SOP! SOP w imieniu prawa! SOP w imieniu praw
+Wykonany skrypt:
+
+TEKST=$1
+
+ostatni_znak="${TEKST: -1}"
+pierwszy_znak="${TEKST:0:1}"
+
+echo "1. Pierwszy znak:"
+echo "$pierwszy_znak"
+echo "2. Ostatni znak:"
+echo "$ostatni_znak"
+echo "3. Zastąpienie SOPa na zielony"
+echo -e "${TEKST//SOP/\e[32mSOP\e[0m}"
+
+Wniosek: Skrypt działa, jednakże niestety mój terminal nie obsługuje kolorowego tekstu,
+chyba że faktycznie mam jakiś błąd i nie wyświetla się to w taki sposób jaki powinno. 
+
+
+Zadanie domowe
+Przygotuj skrypt, który odczyta plik (jego nazwa ma być argumentem skryptu) i wypisze go
+na terminalu tak, aby wszystkie wystąpienia Twojego imienia były podświetlone na czerwono. 
+
+Wykonany Skrypt:
+
+TEKST=$1
+IMIE="Miłosz"
+sed - e "s/$IMIE/\x18[31m&\x18[0m/g" "$TEKST"
+
+Wniosek:
+Skrypt również poprawnie podmienia moje imie na czerwone, jednakże nie widzę kolorów w swoim terminalu.
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,33 @@
+/*
+Przygotuj prosty programik, który:
+
+Wypisze na ekranie swój PID
+
+będzie czekał w pętli nieskończonej do momentu otrzymania sygnału użytkownika (SIGUSR1)
+
+W momencie otrzymania tego sygnału program powinien wypisać na ekranie, że dostał sygnał i się zakończyć.
+*/
+
+#include <stdio.h>
+#include <unistd.h>
+#include <stdbool.h>
+#include <signal.h>
+
+bool wait = true;
+
+void sigHandler(int sig){
+    printf("Otrzymalem sygnal: %d\n", sig );
+    wait = false;
+}
+
+int main(){
+    signal(SIGUSR1, sigHandler);
+    printf("PID: %d\n", getpid());
+    
+    while(wait){
+        pause();
+    }
+
+    return 0;
+}
+
