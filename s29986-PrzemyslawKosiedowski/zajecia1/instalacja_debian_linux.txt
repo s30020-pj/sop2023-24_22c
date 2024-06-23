@@ -1,0 +1,1524 @@
+Instalacja Debiana
+
+Program VirtualBox pobrałem ze strony:
+https://www.virtualbox.org/wiki/Downloads
+
+Plik ISO potrzebny do instalacji (jest to bezpośredni link do pliku):
+https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-12.5.0-amd64-netinst.iso
+
+Dokumentacja Debiana (link do wymagań sprzętowych):
+https://www.debian.org/releases/bullseye/amd64/ch03s04.en.html
+
+Dokumentacja VirtualBoxa:
+https://www.virtualbox.org/manual/UserManual.html
+
+Do wykonania zadania wykorzystałem głównie dokumentację VirtualBoxa, 
+dokumentację Debiana oraz Wikipedię. Korzystałem również z ChatGPT, ale tylko 
+wtedy, kiedy nie rozumiałem informacji zawartych w Internecie lub kiedy nie 
+mogłem ich znaleźć - oznaczyłem sekcje, w których go wykorzystuję.
+
+===============================================================================
+===============================================================================
+
+VirtualBox
+
+===============================================================================
+===============================================================================
+
+Klikamy NOWA. Mamy dwa tryby: domyślny, czyli przewodnika i eksperta:
+	1. Przewodnika – prowadzi nas krok po kroku,
+	2. Eksperta – wszystkie opcje są dostępne od razu, przeznaczony dla 
+	   tych, którzy wiedzą co robią. Będę korzystał z trybu eksperta, 
+	   ponieważ moim zadaniem jest opisanie wszystkich opcji krok po kroku,
+	   “bez prowadzenia za rączkę”.
+
+-------------------------------------------------------------------------------
+
+NAZWA - Wpisujemy nazwę maszyny, ja wybieram Debian 12. Warto zauważyć, że po 
+kilku znakach (w moim przypadku trzech) VB sam rozpoznaje, jaki system chcemy
+na maszynie instalować. 
+
+
+FOLDER - miejsce docelowe dla maszyny (pozwoliłem sobie zmienić miejsce).
+
+
+ISO IMAGE - obraz ISO systemu, który chcemy instalować na maszynie (ja wybrałem
+pobrany ze strony podanej wcześniej).
+
+
+TYP– typ systemu, w moim przypadku VB wybrał go automatycznie. Dostępne opcje:
+	Microsoft Windows, 
+	Solaris, 
+	BSD, 
+	IBM OS/2, 
+	Mac OS/X - tylko na komputerach firmy Apple, w innym przypadku łamiemy
+	licencję, 
+	Other – wszystkie inne systemy, które nie są pogrupowane. 
+
+
+WERSJA – lista wszystkich wersji Linuxa; ja wybieram Debian 64-bit, ponieważ
+taką będę instalował. Dostępne wersje dla Linuxa: 
+	Linux 2.2 i 2.4 (32-bit) 
+	Linux 2.4 (64-bit) 
+	Linux 2.6 / 3.x / 4.x / 5.x (32-bit) 
+	Linux 2.6 / 3.x / 4.x / 5.x (64-bit) 
+	Arch Linux (32-bit i 64-bit) 
+	Debian (32-bit i 64-bit) 
+	Debian 3.1 Sarge (32-bit) 
+
+-------------------------------------------------------------------------------
+
+SKIP UNATTENDED INSTALLATION – opcja, która pozwala pominąć nienadzorowaną
+instalację, czyli taką, która dzieje się automatycznie, bez udziału
+użytkownika. Ja zaznaczam tę opcję, ponieważ będę instalował system ręcznie, z
+wykorzystaniem pliku ISO, który pobrałem. Gdyby jednak była taka potrzeba, to
+dostępne są następujące opcje:
+	
+	USERNAME AND PASSWORD – w tych polach wpisujemy login, hasło i
+	powtórzone hasło dla domyślnego usera, który zostanie utworzony
+	automatycznie po instalacji. 
+
+	ADDITIONAL OPTIONS – opcje dodatkowe: 
+		PRODUCT KEY – klucz produktu (tylko dla Windowsa) 
+		
+		HOSTNAME– nazwa hosta, służy do określenia nazwy, pod którą 
+		będzie	identyfikowana maszyna wirtualna w sieci 
+		
+		DOMAIN NAME – nazwa domeny, do której ma należeć maszyna 
+		wirtualna 
+		
+		INSTALL IN BACKGROUND - instalacja w tle. Umożliwia instalację
+		bez graficznego interfejsu dla maszyny wirtualnej. 
+
+		GUEST ADDITIONS - umożliwia automatyczną instalację dodatków od
+		razu po	zainstalowaniu systemu operacyjnego. 
+
+		GUEST ADDITIONS ISO - umożliwia wybranie lokalizacji dla pliku
+		ISO, który zawiera dodatki. 
+
+-------------------------------------------------------------------------------
+
+HARDWARE – w tej sekcji można przydzielić pamięć RAM oraz ilość procesorów,
+które ma zużywać maszyna. VirtualBox podpowiada maksymalną ilość zasobów,
+którą możemy przeznaczyć za pomocą kolorowych sekcji. Na czas instalacji
+ustawię 2 rdzenie i 2048MB Ramu, jednakże po niej będę korzystał z ustawień
+rekomendowanych dla systemu tekstowego, które znajduję się na jego stronie
+(link podany wyżej) - 512MB RAMu i 1 rdzeń.
+	Enable EFI (special OSes only) - opcja ta pozwala na włączenie obsługi
+	EFI na maszynie wirtualnej. EFI (Extensible Frimware Interface) jest 
+	następcą BIOSu, który również odpowiada za komunikację między sprzętem
+	a systemem. Robi to znacznie lepiej, więc jeśli jest taka możliwość,
+	to warto ją wybrać. Debian wspiera EFI, dlatego też wybieram tę opcję.
+
+-------------------------------------------------------------------------------
+
+HARD DISK – w tym miejscu można utworzyć wirtualny dysk twardy (VHD) dla
+maszyny. Jest to plik, który symuluje fizyczny dysk twardy, tj. zawiera system
+plików i umożliwia przechowywanie na nim danych oraz instalację systemu.  
+Na tym etapie, oprócz tworzenia, mamy też możliwość użycia istniejącego dysku
+lub możemy też pominąć tę sekcję. Oznacza to, że maszyna wirtualna bez nośnika
+będzie działać na pamięci RAM. Jest to przydana opcja, kiedy nie ma potrzeby
+zapisywania danych, a dana maszyna ma być tymczasowa. Ja natomiast, jako że
+nie mam gotowego pliku oraz będę korzystać z tej maszyny w przyszłości,
+skorzystam z opcji utworzenia VHD. 
+
+	HARD DISK FILE LOCATION AND SIZE – w tym miejscu można wybrać
+	lokalizację oraz rozmiar dla VDI maszyny. Rekomendowana według 
+	dokumentacji Debiana to 2GB, ja natomiast przyznam tej maszynie 10 GB,
+	dla własnej wygody. 
+
+	HARD DISK FILE TYPE AND VARIANT – tutaj wybieramy format dla naszego 
+	pliku. Dostępne opcje:
+		VDI (VirtualBox Disk Image) - jest to domyślny format pliku
+		używany przez VirtualBoxa.  Obsługuje pamięć o stałym 
+		rozmiarze i alokowaną dynamicznie. Pozwala rozszerzyć plik po
+		jego utworzeniu, nie wpływa to na dane, które się na nim 
+		znajdują. Jako że korzystam z VirtualBoxa, to również 
+		skorzystam i z tego formatu, gdyż ma więcej opcji, zapewni on
+		największą stabilność i bezpieczeństwo danych dla mojej maszyny
+		wirtualnej.  
+
+		VHD (Virtual Hard Disk) - format dysku obsługiwany przez 
+		programy firmy Microsoft, tj. Hyper-V oraz Microsoft Azure. 
+		Istnieje również następca tego formatu, czyli VHDX, jednakże 
+		nie jest on obsługiwany przez VB. 
+
+		VMDK (Virtual Machine Disk) - format stworzony przez WMware, 
+		głównie dla ich rozwiązań. Obsługiwany jest przez wiele 
+		wirtualizatorów, przez co można by z niego korzystać jako 
+		format przejściowy. Nie jest to jednak rekomendowane, ponieważ
+		mogą pojawić się problemy ze sterownikami, co może uniemożliwić
+		np. uruchomienie systemu  
+
+		HDD (równoległy dysk twardy) - dysk fizyczny w komputerze. Warto
+		go wybrać, gdy zależy nam wydajności. 
+
+		QCOW (QEMU Copy-On-Write) oraz QED (QEMU enhanced disk) - 
+		formaty dla QEMU, czyli emulatora architektur procesora. 
+		QCOW ma opcję Copy-On-Write, która w trakcie zapisywania pliku
+		tworzy równolegle do niego kopię owego pliku na nowej 
+		przestrzeni dysku. Gdy proces zapisywania się ukończy, to 
+		oryginalny plik jest usuwany. Pozwala to uniknąć niespójności
+		danych. QED jest lepszą wersją QCOW. Jego wsparcie zostało 
+		zakończone, a wszystkie zmiany, które wprowadził przeniesiono 
+		do QCOW2. 
+
+	Oprócz tego dla wybranych rozszerzeń dostępne są opcje dodatkowe: 
+
+	PRE-ALLOCATE FULL SIZE - (dla VDI, VHD i VMDK) - zaznaczenie tej opcji
+	powoduje prealokację całej przestrzeni, którą chcemy przeznaczyć, na 
+ 	dysk. Zaletą tego rozwiązania jest większa wydajność. Wadą, że 
+	obciążamy w ten sposób dysk hosta, zwłaszcza, gdy przeznaczamy na dysk
+	wirtualny sporą przestrzeń. Pozostawiam tę opcję wyłączoną, ponieważ 
+	chcę, aby dysk maszyny zajmował możliwie jak najmniej miejsca na moim 
+	komputerze. 
+
+	SPLIT INTO 2GB PARTS - (tylko dla VMDK) opcja ta pozwala na dzielenie
+	pliku dysku na mniejsze części o rozmiarze 2GB. Jest przydatna, kiedy
+	chcemy na maszynie korzystać ze starszego systemu plików, który ma 
+	ograniczenia, np. FAT32 ma takie na pliki do 4GB. W moim przypadku 
+	nawet nie mogę tej opcji zaznaczyć, ponieważ korzystam z VDI.  
+
+Na tym etapie wystarczy kliknąć ZAKOŃCZ i maszyna się utworzy.  
+
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+
+Teraz wejdę w jej ustawienia i zmienię niektóre opcje. 
+
+OGÓLNE - ustawienia ogólne dla maszyny wirtualnej. Posiada takie zakładki jak: 
+
+PODSTAWOWE – w tym miejscu można zmienić nazwę maszyny, typ systemu oraz jego
+wersję. Pozostawiam bez zmian. 
+
+ZAAWANSOWANE – w tym miejscu można ustawić: 
+
+lokalizację dla folderu migawek, które pozwalają na zapisanie aktualnego stanu
+maszyny wirtualnej, razem z jej ustawieniami. Pozostawiam bez zmian.  
+
+Współdzielony schowek, można tutaj ustawić relację pomiędzy schowkiem hosta, a
+maszyny (gospodarz do gościa, gość do gospodarza, dwukierunkowy). Domyślnie
+jest wyłączony, i tak też to zostawię, gdyż obecnie nie mam potrzeby z tego
+korzystać, w razie co później mogę to zmienić. 
+
+Przeciąganie i upuszczanie, te same relacje, zostawiam wyłączone, ponieważ
+będę korzystać z systemu w wersji tekstowej. 
+
+OPIS - można tutaj dodać szczegółowe informacje dot. maszyny wirtualne. Jest
+to przydatne np. w środowiskach, gdzie maszyn jest wiele i mają podobne nazwy.
+Można tu napisać do czego służy dana maszyna, jakie ma specyficzne ustawienia
+lub kto jest jej głównym użytkownikiem. Zostawiam bez zmian. 
+
+SZYFROWANIE DYSKU – w tym miejscu można włączyć szyfrowanie maszyny, ustawić
+rodzaj szyfrowania (mamy dostępne dwa, tj. 128-bit i 256-bit). Pozostawiam
+wyłączone, gdyż nie potrzebuję szyfrowania. 
+
+
+===============================================================================
+
+
+SYSTEM – tutaj są dostępne ustawienia związane ze sprzętem, z którego korzysta
+maszyna wirtualna. Dostępne opcje: 
+
+PŁYTA GŁÓWNA - można tutaj zmienić: 
+
+RAM – pozostawiam bez zmian. 
+
+KOLEJNOŚĆ BOOTOWANIA - kolejność wirtualnych urządzeń, z których będzie
+próbował uruchamiać się system. Mamy dostępne dyskietkę, napęd optyczny, dysk
+twardy oraz sieć. Dyskietkę wyłączam, bo jej nie mam i nie jest potrzebna,
+napęd optyczny zostawiam, bo na nim znajduje się plik ISO, który będzie
+używany do instalacji systemu, dysk twardy również zostawiam, z niego po
+instalacji będzie bootował się system, a sieć zostawiam wyłączoną, gdyż w
+czasie instalacji nie będę z tej funkcji korzystać. 
+
+CHIPSET – mamy do wyboru PIIX3 i ICH9. PIIX3 jest domyślnie wybierany; zawiera
+mniej opcji, ale jest bardziej kompatybilny. ICH9 powstał z myślą o systemach,
+które nie wspierają PIIX3, np. Mac OS X. Jest wydajniejszy, ma tych opcji
+więcej, np. pozwala na korzystanie z 36 kart sieciowych, gdzie PIIX3 obsługuje
+ich maksymalnie 8, natomiast jest to rozwiązanie eksperymentalne i nie zaleca
+się używania go, gdy nie ma takiej potrzeby. Ja będę korzystał z PIIX3, gdyż
+nie potrzebuję dodatkowych opcji, które oferuje ICH9 oraz dzięki temu mój
+system będzie stabilniejszy. 
+
+TMP – Trusted Platform Module, czyli system dostępu i szyfrowania podczas
+używania systemu. Do wyboru mamy wersję v1.2 i v2.0. Wersja 2.0 zawiera więcej
+algorytmów szyfrowania; ja natomiast nie będę tego wybierał, gdyż nie będę z
+tego korzystać. 
+
+URZĄDZENIE WSKAZUJĄCE - wybór urządzenia wskazującego, które ma być emulowane.
+Dostępne opcje to Mysz PS/2, Tablet USB (poprzez dotyk lub rysik),
+Wielodotykowy tablet USB (wsparcie dla kilku dotyków jednocześnie) oraz USB MT
+TouchScreen and TouchPad (obsługa ekranu dotykowego i panelu dotykowego). Ja
+wybieram Mysz PS/2, gdyż tak czy siak nie będę korzystał z kursora na systemie
+bez GUI, a dzięki tej opcji uniknę ewentualnych problemów ze sterownikami. 
+
+ROZSZERZONE WŁAŚCIWOŚCI - opcje dodatkowe: 
+
+WŁĄCZ I/O APIC – Intel I/O Advanced Programmable Interrupt Controller jest
+narzędziem, które kontroluje przekazywanie przerwań od urządzeń I/O do
+procesora. Włączenie tej opcji jest wymagane, szczególnie dla systemów
+Windows; jej brak może powodować błędy, dlatego zostawiam ją włączoną. 
+
+ENABLE HARDWARE CLOCK IN UTC TIME – ustawia czas systemowy na format UTC
+zamiast czasu lokalnego (hosta). Jest to przydatne dla systemów UNIX-owych
+(np. Debian), które zazwyczaj oczekują tego ustawienia. Ja zostawiam tę opcję
+włączoną. 
+
+WŁĄCZ EFI (TYLKO SPECJALNE SYSTEMY OPERACYJNE) - tę opcję opisywałem
+wcześniej, pozostawiam ją włączoną. 
+
+ENABLE SECURE BOOT – włącza bezpieczny rozruch. Dzięki niej podczas rozruchu
+komputera uruchamiane są tylko zaufane programy; opcja ta chroni maszynę przez
+złośliwym oprogramowaniem. Ja zostawiam tę opcję wyłączoną, gdyż nie jest mi
+potrzebna. 
+
+RESET KEYS TO DEFAULT – resetuje klucze używane do weryfikacji podpisów
+cyfrowych do domyślnych Virtual Boxa. 
+
+
+===============================================================================
+
+
+PROCESOR – tutaj dostępne są wszystkie ustawienia dot. Procesora: 
+
+PROCCESSORS - ilość rdzeni, które obsługiwać maszyna. 
+
+WYKORZYSTANIE PROCESORA – ustala, w ilu procentach ma być wykorzystywana ilość
+przypisanych rdzeni na maszynie. Domyślnie jest to 100%, i tyle też zostawię,
+ponieważ nie wpływa to w znaczący sposób na wydajność hosta. 
+
+ROZSZERZONE WŁAŚCIWOŚCI - opcje dodatkowe 
+
+WŁĄCZ PAE/NX - PAE (Physical Adress Extension) to rozszerzenie umożliwiające
+procesorom 32-bitowym dostęp do większej ilości pamięci fizycznej. Bez tego
+systemy nie mogą obsłużyć więcej niż 4GB pamięci RAM. NX (No eXecute) to
+natomiast technologia pozwalająca oznaczać obszary pamięci jako obszary, na
+których nie mogą być wykonywane instrukcje programu; powstała w celu ochrony
+przed atakami typu przepełnienie bufora. Domyślnie ta opcja jest wyłączona, i
+tak też to zostawię, ponieważ moja maszyna ma przypisane mniej niż 4GB pamięci
+RAM, oraz nie potrzebuje dodatkowej warstwy ochrony, gdyż będzie mi służyć
+tylko do celów edukacyjnych. 
+
+WŁĄCZ ZAGNIEŻDŻONE VT-X/AMD-V – opcja ta umożliwia zagnieżdżanie maszyn
+wirtualnych. Oznacza to, że na mojej maszynie po włączeniu tej opcji byłbym w
+stanie tworzyć nowe maszyny wirtualne. Trzeba dokonać odpowiednich
+konfiguracji na hoście, aby ta opcja była dostępna. Nie będę tej opcji
+wybierać, ponieważ nie będę wykorzystywał zagnieżdżonej wirtualizacji na moim
+systemie. 
+
+AKCELERACJA – w tej sekcji można wybrać dodatkowe opcje wirtualizacji, które
+wspiera procesor hosta. 
+
+INTERFEJS PARAWIRTUALIZACJI – parawirtualizacja to rodzaj wirtualizacji, w
+której nie jest emulowany sprzęt systemu, a oferowany jest dostęp do sprzętu
+hosta za pomocą specjalnego API. Może być dzięki niej wykorzystywana
+architektura procesora, który jest fizycznie obecny w systemie hosta. Dostępne
+opcje: 
+
+DOMYŚLNY - domyślny mechanizm wirtualizacji, optymalny dla większości
+zastosowań. 
+
+STARY – wykorzystuje starsze mechanizmy wirtualizacji. Opcja zapasowa, może
+być przydatna w przypadku starszych systemów operacyjnych. 
+
+MINIMALNY – zapewnia minimalne wsparcie dla wirtualizacji.  
+
+HYPER-V – zapewnia mechanizmy wirtualizacji dostarczane przez Hyper-V.
+Zalecany dla systemów Windows 7 i nowszych. 
+
+KVM (Kernel-based Virtual Machine) - dostarcza mechanizmy wirtualizacji
+rozpoznawane przez jądra systemu Linux w wersji 2.6.25 lub nowszej. Obsługuje
+zegary parawirtualne i SMP. Zalecany dla systemów Linux. 
+
+Obecnie nie mam wystarczającej wiedzy, która pozwoliła mi by na dokonanie
+odpowiedniego wyboru, dlatego wybiorę tryb domyślny, który jest optymalny dla
+większości systemów. 
+
+WIRTUALIZACJA SPRZĘTOWA: opcja dla wirtualizacji 
+
+WŁĄCZ ZAGNIEŻDŻONE STRONNICOWANIE - opcja, która znacznie zwiększa wydajność
+wirtualizacji. Dzięki niej zarządzanie pamięcią odbywa się za pomocą sprzętu
+hosta, a nie oprogramowania. Zostawiam włączone. 	
+
+
+===============================================================================
+
+
+EKRAN – tutaj dostępne są ustawienia ekranu maszyny wirtualnej. 
+
+
+EKRAN – w tej zakładce znajdziemy ustawienia graficzne dla maszyny. 
+
+PAMIĘĆ WIDEO – rozmiar pamięci dostarczany przez kartę graficzną hosta dla
+maszyny. Według dokumentacji VirtualBoxa: “A rough estimate is (color depth /
+8) x vertical pixels x horizontal pixels x number of screens = number of
+bytes”. Dla głębii16-bit, rozdzielczości 1920 x 1080 i jednego ekranu będzie
+to 4 147 200 bajtów, czyli ok. 4 MiB - dlatego ustawię 4 MB (jednostki
+wytłumaczę później). 
+
+ILOŚĆ MONITORÓW - ilość wirtualnych monitorów, z której będzie korzystać
+maszyna. Maksymalnie można wybrać 8, w moim przypadku potrzebuję tylko 1, tyle
+też wybiorę. 
+
+SCALE FACTOR - umożliwia skalowanie rozmiaru ekranu. Domyślna wartość to 100%,
+maksymalna 200%. Można też tutaj ustawić globalną skalę dla wszystkich
+wirtualnych ekranów. Dla mojej wygody będę korzystał ze 150%, ponieważ 100% to
+troszkę za mało. 
+
+KONTROLER GRAFIKI - określa, jaki kontroler grafiki ma wykorzystywać maszyna
+wirtualna. Dostępne opcje: 
+
+VBOXVGA – dla starszych systemów operacyjnych (przed Windows 7). 
+
+VMSVGA - domyślny kontroler grafiki dla systemów Linux. Tę opcję wybiorę,
+ponieważ będę korzystać z Debiana. 
+
+VBOXSVGA – dla nowszych systemów operacyjnych (W7 i późniejsze). Posiada
+więcej opcji niż VBOXVGA. 
+
+BRAK – nie emuluje kontrolera grafiki. 
+
+ROZSZERZONE WŁAŚCIWOŚCI - opcje dodatkowe. 
+
+WŁĄCZ AKCELERACJĘ 3D – ta opcja włącza akcelerację 3D. Nie skorzystam z niej,
+ponieważ w moim przypadku nie ma ona zastosowania. 
+
+
+ZDALNY PULPIT – opcja, która pozwala używać naszą maszynę za pomocą pulpitu
+zdalnego. Potrzebne jest dodatkowe rozszerzenie (VirtualBox Remote Display
+Extension (VRDE)) aby móc z niej korzystać. Ja nie będę z niej korzystać, gdyż
+zadanie tego nie wymaga. 
+
+WŁĄCZ SERWER - włącza serwer VRDP (VirtualBox Remote Display Protocol), który
+jest wbudowany w VirtualBoxa. Zaznaczenie tej opcji umożliwia również
+konfigurację ustawień dla pulpitu zdalnego. 
+
+PORT SERWERA – tutaj wpisuje się port serwera, na jakim ma działać połączenie
+z maszyną. Zaleca się jego zmianę dla bezpieczeństwa. 
+
+METODA UWIERZYTELNIANIA – pozwala wybrać metodę uwierzytelniania VRDP.
+Dostępne opcje: 
+
+BRAK – brak uwierzytelniania. 
+
+ZEWNĘTRZNA - wykorzystuje zewnętrze formy uwierzytelniania, np. domena
+sieciowa. 
+
+GOŚĆ - wykorzystuje wewnętrzne konto użytkownika lub hasło maszyny wirtualnej. 
+
+LIMIT CZASU UWIERZYTELNIANIA – przechowuje limit czasu uwierzytelniania
+gościa, w milisekundach. 
+
+ROZSZERZONE WŁAŚCIWOŚCI - opcje dodatkowe. 
+
+POZWÓL NA WIELOKROTNE POŁĄCZENIA - włączenie tej opcji pozwala na korzystanie
+z maszyny przez kilku użytkowników jednocześnie. 
+
+
+NAGRYWANIE - zakładka ta zawiera wszystkie dostępne ustawienia dla nagrywania
+maszyny wirtualnej. Ja nie będę korzystał z tej opcji, więc tego nie włączam.
+Możliwe do konfiguracji po wybraniu opcji WŁĄCZ NAGRYWANIE: 
+
+TRYB NAGRYWANIA – można wybrać co chcemy nagrywać. Dostępne opcje to:
+OBRAZ/DŹWIĘK, TYLKO OBRAZ, TYLKO DŹWIĘK. 
+
+ŚCIEŻKA DO PLIKU – miejsce, w którym ma znajdować się plik z nagraniem. 
+
+FRAME SIZE – rozmiar okna nagrywania. 
+
+FRAME RATE - ilość klatek, w której ma być nagrywana maszyna, można ustawić za
+pomocą suwaka lub wpisać ręcznie (1 – 30 fps). 
+
+JAKOŚĆ OBRAZU - jakość obrazu nagrywanego, można tutaj ustawić bit rate za
+pomocą suwaka lub poprzez podanie wartości ręcznie (w kilobitach na sekundę)
+(102 - 1024 kbps). 
+
+JAKOŚĆ DŹWIĘKU - jakość dźwięku nagrania, dostępne: niska, średnia, wysoka.  
+Poniżej znajduje się przybliżony rozmiar nagrania na 5 minut, zmienia się w
+zależności od wybranej jakości obrazu. 
+
+SCREENS – tutaj można wybrać, które ekrany mają być nagrywane. 
+
+
+===============================================================================
+
+
+PAMIĘĆ - tutaj można zarządzać wirtualnymi dyskami, napędami oraz plikami ISO
+dodanymi do maszyny. Po lewej stronie znajdują się kontrolery, które mają być
+emulowane, a po prawej ich właściwości. Na dole natomiast można nimi
+zarządzać, czyli dodawać, usuwać, podłączać lub odłączać. Po kliknięciu na
+kontroler można zmienić jego nazwę, typ oraz wybrać opcję “UŻYJ BUFOROWANIA
+WEJŚCIA/WYJŚCIA GOSPODARZA”, co sprawi, że maszyna będzie mogła wykorzystać
+możliwości buforowania I/O hosta. 
+
+KONTROLER IDE – został utworzony domyślnie; wirtualny napęd optyczny,
+podłączony do urządzenia 0 na drugim kanale kontrolera IDE. Obecnie
+zamontowany jest tutaj plik ISO z Debianem, który dodałem w trakcie tworzenia
+maszyny. Po zaznaczeniu go, po prawej stronie wyświetlą się informacje na
+temat “płyty”, która się tu znajduje oraz jej parametry: 
+
+NAPĘD OPTYCZNY - można wybrać slot, w którym ma się znajdować plik ISO 
+
+LIVE CD/DVD - po zaznaczeniu tej opcji plik ISO pozostanie zamontowany mimo
+wysunięcia go z systemu 
+
+KONTROLER SATA – został utworzony domyślnie; nowszy kontroler dla dysków z
+większą przepustowością danych. Do niego są montowane wirtualne dyski twarde.
+Obecnie znajduje się tu dysk, który utworzyłem podczas dodawania maszyny. Po
+zaznaczeniu go, po prawej stronie wyświetlą się informacje na temat “dysku”,
+który się tu znajduje oraz jego parametry: 
+
+DYSK TWARDY - określa slot, na którym ma być dysk 
+
+DYSK SSD – po zaznaczeniu tej opcji system maszyny będzie widział nasz dysk
+jako dysk SSD 
+
+HOT-PLUGGABLE (tylko AHCI) - po zaznaczeniu tej opcji system maszyny rozpozna
+ten dysk jako urządzenie “podłączane na gorąco”, tj. można go odłączyć przy
+włączonej maszynie. 
+
+Dostępne kontrolery:
+
+(wspomagam się ChatemGPT) 
+
+AHCI (SATA) - obsługuje urządzenia SATA; wysoka wydajność dla nowoczesnych
+dysków, następca IDE 
+
+PIIX 4 (DOMYŚLNE IDE) - obsługuje urządzenia z interfejsem IDE, kompatybilny
+ze starszymi systemami 
+
+PIIX3 (IDE) - nieco starszy od PIIX4, oferuje podobne funkcjonalności 
+
+ICH6 (IDE) - używany w starszych wersjach VirtualBoxa 
+
+LSILOGIC (DOMYŚLNE SCSI) - wysoka wydajność dla serwerów i RAID-ów, używany do
+bardziej zaawansowanych zadań 
+
+BUS LOGIC (SCSI) - również dla serwerów, lepsza kompatybilność z różnymi
+systemami operacyjnymi, używany do prostszych zadań 
+
+I82078 (FLOPPY) - obsługuje dyskietki, przestarzały 
+
+LSILOGIC SAS (SAS) - następca SCSI, wysoka wydajność dla urządzeń SAS, wymaga
+wsparcia systemowego (Windows starszy niż Vista nie wykryje dysków SAS) 
+
+USB – pozwala na montowanie zewnętrznych urządzeń pamięci masowej, bootowanie
+z USB jest możliwe po włączeniu EFI 
+
+NVME (PCIE) - obsługuje bardzo wydajne i nowoczesne dyski, następca SATA,
+dostępny po zainstalowaniu rozszerzenia do VirtualBoxa, bootowanie z NVMe jest
+możliwe po włączeniu EFI 
+
+VIRTIO-SCSI (Virtual I/O Device SCSI) - pozwala montować wirtualne urządzenia
+pamięci masowej (dyski twarde i napędy optyczne) do maszyny wirtualnej. Wersja
+eksperymentalna. 
+
+(dalej piszę sam)
+
+Obsługa urządzeń: 
+
+IDE – 4, SATA – 30, SCSI – 15, SAS – 255, USB – 8, NVMe – 255, virtio-scsi –
+256. Ja zostawię kontrolery bez zmian (PIIX4 i AHCI), ponieważ zapewniają
+największą kompatybilność. Przy okazji włączę użycie buforowania (dzięki temu
+praca na maszynie będzie przyjemniejsza), wybiorę porty 0 (ze względu na
+kolejność) oraz zaznaczę, że mój dysk jest dyskiem SSD (dzięki temu dysk
+będzie mógł używać komendy TRIM; powinno to wpłynąć pozytywnie na moją pracę
+na tej maszynie w przyszłości). 
+Dowiedziałem się o tej komendzie stąd:
+https://en.wikipedia.org/wiki/Trim_%28computing%29 
+
+
+===============================================================================
+
+
+DŹWIĘK - tutaj możemy wybrać, czy chcemy, aby maszyna wirtualna odnajdywała
+naszą kartę dźwiękową i czy dźwięk powinien być przekazywany na hoście. Ja tę
+opcję wyłączę, ponieważ nie będę potrzebował dźwięku z maszyny. Dostępne
+opcje:  
+
+STEROWNIK DŹWIĘKU GOSPODARZA – sterownik audio, który używa VirtualBox używa
+na hoście. Dostępne opcje: 
+
+DOMYŚLNY - oferuje ogólną obsługę dźwięku; jest łatwy w użyciu i nie wymaga
+konfiguracji. Dzięki temu przenoszenie maszyny pomiędzy różnymi platformami
+jest prostsze i nie ma konieczności zmieniania sterowników audio samemu. 
+
+WINDOWS AUDIO SESSION – oferuje interfejs programistyczny dla aplikacji, aby
+mogły łatwo komunikować się z systemem audio. Działa gorzej z aplikacjami
+wymagającymi szybkiego przetwarzania dźwięku. 
+
+WINDOWS DIRECTSOUND – oferuje bardziej bezpośredni dostęp do sprzętu
+dźwiękowego, co za tym idzie lepszą jakość dźwięku i mniejsze opóźnienie. 
+
+NULL AUDIO – ta opcja sprawia, że OS maszyny będzie widział kartę dźwiękową,
+ale każda próba dostępu do niej będzie ignorowana. 
+
+KONTROLER AUDIO - zarządza dźwiękiem pomiędzy maszyną wirtualną a systemem
+hosta. 
+
+ICH AC97 – standardowy interfejs audio; obsługuje odtwarzanie dźwięku z
+różnych źródeł. Kompatybilny z wieloma systemami operacyjnymi. 
+
+SOUNDBLASTER 16 – starszy kontroler audio; zapewnia podstawowe funkcje
+odtwarzania dźwięku. Posiada mniej funkcji; używany przez starsze systemy
+operacyjne. 
+
+INTEL HD AUDIO – nowoczesny interfejs audio; oferuje wysoką jakość dźwięku i
+wiele różnych funkcji, np. obsługa wielokanałowego dźwięku czy też
+zaawansowane efekty dźwiękowe. 
+
+ROZSZERZONE WŁAŚCIWOŚCI - opcje dodatkowe 
+
+WŁĄCZ WYJŚCIE DŹWIĘKU - włącza/wyłącza wyjście dźwięku. 
+
+WŁĄCZ WEJŚCIE DŹWIĘKU - włącza/wyłącza wejście dźwięku. 
+
+
+===============================================================================
+
+
+SIEĆ - tutaj dostępne są ustawienia kart graficznych maszyny wirtualnej.
+Domyślnie jest włączona tylko jedna, z trybem NAT. Ja potrzebuję tylko jedną
+kartę sieciową, więc będę tylko ją konfigurował. Dostępne opcje: 
+
+WŁĄCZ KARTĘ SIECIOWĄ - włącza kartę sieciową 
+
+POŁĄCZONA DO – tutaj można określić w jaki sposób maszyna ma się łączyć z
+siecią hosta. Dostępne opcje: 
+
+NAT - (Network Address Translation) domyślny tryb, który zapewnia łatwe
+połączenie z Internetem bez dodatkowej konfiguracji sieciowej. Umożliwia
+maszynie wirtualnej dostęp do sieci poprzez adres IP hosta, można w nim także
+ustalić reguły przekierowania portów. W ten sposób maszyna wirtualna jest
+odizolowana od sieci zewnętrznej. Na chwilę obecną ten tryb w zupełności mi
+wystarczy, dlatego też go wybiorę; w razie potrzeby zmienię go później. 
+
+MOSTKOWANA KARTA SIECIOWA (BRIDGED) - pozwala działać maszynie wirtualnej jako
+oddzielne urządzenie w sieci lokalnej; uzyskuje własny adres IP. 
+
+SIEĆ WEWNĘTRZNA - tworzy izolowaną sieć, działającą wyłącznie pomiędzy
+maszynami wirtualnymi. Brak dostępu do hosta i sieci zewnętrznej. 
+
+KARTA SIECI IZOLOWANEJ (HOST-ONLY) - tworzy izolowaną sieć, działającą tylko
+pomiędzy maszynami i systemem hosta. Brak dostępu do sieci zewnętrznej.  
+
+RODZAJOWY STEROWNIK - umożliwia korzystanie z dowolnego sterownika sieciowego
+zainstalowanego na systemie hosta.  
+
+SIEĆ NAT – działa tak samo jak NAT, ale oprócz tego umożliwia tworzenie
+wirtualnych sieci NAT w celu komunikacji między maszynami wirtualnymi. 
+
+CLOUD NETWORK (EXPERIMENTAL) - umożliwia połączenie maszyny wirtualnej z
+podsiecią w chmurze. 
+
+NIEPODŁĄCZONA - ta opcja określa, że karta sieciowa maszyny wirtualnej nie
+jest podłączona do żadnej sieci. OS maszyny wykryje interfejs sieciowy jako
+aktywny, ale żadne pakiety nie będą przesyłane przez sieć.
+
+Poniżej znajdują się opcje zaawansowane: 
+
+TYP KARTY – rodzaj karty, która ma być emulowana. Dostępne opcje:
+
+(wspomagam się ChatemGPT) 
+
+PCNet PCI II (Am79C970A) - oferuje podstawową obsługę funkcji sieciowych i
+jest często wybierana do wirtualizacji starszych systemów operacyjnych. 
+
+PCNet FAST III (Am79C973) - wspierana przez prawie każdy system operacyjny, w
+tym również GNU GRUB boot manager.  
+
+Intel PRO/1000 MT Desktop (82540EM) - wybierana domyślnie; działa z Windows
+Vista jej następcami. Posiada zaawansowane funkcje sieciowe. Wybiorę ją,
+ponieważ zapewni mi największą stabilność. 
+
+Intel PRO/1000 T Server (82543GC) - Windows XP rozpoznaje ją bez dodatkowych
+sterowników. Zaprojektowana z myślą o zastosowaniach serwerowych. 
+
+Intel PRO/1000 MT Server (82545EM) - nowsza wersja, ułatwia importowanie OVF
+(Open Virtualization Format – zawiera metadane dot. maszyny wirtualnej, np.
+konfiguracja sprzętowa) z innych platform. 
+
+Paravirtualized network adapter (virtio-net) - opcja ta sprawia, że VirtualBox
+nie wirtualizuje sprzętu sieciowego. W zamian oczekuje, że maszyna udostępni
+specjalny interfejs oprogramowania dla środowisk zwirtualizowanych. Poprawia
+to wydajność sieci. 
+
+(dalej piszę sam)
+
+TRYB NASŁUCHIWANIA (niedostępny dla NAT, RODZAJOWY STEROWNIK i NIEPODŁĄCZONA)
+- pozwala karcie sieciowej maszyny odbierać wszystkie pakiety przesyłane w
+  sieci; pozwala to na analizę ruchu sieciowego. Dostępne opcje to ODMAWIAJ,
+POZWALAJ MASZYNOM WIRTUALNYM i POZWALAJ WSZYSTKIM. Wybrałem NAT, więc ta opcja
+jest dla mnie niedostępna. 
+
+ADRES MAC – tutaj można generować adres MAC karty sieciowej; pierwsze 6 cyfr
+pozostaje bez zmian. 
+
+RODZAJOWE WŁAŚCIWOŚCI - to pole pojawi się, gdy wybierzemy RODZAJOWY STEROWNIK
+jako nasz tryb podłączenia. W nim można skonfigurować sterownik sieciowy,
+wpisując wartości ręcznie, w formacie nazwa=wartość. 
+
+KABEL PODŁĄCZONY - określa, czy karta sieciowa maszyny ma widzieć, czy kabel
+sieciowy jest podłączony, czy nie. Na razie pozostawię tę opcję włączoną. 
+
+
+===============================================================================
+
+
+PORTY SZEREGOWE – tutaj można skonfigurować porty szeregowe, maksymalnie
+cztery. Obecnie są one wykorzystywane głównie do debugowania kernela. Nie będę
+ich używał, ponieważ nie są potrzebne do instalacji Debiana. Dostępne opcje: 
+
+WŁĄCZ PORT SZEREGOWY - włącza port. 
+
+NUMER PORTU - wybór portu szeregowego. Dostępne są cztery tradycyjne lub można
+wprowadzić własny: 
+
+COM1: I/O 0x3F8 IRQ 4 
+
+COM2: I/O 0x2F8 IRQ 3 
+
+COM3: I/O 0x3E8 IRQ 4 
+
+COM4: I/O 0x2E8 IRQ 3 
+
+UŻYTKOWNIKA - można wybrać adres portu I/O i IRQ ręcznie. 
+
+IRQ (Interrupt Request, przerwanie) - sygnał sprzętowy wysyłany przez
+urządzenie do procesora. Powoduje wstrzymanie aktualnie wykonywanego procesu i
+wykonanie przez procesor kodu procedury obsługi przerwania. 
+
+ADRES PORTU WEJŚCIA/WYJŚCIA - numer identyfikacyjny, który określa fizyczny
+port komunikacyjny urządzenia I/O w systemie. 
+
+TRYB PRACY PORTU -  
+
+ODŁĄCZONY - w tym trybie port jest odłączony od maszyny. 
+
+ŁĄCZE KOMUNIKACYJNE GOSPODARZA – w tym trybie port jest połączony z kanałem
+hosta. Pozwala to na komunikację pomiędzy maszyną wirtualną a systemem hosta. 
+
+URZĄDZENIE GOSPODARZA – w tym trybie port jest połączony z fizycznym
+urządzeniem w systemie hosta. Może to być karta sieciowa czy port USB
+podłączony do hosta. 
+
+PLIK RAW – w tym trybie port jest połączony z plikiem RAW w systemie hosta.
+Zawiera on binarne dane, które mogą być odczytywane i zapisywane przez maszynę
+wirtualną. 
+
+TCP – w tym trybie komunikacja odbywa się przez sieć TCP/IP z aplikacjami lub
+innymi urządzeniami na systemie maszyny lub w sieci. 
+
+PODŁĄCZ DO ISTNIEJĄCEGO ŁĄCZA KOMUNIKACYJNEGO/GNIAZDA - pozwala wybrać
+istniejące łącze komunikacyjne/gniazdo w systemie hosta. 
+
+ŚCIEŻKA/ADRES - lokalizacja tego łącza/gniazda w systemie hosta. 
+
+
+===============================================================================
+
+
+USB – tutaj znajdują się ustawienia dla wirtualnego kontrolera USB maszyny: 
+
+WŁĄCZ KONTROLER USB - włącza kontroler USB. Zostawiam włączony, ponieważ w
+przeciwnym razie nie będę mógł korzystać chociażby z myszki i klawiatury na
+maszynie wirtualnej. 
+
+KONTROLER USB 1.1 (OHCI) - obsługuje urządzenia USB 1.1. 
+
+KONTROLER USB 2.0 (OHCI + EHCI) - obsługuje szybsze prędkości transferu danych
+dostępne w standardzie USB 2.0. Ustawiany domyślnie; pozostawię bez zmian,
+ponieważ jest bardziej uniwersalny. 
+
+KONTROLER USB 3.0 (xHCI) - obsługuje prędkości transferu danych dostępne w
+standardzie 3.0. 
+
+FILTRY URZĄDZEŃ USB - pozwalają na automatyczne przekierowywanie określonych
+urządzeń USB do wirtualnej maszyny, gdy są one podłączone do komputera hosta.
+Opcja przydatna do bardziej zaawansowanych zastosowań, do instalacji Debiana
+jest zbędna, dlatego nic nie będę tutaj zmieniał. 
+
+Po wybraniu któregoś z dostępnych urządzeń (lub pustego filtru, który zadziała
+dla wszystkich urządzeń) możemy skonfigurować taki filtr na podstawie różnych
+parametrów: nazwa, id dostawcy, id produktu, wersja, producent, unikalny id
+urządzenia, nr seryjny, port i zdalne (określa, czy filtr ma być stosowany dla
+urządzeń zdalnych hostów; można wybrać nie, tak lub bez znaczenia). Można
+również określić ich priorytetyzację. 
+
+
+===============================================================================
+
+
+UDOSTĘPNIANE FOLDERY – w tej sekcji można przydzielić do maszyny folder, który
+może być dzielony z hostem. Instalacja Debiana nie wymaga dzielonego folderu,
+więc go nie dodam. Przy dodawaniu mamy dostępne opcje: 
+
+ŚCIEŻKA DO FOLDERU – lokalizacja dzielonego folderu na komputerze hosta. 
+
+NAZWA FOLDERU – nazwa dzielonego folderu.  
+
+PUNKT MONTOWANIA - określa, gdzie ma być zamontowany folder na systemie
+maszyny wirtualnej. 
+
+TYLKO DO ODCZYTU – po zaznaczeniu maszyna nie będzie w stanie zapisywać w tym
+folderze danych. 
+
+AUTOMATYCZNE MONTOWANIE – po zaznaczeniu tej opcji system maszyny będzie
+próbował montować ten folder przy starcie. 
+
+
+===============================================================================
+
+
+INTERFEJS UŻYTKOWNIKA - w tej sekcji znajdują się ustawienia dla interfejsu
+użytkownika po uruchomieniu maszyny wirtualnej. Dostępne opcje: 
+
+PASEK MENU - można tutaj określić, czy pasek menu ma się pojawiać oraz jakie
+jego elementy mają być widoczne. Dostępne kategorie to Plik, Maszyna, Widok,
+Wejście, Urządzenie, Debuguj, Pomoc. Nic tutaj nie zmieniam, ponieważ
+ustawienia domyślne są wystarczające. 
+
+VISUAL STATE - określa, w jaki sposób ma wyświetlać się maszyna po
+uruchomieniu. Dostępne opcje to: 
+
+NORMAL (WINDOW) - tryb okienkowy, jest domyślny. Taki też zostawię, ponieważ
+ilość pamięci wideo, którą przydzieliłem nie pozwala mi na włączenie innego
+trybu. 
+
+FULL SCREEN – tryb pełnoekranowy 
+
+SEAMLESS – pozwala zintegrować aplikacje uruchamiane wewnątrz maszyny
+wirtualnej z pulpitem systemu hosta, dzięki czemu aplikacje te mogą być
+wyświetlane razem z aplikacjami systemu hosta na tym samym pulpicie. 
+
+SCALED – w tym trybie aplikacje na systemie maszyny są automatycznie
+przeskalowane tak, aby zmieściły się w oknie VirtualBoxa, niezależnie od ich
+rzeczywistych rozdzielczości. 
+
+MINI TOOLBAR – ustawienia dla pasku narzędzi, który domyślnie pojawia się na
+dole okna maszyny po jej uruchomieniu. Na samym końcu tej sekcji można wybrać,
+czy ma się ten pasek wyświetlać oraz jakie jego elementy mają być
+widoczne/jaka ma być ich kolejność. 
+
+WYŚWIETL W TRYBIE PEŁNEGO EKRANU/SEAMLESS - określa, czy pasek narzędzi ma się
+pojawiać w trybie pełnoekranowym lub seamless. Wyłączę to, ponieważ nie będę
+korzystać z tych trybów. 
+
+SHOW AT TOP OF SCREEN – sprawia, że pasek narzędzi wyświetli się na górze okna
+maszyny. Zostawiam ją wyłączoną, jest (w sumie jak prawie każda w tej sekcji)
+opcjonalna. 
+
+
+I to by było na tyle, jeśli chodzi o VB. Teraz przejdę do instalacji Debiana. 
+
+
+
+===============================================================================
+===============================================================================
+
+Debian
+
+===============================================================================
+===============================================================================
+
+
+Uruchamiam maszynę. Można to zrobić na trzy sposoby: 
+
+ZWYKŁY START – domyślny; uruchamia maszynę w trybie standardowym. 
+
+BEZGŁOWY START – uruchamia maszynę bez widocznego okna graficznego, jednak
+dalej można uzyskać do niego dostęp: 
+
+Poprzez pulpit zdalny lub SSH. 
+
+wybierając POKAŻ, które pojawia się zamiast START. Po kliknięciu POKAŻ maszyna
+przechodzi w oddzielny tryb. By ją ukryć wystarczy wybrać w oknie maszyny, w
+zakładce MASZYNA opcję ODŁĄCZ INTERFEJS GRAFICZNY lub przy próbie wyłączenia
+jej z dostępnych sposobów wybrać KONTYNUUJ URUCHAMIANIE W TLE. 
+
+ODDZIELNY START – uruchamia ją w tle, można uzyskać do niej dostęp poprzez
+POKAŻ, tak jak w trybie bezgłowym lub przełączając się na jej okno. 
+Ja skorzystam ze zwykłego startu. 
+
+-------------------------------------------------------------------------------
+
+Po uruchomieniu maszyny uruchamia się menu bootujące z pliku ISO z
+instalatorem Debiana. Pozwala ono wybrać różne opcje instalacji. 
+Aby korzystać z maszyny trzeba najpierw zezwolić na przechwytywanie myszki i 
+klawiatury. Okno dialogowe pojawi się po próbie kliknięcia na ekran maszyny. 
+Aby wyłączyć przechwytywanie trzeba nacisnąć klawisz hosta, domyślnie jest to 
+prawy CTRL. 
+Po menu można poruszać się za pomocą strzałek na klawiaturze i zatwierdzać 
+klawiszem ENTER. Cofać można klawiszem ESC. Dodatkowe klawisze: 
+
+E – włącza tryb edycji wybranej opcji. Można w nim zmienić jej parametry. 
+
+C - włącza dostęp do terminala GRUBa (Grand Unified Bootloader), czyli
+programu, który uruchamia system operacyjny. 
+
+-------------------------------------------------------------------------------
+
+Dostępne opcje instalacji:
+
+GRAPHICAL INSTALL – przeprowadza instalację w wersji graficznej. 
+
+INSTALL – przeprowadza instalację w wersji tekstowej. Wybieram ją, ponieważ
+wymaga mniejszych zasobów w porównaniu do wersji graficznej.  
+
+ADVANCED OPTIONS – opcje zaawansowane: 
+
+	GRAPHICAL EXPERT INSTALL – zaawansowany tryb instalacji z interfejsem
+	graficznym, który udostępnia więcej opcji, np. możliwość wykrycia i
+	zamontowania nośnika instalacyjnego czy też zmienić priorytet pytań
+	debconfa (debconf umożliwia m.in. automatyczną konfigurację pakietów
+	na podstawie preferencji użytkownika, które przechowuje w bazie
+	danych. Informację znalazłem tutaj: https://wiki.debian.org/debconf).
+	Używany, gdy wymagana jest pełna kontrola nad procesem instalacji.
+
+	GRAPHICAL RESCUE MODE – uruchamia system trybie awaryjnym z interfejsem
+	graficznym. Może być używany do naprawy istniejącego systemu, który
+	nie uruchamia się poprawnie.
+
+	GRAPHICAL AUTOMATED INSTALL – automatyczna instalacja z interfejsem
+	graficznym, posiada mniej opcji. Używany, gdy użytkownik chce
+	zainstalować system jak najszybciej.
+
+	EXPERT INSTALL – zaawansowany tryb instalacji z interfejsem tekstowym.
+	Udostępnia te same opcje co tryb graficzny. Jedyną różnicą między nimi
+	jaką zauważyłem jest to, że tryb graficzny umożliwia dodatkowo robienie
+	zrzutów ekranu (przycisk Screenshot w lewym dolnym rogu). 	
+
+	RESCUE MODE – uruchamia system w trybie awaryjnym z interfejsem 
+	tekstowym. Używany w tym samym celu, co jego graficzny odpowiednik.
+
+	AUTOMATED INSTALL – automatyczna instalacja z interfejsem tekstowym.
+	Używany, tak jak każdy wyżej opisany odpowiednik tekstowy, w sytuacji,
+	gdzie interfejs graficzny nie jest dostępny lub potrzebny.
+
+ACCESIBLE DARK CONTRAST INSTALLER MENU – oferuje czarne tło z białymi
+napisami, co ułatwia odczytywanie tekstu i nawigację dla osób ze słabszym
+wzrokiem. 
+
+INSTALL WITH SPEECH SYNTHESIS – tryb, który pozwala przeprowadzić instalację z
+wykorzystaniem syntezatora mowy. Skierowany dla osób niewidomych. 
+
+-------------------------------------------------------------------------------
+
+Po wybraniu INSTALL rozpoczyna się proces instalacji. Pierwszym krokiem jest
+wybranie języka, w jakim ona będzie przeprowadzana. Wybieram ENGLISH, ponieważ
+informatyka jest po angielsku. 
+
+Następnie trzeba wybrać region, w celu określenia strefy czasowej Dodatkowo
+określa skąd będą pobierane pakiety podczas instalacji. Wybieram kolejno:
+OTHER => EUROPE => POLAND. 
+
+Następnie trzeba wybrać ustawienia regionalne dla klawiatury. Wybieram UNITED
+STATES – EN_US.UTF-8. Dzięki temu nie będę mógł wprowadzać polskich znaków
+diakrytycznych, co pozwoli uniknąć mi problemów z wprowadzaniem ich w miejsca,
+gdzie nie są obsługiwane. 
+
+Następnie trzeba wybrać układ klawiatury. Wybieram AMERICAN ENGLISH, ponieważ
+jest zgodny z moim układem, czyli polski (programisty). 
+
+-------------------------------------------------------------------------------
+
+W tym momencie serwer DHCP przydziela do naszej emulowanej karty sieciowej 
+adres sieciowy. Kolejne kroki: 
+
+Wybieram nazwę dla maszyny (będzie pod nią widoczna w sieci). Dla procesu
+instalacji nie ma ona znaczenia, więc zostawiam domyślne “debian”. 
+
+Wybieram nazwę domeny; nie korzystam z żadnej, więc zostawiam to pole puste.  
+
+Ustalam hasło dla konta roota. W kolejnym oknie je potwierdzam. 
+
+Ustalam pełną nazwę dla nowego użytkownika. W moim przypadku będzie to s29986. 
+Następnie ustalam login (taki sam) oraz hasło. 
+
+===============================================================================
+
+
+W następnym etapie będę ustalał partycje dla systemu. Dostępne tryby (opiszę
+kroki dla każdego z nich, jednak będę korzystał z tych ustawień, które wybiorę
+w trybie MANUAL): 
+
+ 
+
+GUIDED – USE ENTIRE DISK: tryb, w którym krok po kroku prowadzi nas
+instalator, używamy w nim całej dostępnej przestrzeni dyskowej. Kroki: 
+
+Na początek wybieram dysk, na którym ma być zainstalowany system. Przy
+tworzeniu maszyny dodawałem tylko jeden dysk wirtualny, więc do wyboru także
+mam tylko jeden – SCSI3 (0,0,0) (sda) - 10.7 GB ATA VBOX HARDDISK. 
+ 
+SCSI3 - interfejs, który służy do połączenia dysku z maszyną. VirtualBox
+emuluje go zamiast AHCI dla lepszej kompatybilności i wydajności.  Gdybym nie
+zaznaczył, że mój dysk jest dyskiem SSD, to system widziałby ten interfejs w
+wersji SCSI2 (wiem z własnego przykładu). 
+(0,0,0) - adres urządzenia SCSI (numer kontrolera, numer kanału, numer
+urządzenia na kanale SCSI); identyfikuje konkretne urządzenie w systemie. 
+(sda) - Serial Drive A, nazwa logiczna nadawana dyskowi twardemu przez Linuxa. 
+10.7 GB - pojemność dysku. Pokazuje więcej niż przydzielałem, ponieważ system
+Windows operuje na jednostkach, które są wielokrotnością dwójki, a Linuks na
+wielokrotnościach dziesiątki. Tak na prawdę przydzieliłem 10 GiB (gibibajtów,
+10 x 1024 x 1024 x 1024 bajtów), co odpowiada po przeliczeniu dokładnie
+10.7374182 GB (10 x 1000 x 1000 x 1000 x 1.07374182 bajtów). 
+Informację wziąłem stąd: https://pl.wikipedia.org/wiki/Gigabajt 
+ATA – typ dysku, a VBOX HARDDISK – etykieta nadana przez VirtualBoxa. 
+
+Kolejnym krokiem jest wybór schematu podziału: 
+
+ALL FILES IN ONE PARTITION (recommended for new users) - wszystkie pliki na
+jednej partycji. Zalecana dla osób, które nie wiedzą, jak operuje się na
+dyskach na systemach linuksowych. 
+
+SEPARATE /HOME PARTITION – wydziela /home (katalog użytkownika) i tworzy
+osobną partycję. 
+
+SEPARATE /HOME, /VAR, AND /TMP PARTITIONS – wydziela katalog /home, /var
+(pliki zmienne; resztki, których nie można przydzielić do innych katalogów,
+np. logi) oraz /tmp (pliki tymczasowe) i tworzy osobne partycje. 
+Wybrałem opcję pierwszą, ponieważ i tak nie będę końcowo korzystał z tych
+ustawień. 
+ 
+
+W kolejnym kroku instalator wyświetla jakie stworzył partycje. Dokładniej będę
+opisywał to później. Dostępne opcje do wyboru: 
+
+GUIDED PARTITIONING – pozwala przeprowadzić partycjonowanie jeszcze raz. 
+
+CONFIGURE SOFTWARE RAID – pozwala skonfigurować RAID (Redundant Array of
+Independent Disks) w systemie. Jest to technika łączenia kilku dysków twardych
+w jedną logiczną jednostkę. Zapewnia większą wydajność i większe
+bezpieczeństwo dla danych. 
+
+CONFIGURE THE LOGICAL VOLUME MANAGER – pozwala skonfigurować LVM (Logical
+Volume Manager). Mechanizm ten pozwala na zmianę sposobu, w jakim są
+zarządzane dyski w systemie linuksowym (zmiana rozmiaru, łączenie, dzielenie
+partycji itd.). Robi to w sposób dynamiczny, co oznacza, że można te operacje
+przeprowadzić bez konieczności resetowania komputera. 
+
+CONFIGURE ENCRYPTED VOLUMES – konfiguracja szyfrowania woluminów. Pozwala
+określić algorytm szyfrowania, hasło lub klucz oraz wolumin, który ma być
+szyfrowany. 
+
+CONFIGURE iSCSI VOLUMES – konfiguracja woluminów iSCSI. Polega na określeniu
+adresu IP serwera iSCSI oraz identyfikatora woluminu, który ma być montowany w
+systemie jako lokalny dysk twardy. 
+
+UNDO CHANGES TO PARTITIONS – cofa konfigurację partycji. Po wybraniu tej opcji
+można wybrać tryb partycjonowania lub konfigurację iSCSI. 
+
+FINISH PARTITIONING AND WRITE CHANGES TO DISK – kończy partycjonowanie i
+zapisuje zmiany.  
+
+Instalator zapyta się ponownie, czy zapisać zmiany na dysku. Po zatwierdzeniu
+ich następuje formatowanie partycji. 
+
+-------------------------------------------------------------------------------
+
+GUIDED – USE ENTIRE DISK AND SET UP LVM: tryb, w którym krok po kroku prowadzi
+nas instalator, używamy w nim całej dostępnej przestrzeni dyskowej. W tym
+trybie można ustawić LVM. 
+
+Na początek trzeba wybrać dysk; wybieram ten sam co wcześniej. 
+
+Następnie wybieramy schemat partycjonowania, dostępne są te same, co
+wcześniej. Również wybrałem opcję pierwszą, ponieważ i tak nie będę końcowo
+korzystał z tych ustawień. 
+
+Przed konfiguracją LVM trzeba zapisać wybrany schemat partycjonowania dla
+naszego dysku. Nie będzie można tego cofnąć. Instalator pyta się, czy na pewno
+chcemy z tymi opcjami kontynuować, wybieram YES i przechodzę do konfiguracji
+LVM. 
+
+Następnie trzeba przydzielić miejsce dla LVM na dysku. Warto zostawić min. 1GB
+na partycje EFI i /boot, dlatego wybieram sugerowane 9.7 GB. 
+
+W kolejnym oknie instalator podsumuje jakie partycje zostaną ustawione i
+zapyta się, czy zachować zmiany. Można wybrać YES i kontynuować instalację; ja
+natomiast wybiorę NO, ponieważ da mi to bardziej szczegółowy widok na zmiany
+oraz pozwoli wprowadzić moje własne. 
+
+Po wybraniu NO wyświetla się to samo okno z podsumowaniem, co we wcześniejszym
+trybie partycjonowania, z tymi samymi opcjami (konfiguracja RAID, LVM,
+szyfrowanie i iSCSI). Moje partycje wyglądają następująco: 
+
+LVM VG debian-vg, LV root as ext4 – grupa woluminów debian-vg, zawiera wolumin
+logiczny (LV – Logical Volume) o nazwie root, sformatowany jako system plików
+ext4. Na nim jest zamontowany katalog systemowy roota(/). 
+
+LVM VG debian-vg, LV swap_1 as swap - grupa woluminów debian-vg, zawiera
+wolumin logiczny o nazwie swap_1, sformatowany jako partycja wymiany swap. 
+
+partition #1 SCSI3 (0,0,0) (sda) as ESP – partycja, która nie należy do LVM
+(stworzona z 1GB, którego nie przydzieliłem). Sformatowana jako ESP (EFI
+System Partition) - zawiera pliki niezbędne do uruchomienia systemu
+operacyjnego zgodnie z trybem uruchamiania UEFI. 
+
+partition #2 SCSI3 (0,0,0) (sda) as ext2 - partycja, która nie należy do LVM
+(stworzona z 1GB, którego nie przydzieliłem). Sformatowana jako system plików
+ext2. Na niej zamontowany jest katalog /boot - zawiera pliki niezbędne do
+rozruchu systemu operacyjnego, takie jak jądro systemowe (kernel), pliki
+konfiguracyjne bootloadera (np. GRUB) oraz inne pliki startowe. 
+
+Po zapisaniu zmian można kontynuować instalację systemu. 
+
+-------------------------------------------------------------------------------
+
+GUIDED – USE ENTIRE DISK AND SET UP ENCRYPTED LVM: tryb, w którym krok po
+kroku prowadzi nas instalator, używamy w nim całej dostępnej przestrzeni
+dyskowej. Pozwala ustawić LVM oraz zaszyfrować system. 
+
+Tak jak wcześniej, najpierw wybieramy dysk. Następnie schemat partycjonowania
+(wybieram ten co wcześniej).  
+
+Przechodzę do konfiguracji LVM, zatwierdzam wybrany schemat. 
+
+Następnie instalator nadpisuje zawartość partycji fizycznej #3 na wybranym
+dysku losowymi (na niej będzie znajdował się LVM) danymi, aby zapobiec
+wyciekom metadanych z zaszyfrowanego woluminu. W każdym momencie można
+przerwać tę operacje, jednakże wpłynie to na jakość szyfrowania.  
+
+Następnym krokiem jest wpisanie hasła, które pozwoli odszyfrować tę partycję.
+Zalecane jest bardzo silne hasło, które zawiera kombinację liter, cyfr i
+symboli, minimum 20 znaków. Jeśli nasze hasło będzie miało mniej niż 8 znaków,
+to instalator zasugeruje użycie silniejszego i zapyta się, czy kontynuować ze
+słabszym hasłem. 
+
+Po wpisaniu hasła instalator przechodzi do konfiguracji LVM. Kroki tej
+konfiguracji opisałem wcześniej. 
+
+
+-------------------------------------------------------------------------------
+
+
+MANUAL - pozwala dokonać podziału partycji ręcznie (z tymi ustawieniami
+zostanę). 
+
+Wybieram mój dysk - SCSI3 (0,0,0) (sda) - 10.7 GB ATA VBOX HARDDISK, po czym
+zezwalam na użycie całego dysku. 
+
+Na początek stworzę partycje fizyczne dla EFI i /boot. W tym celu wybieram
+dostępne miejsce na dysku. 
+
+Z tego miejsca można utworzyć partycję ręcznie, pozwolić instalatorowi zrobić
+to automatycznie (wykorzysta całe dostępne miejsce) lub wyświetlić informacje
+o geometrii dysku (SHOW CYLINDER/HEAD/SECTOR INFORMATION). 
+
+Zamierzam dla każdej z nich wykorzystać po 600MB z dostępnego miejsca. Daję aż
+tyle, żeby mieć rezerwę w razie ewentualnej rozbudowy. 
+
+Pierwszą partycją będzie ESP – partycja dla EFI. Wybieram, by znajdowała się
+na początku wolnego miejsca.  
+
+Następnie pojawia się okno z ustawieniami dla partycji: 
+
+NAME – nazwa partycji. 
+
+USE AS - określa sposób używania partycji. Dostępne opcje:
+
+(opisywałem je z użyciem ChatGPT)
+
+	Ext2 file system – druga wersja systemu plików Ext; nie korzysta z
+	księgowania, co w razie awarii może skutkować utratą danych. Limit
+	długości pliku: 2 TiB. Maksymalny rozmiar partycji: 32 TiB.
+
+	Ext3 journaling file system - następca Ext2, posiada te same cechy co
+	poprzednik + obsługuje mechanizm księgowania, który w razie awarii 
+	systemu pozwoli odzyskać dane. Jest wolniejszy od Ext2. Limit długości
+	pliku i maksymalny rozmiar partycji taki sam jak Ext2.  
+
+	Ext4 journaling file system – następca Ext3, oferuje wszystkie funkcje
+	poprzednika + m.in. wsparcie dla większych rozmiarów partycji (do 1 
+	EiB) i plików (pojedynczy plik może mieć nawet 16 TiB).
+
+	btrfs journaling file system - (B-Tree File System) nowoczesny system 
+	plików, posiada wiele zaawansowanych funkcji, np. kopiowanie migawkowe.
+	Jest bardziej elastyczny niż Ext4, może być przydatny np. do 
+	zarządzania danymi w chmurze czy wirtualizacji. Limit długości pliku:
+	16 EiB. Maksymalny rozmiar partycji: 16 EiB.
+
+	JFS journaling file system – system plików stworzony przez IBM dla AIX,
+	później dostosowany do Linuxa. Charakteryzuje się dobrą wydajnością, 
+	również posiada mechanizm księgowania. Limit długości pliku: 4 PiB.
+	Maksymalny rozmiar partycji: 32 PiB.
+
+	XFS journaling file system – przeznaczony głównie dla systemów 
+	serwerowych. Limit długości pliku: 8 EiB. Maksymalny rozmiar partycji:
+	8 EiB.
+
+	FAT16 file system – starszy system plików, oferuje m.in. obsługę 
+	partycji o maksymalnym rozmiarze 2 GiB do 4 GiB w zależności od sektora 
+	dysku. Limit długości pliku: 2 GiB.
+
+	FAT32 file system – starszy system plików, następca FAT16, oferuje 
+	m.in. obsługę partycji o maksymalnym rozmiarze 16 TiB. Limit długości
+	pliku: 4 GiB.
+
+	swap area - przestrzeń wymiany, wykorzystywana przez system operacyjny 
+	w przypadku braku pamięci RAM. 
+
+	Reserved BIOS boot area - specjalna partycja zarezerwowana dla systemów
+	uruchamianych w trybie BIOS. 
+
+	ChromeOS kernel partition - partycja przeznaczona dla jądra systemu
+	operacyjnego ChromeOS. 
+
+	EFI System Partition - partycja ESP, niezbędna dla systemów 
+	uruchamianych w trybie UEFI. 
+
+	physical volume for encryption - partycja, która będzie używana jako 
+	wolumin do szyfrowania danych. 
+
+	physical volume for RAID - partycja, która będzie używana jako wolumin 
+	w macierzy RAID. 
+
+	physical volume for LVM - partycja, która będzie używana jako wolumin 
+	dla LVM. 
+
+	do no use the partition - partycja nie będzie używana ani montowana w 
+	systemie operacyjnym. 
+
+(dalej piszę sam)
+
+Strona z porównaniem systemów plików (używałem ją do sprawdzania wartości, 
+które generował ChatGPT):
+https://en.wikipedia.org/wiki/Comparison_of_file_systems 
+
+MOUNT POINT – punkt montowania dla partycji: 
+
+/ - główny katalog systemowy 
+
+/boot - katalog zawierający niezbędne pliki do rozruchu systemu. 
+
+/home - katalogi domowe użytkownika. 
+
+/tmp - pliki tymczasowe. 
+
+/usr - zawiera większość programów, bibliotek i plików danych związanych z
+użytkownikiem. 
+
+/var - zawiera wszystkie zmieniające się dane, np. logi 
+
+/srv - zawiera dane serwerowe, np. pliki FTP 
+
+/opt - zawiera dodatkowe oprogramowanie, zwykle te niedostarczane przez system
+operacyjny. 
+
+/usr/local - przeznaczony dla ręcznie zainstalowanego oprogramowania
+użytkownika, które nie jest zarządzanie przez menedżera pakietów systemowych. 
+
+Enter manually – pozwala wprowadzić punkt ręcznie, podając ścieżkę dostępu do
+konkretnego katalogu na dysku. 
+
+Do not mount it – pozwala nie montować partycji w systemie; nie będzie
+dostępna do odczytu i zapisu. 
+
+MOUNT OPTIONS – opcje montowania:
+
+(opisane z użyciem ChatGPT)
+
+discard – informuje system plików, aby natychmiast usuwał niepotrzebne bloki
+danych z urządzenia w trakcie operacji zapisu; może poprawić wydajność przy
+użyciu dysku SSD. 
+
+noatime - wyłącza aktualizację czasu ostatniego dostępu do plików. Może
+usprawnić działanie systemu. 
+
+nodiratime – robi to samo, ale wyłącznie dla katalogów. 
+
+relatime - aktualizuje czas ostatniego dostępu do plików tylko wtedy, gdy jest
+to konieczne do utrzymania poprawnego działania niektórych aplikacji. 
+
+nodev - uniemożliwia uruchomienie plików urządzeń na partycji, np. dysków czy
+kart sieciowych. 
+
+nosuid – blokuje programom możliwość korzystania ze specjalnych ustawień
+plików, które pozwalają im uzyskać dodatkowe uprawnienia. 
+
+noexec - uniemożliwia uruchomienie plików wykonywalnych na partycji. 
+
+ro – partycja jest montowana w trybie tylko do odczytu (read only).  
+
+sync – wymusza na systemie oczekiwanie, aż dane zostaną fizycznie zapisane na
+dysku przez kontynuacją działania. 
+
+usrquota - pozwala na kontrolę ilości używanej przestrzeni dyskowej przez
+poszczególnych użytkowników poprzez ustawienie limitów. 
+
+grpquota – robi to samo, ale dla grupy. 
+
+user_xattr – pozwala na przypisanie dodatkowych informacji do plików i
+katalogów poza standardowymi metadanymi, np. opis pliku.
+
+(dalej piszę sam)
+
+LABEL – ustawia etykietę dla partycji. 
+
+RESERVED BLOCKS – obszar na partycji, który jest zarezerwowany do użytku przez
+system operacyjny.  
+
+TYPICAL USAGE - określa typ partycji: 
+
+(opisane z użyciem ChatGPT) 
+
+standard – standardowa konfiguracja, optymalna dla ogólnego użytku. Zapewnia
+zrównoważone proporcje między liczbą inodów a przestrzenią dyskową.
+
+news – konfiguracja zoptymalizowana dla systemów przechowujących pliki
+wiadomości, które są małe, szybko-zmienne i krótko-żyjące. Tego typu pliki
+mogą prowadzić do szybkiej fragmentacji danych. Opcja ta dostosowuje system
+plików, aby lepiej zarządzać dużą ilością małych plików głównie poprzez 
+odpowiednie dobranie liczby inodów.
+
+largefile – zoptymalizowany dla obsługi pojedynczych plików o bardzo dużych
+rozmiarach. 
+
+largefile4 – obsługuje pliki jeszcze większe niż largefile 
+
+(dalej piszę sam). 
+
+BOOTABLE FLAG – flaga, która wskazuje, że ta partycja może być użyta do
+rozruchu systemu. Zastąpił ją bootloader. 
+
+Wybieram, aby ta partycja była używana jako ESP, co sprawia, że reszta opcji
+jest niedostępna i włącza się flaga rozruchu. 
+
+Dla partycji /boot:  
+wybieram system plików ext2 (w zupełności wystarczy, nie potrzebuję
+księgowania) oraz montuję do /boot. Resztę opcji zostawiam w ich domyślnych
+ustawieniach, ponieważ na dany moment nie posiadam wystarczającej wiedzy,
+która pozwoliłaby mi dokonać właściwego wyboru. 
+
+Dla pozostałego miejsca (9.5 GB) skonfiguruję LVM, ponieważ chcę sprawdzić jak
+będzie wyglądała w trybie manualnym. Sam LVM może również przydać mi się
+później, w razie ewentualnej rozbudowy.  
+
+Po zapisaniu wcześniejszych ustawień pojawia się okno z podsumowaniem
+konfiguracji. Obecnie nic nie dodawałem, więc wszystkie wartości wynoszą 0. 
+
+Muszę stworzyć grupę woluminów, więc wybieram CREATE VOLUME GROUP.  Będę
+korzystać tylko z jednej grupy, ponieważ nie jestem jeszcze biegły w
+zarządzaniu LVM i Debianem. Nadaję mu nazwę system-vg, ponieważ będą się w
+niej znajdować wszystkie partycje, zarówno systemowe jak i użytkownika. 
+
+Po utworzeniu grupy mogę przystąpić do utworzenia partycji logicznych.
+Zamierzam stworzyć tylko dwa woluminy – dla swap i reszty plików, ponieważ
+chcę uprościć sobie zarządzanie przestrzenią dyskową. Zmienię to, gdy będę
+pewniejszy w obsłudze Linuxa. 
+
+Na początek swap: 
+Nazwa logicznego woluminu – swap.  
+Pamięć - zaleca się przydzielać mu dwa razy więcej przestrzeni niż RAM, gdy
+pamięć RAM jest mniejsza niż 2GB. Natomiast dla pamięci RAM większej
+przestrzeń swap powinna wynosić rozmiar RAM + 2GB. Moja maszyna będzie
+wykorzystywać 512 MB, dlatego przydzielę jej 1024 MB. 
+
+Kolejny wolumin – reszta przestrzeni: 
+Nazwa logicznego woluminu – dane. 
+Pamięć - pozostała ilość, czyli 8510 MB. 
+
+Następnie wybieram FINISH w celu zakończenia konfiguracji LVM. Teraz trzeba
+skonfigurować powstałe partycje. 
+
+Ustawiam użycie swap na swap area. 
+
+W przypadku partycji dane będę używał na niej systemu plików Ext4 (zapewni
+największą stabilność), zamontuję ją w katalogu głównym (/), i resztę opcji
+pozostawię bez zmian. 
+
+Podsumowanie mapy partycji:
+LVM VG system-vg, LV dane - 8.5 GB Linux device-mapper (linear)
+	#1	8.5 GB	  f	  ext4		/
+LVM VG system-vg, LV swap - 1.0 GB Linux device-mapper (linear)
+	#1	1.0 GB    f	  swap		swap
+SCSI3 (0,0,0) (sda) - 10.7 GB ATA VBOX HARDDISK
+		  1.0 MB	  FREE SPACE
+	#1	598.7 MB  B   K	  ESP
+	#2	599.8 MB	  ext2		/boot
+	#3	  8.5 GB      K   lvm
+	#4	  1.0 GB      K   lvm
+		  1.0 MB	  FREE SPACE
+
+
+Zatwierdzam wszystkie skonfigurowane partycje i kontynuuję instalację systemu. 
+
+
+===============================================================================
+
+
+Przechodzimy do instalacji. Na początek następuje instalacja podstawowej
+części systemu z pliku ISO. 
+
+W trakcie instalator zapyta się, czy przeprowadzić skanowanie w poszukiwaniu
+kolejnych nośników instalacyjnych. Wybieram nie, bo mam tylko jeden nośnik. 
+
+Następnie konfigurujemy menedżer pakietów. Trzeba określić źródło lustrzane, z
+którego będą pobierane kolejne pliki. Dla najlepszego połączenia warto wybrać
+źródło, które znajduje się najbliżej nas. W moim przypadku wybieram kolejno
+POLAND => ftp.task.gda.pl. Można również określić serwer pośredniczący (proxy)
+- pozostawiam puste pole. 
+
+Po konfiguracji instalator zapyta się, czy chcemy brać udział w badaniach
+statystycznych dotyczących najczęściej używanych pakietów na systemie.
+Pozyskane dane mają posłużyć twórcom Debiana do usprawnienia procesu
+instalacji i samego użytkowania systemu. W skrócie, mogą się oni dzięki temu
+skupić na aktualizowaniu i wspieraniu najpopularniejszych pakietów, co
+skutkuje poprawą stabilności i bezpieczeństa systemu dla większości
+użytkowników. Dane te mogą także wpływać na wybór domyślnych pakietów dla
+przyszłych wydań Debiana. Dodatkowo, te statystyki są dostępne dla każdego, 
+przez co mogą też być wykorzystywane przez społeczność open source.
+Jest to instalacja demonstracyjna, więc nie zezwalam na mój udział.
+
+Kolejnym krokiem jest wybór dodatkowego oprogramowania, które można
+zainstalować. Dostępne: 
+
+DEBIAN DESKTOP ENVIRONMENT - środowisko graficzne. Do wyboru: GNOME, Xfce,
+GNOME Flashback, KDE Plasma, Cinnamon, MATE, LXDE, LXQt. Odznaczam (spacją),
+instaluję system tekstowy. 
+
+Porównanie środowisk (wygenerowany przez ChatGPT):
+	
+	GNOME
+	    Wymagania sprzętowe:
+		CPU: Średnie wymagania
+		RAM: Co najmniej 2 GB
+	    	Rozmiar na dysku: Około 3 GB
+    	    Wydajność: Umiarkowana, może być cięższa na starszym sprzęcie.
+	    Ergonomia: Intuicyjne i nowoczesne, zorientowane na użytkownika. 
+		       Dobrze zintegrowane z systemem.
+	    Stabilność: Wysoka, regularnie aktualizowane i dobrze testowane.
+	    Bezpieczeństwo: Dobre mechanizmy kontroli dostępu i aktualizacje
+			    bezpieczeństwa.
+	
+	Xfce
+	    Wymagania sprzętowe:
+		CPU: Niskie wymagania
+		RAM: Co najmniej 512 MB
+		Rozmiar na dysku: Około 1,5 GB
+	    Wydajność: Bardzo szybkie i lekkie, idealne na starszy sprzęt.
+	    Ergonomia: Proste i łatwe w użyciu, choć mniej nowoczesne niż GNOME.
+	    Stabilność: Bardzo wysoka, znane z niezawodności.
+	    Bezpieczeństwo: Standardowe mechanizmy, mniej zaawansowane niż 
+			    GNOME.
+	
+	GNOME Flashback
+	    Wymagania sprzętowe:
+		CPU: Średnie wymagania
+		RAM: Co najmniej 1 GB
+		Rozmiar na dysku: Około 2,5 GB
+	    Wydajność: Lepsza wydajność niż standardowe GNOME, bardziej klasyczne
+		       podejście.
+	    Ergonomia: Tradycyjne podejście, łatwe do adaptacji dla użytkowników
+		       klasycznego GNOME.
+	    Stabilność: Wysoka, korzysta z tego samego zaplecza co GNOME.
+	    Bezpieczeństwo: Solidne mechanizmy kontroli dostępu.
+	
+	KDE Plasma
+	    Wymagania sprzętowe:
+		CPU: Średnie do wysokie wymagania
+		RAM: Co najmniej 2 GB
+		Rozmiar na dysku: Około 3 GB
+	    Wydajność: Umiarkowana, dostosowywalna do różnych potrzeb.
+	    Ergonomia: Bardzo elastyczne i konfigurowalne, bogate w funkcje.
+	    Stabilność: Wysoka, ale może wymagać więcej zasobów.
+	    Bezpieczeństwo: Bardzo dobre mechanizmy, regularne aktualizacje.
+
+	Cinnamon
+	    Wymagania sprzętowe:
+		CPU: Średnie wymagania
+		RAM: Co najmniej 1 GB
+		Rozmiar na dysku: Około 2 GB
+	    Wydajność: Umiarkowana, dobrze zbalansowana.
+	    Ergonomia: Przyjazne dla użytkownika, przypomina klasyczny pulpit.
+	    Stabilność: Wysoka, stabilne i niezawodne.
+	    Bezpieczeństwo: Dobre mechanizmy kontroli dostępu.
+
+	MATE
+	    Wymagania sprzętowe:
+		CPU: Niskie do średnie wymagania
+		RAM: Co najmniej 1 GB
+		Rozmiar na dysku: Około 2 GB
+	    Wydajność: Bardzo dobra, lekki na zasoby.
+	    Ergonomia: Tradycyjne i proste, łatwe do adaptacji.
+	    Stabilność: Bardzo wysoka, rozwijane jako kontynuacja GNOME 2.
+	    Bezpieczeństwo: Standardowe mechanizmy, solidne zabezpieczenia.
+
+	LXDE
+	    Wymagania sprzętowe:
+		CPU: Bardzo niskie wymagania
+	 	RAM: Co najmniej 256 MB
+	        Rozmiar na dysku: Około 1 GB
+	    Wydajność: Wyjątkowo szybkie, idealne dla starszych komputerów.
+	    Ergonomia: Proste i minimalne, mniej funkcji niż inne środowiska.
+	    Stabilność: Wysoka, minimalne obciążenie systemu.
+	    Bezpieczeństwo: Standardowe mechanizmy, mniej zaawansowane.
+
+	LXQt
+	    Wymagania sprzętowe:
+		CPU: Niskie wymagania
+		RAM: Co najmniej 512 MB
+		Rozmiar na dysku: Około 1,5 GB
+	    Wydajność: Bardzo dobra, lekki i nowoczesny.
+	    Ergonomia: Nowoczesne, ale lekkie, łączy prostotę z nowoczesnością.
+    	    Stabilność: Wysoka, rozwijane jako następca LXDE.
+	    Bezpieczeństwo: Solidne mechanizmy, standardowe zabezpieczenia.
+
+(koniec wygenerowanego fragmentu)	
+
+WEB SERVER – serwer sieciowy. Nie zaznaczam. 
+
+SSH SERVER – serwer SSH. Nie zaznaczam. 
+
+STANDARD SYSTEM UTILITIES – podstawowe narzędzia systemowe, takie jak powłoka
+Bash, menedżer pakietów apt czy narzędzie sudo. Są one niezbędne do pracy na
+systemie. Jak najbardziej instaluję je. Lista wszystkich pakietów znajduje się
+tutaj:
+https://csmojo.com/posts/what-debian-standard-system-utilities-include.html
+
+Następnie instalowana jest reszta systemu, w tym GRUB. Jeśli wybrano EFI, to
+zainstaluje się automatycznie. Jeśli natomiast korzystamy z BIOSu, to
+bootloader można zainstalować w dwóch miejscach - MBR (Master Boot Record) i 
+BR (Boot Record). W MBR instalujemy, jeśli GRUB ma być głównym bootloaderem 
+lub jeśli instalujemy pierwszy system. W BR natomiast, jeśli w MBR jest już
+inny bootloader zainstalowany (np. Windows Boot Manager) lub gdy korzystamy z
+wielu systemów. 
+
+Przechodząc dalej można wybrać nasz dysk lub inny dowolny dysk (w tym nośniki 
+przenośne, np. pendrive). 
+
+W następnym kroku system jest już zainstalowany, wystarczy wybrać COUNTINUE –
+sprawi to, że maszyna uruchomi się ponownie, po czym system będzie gotowy do
+użycia. 
+
+===============================================================================
+===============================================================================
+
+Nie ukrywam, mogłem to zadanie wykonać lepiej, ale na prawdę nie miałem czasu
+- głównie dlatego zdecydowałem się na użycie ChatGPT (chociaż to samo w sobie
+też wymagało trochę pracy). Każdą moją wolną chwilę spędzałem właśnie nad nim, 
+jednak mimo wszystko dalej to zadanie nie wygląda tak, jakbym chciał (mam na 
+myśli głównie wygląd - co widać od momentu opisu ustawień maszyny, ale również 
+uzasadnienia moich wyborów). Chciałbym też z tego miejsca przeprosić za tak
+późne przesłanie zadania.
+Co do samego zadania - jest ciekawe i przydatne, ponieważ bardzo wiele się przy
+nim nauczyłem. Uświadomiło mi także ile informacji jest potrzebnych, aby
+poprawnmie zainstalować system. Na pewno będę musiał uzupełnić wiedzę o
+systemach plików i opcjach montowania partycji.
+Mam nadzieję, że następne zadania nie będą dla mnie tak czasochłonne i będę
+w stanie wykonać je tak, jakbym chciał. (coś mi nie pykło...)
+
+-------------------------------------------------------------------------------
+
+Update: wprowadziłem poprawki do zadania. Oznaczyłem również fragmenty, w
+których wykorzystywałem ChatGPT. Nie zmieniałem wyglądu całego zadania, 
+ponieważ pewnie utrudniłoby to Panu jego sprawdzanie.
+Statystyka: 
+	> tekst składa się z 61 790 znaków (od klikamy NOWA do końca, nie liczę
+	  "podziałek")
+	> tekst z użyciem Chatu składa się z 9 859 znaków.
+	> (9 859 / 61 790) * 100 ~ 16%
+Tak więc w 84% praca jest napisana przeze mnie.
+

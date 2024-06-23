@@ -1,0 +1,61 @@
+Virtual box
+Nazwa; Debian 12
+Typ; linux
+Wersja; Debian (64x)
+Pobralem obraz maszyny wirtualnej z internetu ze strony https://www.debian.org
+Podczas konfigurowania maszyny wirtualnej wyczytalem w internecie odpowiednie wymagania by wszystko
+dzialalo poprawnie
+Zaznaczylem opcje "Skip unattended Instalation"
+wiec przydzielam 6144 MB (z 128 GB dostepnnych) pamieci ram oraz 4 procesory
+Przydzielilem rowniez 15GB miejsca na dysku
+Wybieram format VDI poniewaz jest on najbardziej kompatybilny z tym rozwiazaniem wirtualizacji
+Nie zaznaczylem opcji 'Pre-allocate Full size' bo jest mi to calkowicie nie potrzebne
+Shared Clipboard oraz Opcja Drag'n'drop jest wylaczona bo jest to calkowicie nie potrzebne
+bo jest to juz zaimplementowane
+Szyfrowanie dysku zostalo nie wlaczone bo jest to na prywantym komputerze i nikt mi nie bedzie
+grzebac w moich plikach
+W boot orderze odznaczylem floppy i jako pierwszy ustawilem optical poniewaz pobralem odpowiedni plik
+Chipset zostawilem na PIIX3 by za bardzo nie obcaizac komputera
+TMP nie wybralem nic
+Pointing device ustawilem na mysz, bo system i tak nie bedzie posiadal GU
+EFI zostalo nie wlaczone
+Ze wzgledu na posiadanie systemu 64 Bitowego opcja PEA/NX jest wylaczona
+Ustawienia Akceleracji zostawilem na domyślnych i opcja wizualizacji sprzetowej jest zaznaczona
+W ustawieniach ekranu zostawilem pamiec wideo na 16 MB a ilosc monitorow na 1
+Kontroler Grafiki zostal ustawione na VMSVGA bo jest to wskazane dla debiana
+Remote display oraz recording zostalo wylaczone bo nie jest mi to calkowicie potrzebne
+W zakladce pamiec jedyna opcja ktora musialem zmienic jest to opcja SSD poniewaz jedyne dyski
+jakie posiadam to dyski SSD
+Dziwiek wylaczylem bo jest niepotrzebny
+W sieci jest tylko jedna karta  sieciowa bo wiecej nie jest potrzebne
+I zostala zaznaczona opcja NAT i zpstala uzyta domyslna karta sieciowa
+Nic innego nie zmienialem w zakladce network i zostawilem reszte domyslna
+Porty szeregowe zostawilem i nic nie zmienialem i nawet ich nie wlaczylem
+Ustawienia USB zostawilem domyślne
+W shared folders nic nie dodawalem
+W User interface nie zmienialem nic bo jest to nieistotne
+Wlaczylem maszyne i zaznaczalem instalacje tekstowa
+Jezyk - Angielski - bo jest to standaryzowany jezyk dla informatykow
+Lokalizacja - inna - bo oczywiscie jestem w Polsce - Europa - Polska
+Locate settings - united states - bo znanki dialektyczne polskie sa problematyczne dla wielu rzeczy
+Keymap to use - American English - bo standardowo uzywamy klawiatury typu QWERTY
+Ktora nie ma dodakowych znakow dla polskich znakow diakrytycznych (Ł,Ź itp)
+Host name  - debian12-home
+Domeny nie dodawalem bo nie uzywam na domowym
+Haslo roota zostalo dodane i potwierdzone
+Nazwa uzytkownika zostalo dodane jako dcybuch i dodalem wlasne haslo
+Przydzielanie partycji - wybralem opcje guided z prowadzeniem za raczke
+Wybralem dysk - wszystkie dyski na jednej partycji bo jest to pierwszy raz jak uzywa sie takiego
+dysku, i chcialbym zeby bylo proste, ale przy dalszych instalacjach bede sie uczyc jak robic to popr>
+i dokonczylem proces
+wyskoczylo mi czy chcialbym przeskanowac za kolejynmi mediami instalacji wiec
+reszta plikow bedzie pobierana z internetu
+wybieram ftp.task.gda.pl bo jest to pobieranie z Politechniki Gdanskie
+bez proxy bo nie posiadam
+Nie chce brac udzialu w ankciecie
+Podczas wyboru software selection wybralem
+Debian Desktop enviroment
+gnome
+standard system utillietes zeby miec wszystkie podstawowe funkcje i praca byla mozliwa
+ssh serwer
+Zainstalowalem boot loader na dysku Zrobilem reeboot i wszystko dziala poprawnie

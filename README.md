@@ -58,26 +58,6 @@ To tyle slowem wstepu.
 Ponizej macie liste zajec i pierwsze zadanie do wykonania.
 
 # Zajecia 1: Instalacja systemu linux na maszynach wirtualnych
-To zadanie jest opisane na osobnym branchu.  
-Prosze sprawdzic jak nalezy je rozwiazac na branchu `instalacja-debiana`  
-
-# Zajecia 2: Podstawowe operacje w skryptach w Bash-u
-Prosze zrobic commit do swojego repozytorum do galezi glownej (master) w katalogu o nazwie `sXXXXX-ImieNazwisko`. W nim proszę stworzyć katalog `zajecia2` a w nim umiescic pliki z rozwiazaniami zadan czyli `zadanie1.txt`, ..., `zadanieN.txt`. Czyli `sXXXXX-ImieNazwisko/zajecia2/zadanieN.txt`
+Prosze zrobic commit do swojego repozytorum do galezi instalacja-debiana w katalogu o nazwie `sXXXXX-ImieNazwisko`. W nim proszę stworzyć katalog `zajecia1` a w nim plik `instalacja_debian_linux.txt` z opisem procesu instalacji systemu. Czyli `sXXXXX-ImieNazwisko/zajecia1/instalacja_debian_linux.txt`
 Prosze jeszcze raz przeczytac powyzsze punkty od slowa *Primo!*. Reguly te, maja byc tu takze (jak i w kazdym zadaniu przez reszte semestru) przestrzegane.
-
-Prosze nie commitowac plikow `.swp`, `.tmp`, binarnych czy innych nie wymaganych przez Twoje skrypty.
-
-# Zajecia 3: If-y, petle, tablice, funkcje w Bash-u
-Wynikiem tych zajec powinnien byc katalog ze skryptami o ktorych mowa w tresci zadan.
-
-# Zajecia 4: Wstep do C/C++
-Prosze przygotowac rozwiazania zadan z zajec. Obowiazuja wszystkie zadania a nie tylko te, ktore udalo sie zdazyc zrobic/pokazac na zajeciach.
-
-> Dla przypomnienia: Nie commitowac plikow binarnych/skompilowanych. Tylko sam kod zrodlowy!
-
-# Zajecia 5: Procesy
-jw.
-
-# Zajecia 6: Make, sygnaly, sockety
-jw.
 

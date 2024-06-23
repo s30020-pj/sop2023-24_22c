@@ -1,0 +1,109 @@
+Obraz maszyny wirtualnej pobrałem z oficjalnej strony Debiana: https://www.debian.org
+Przy okazji pobierania sprawdziłem rekomendowane wymagania sprzętowe dla Debiana bez GUI
+okazało się że potrzebuję 512 MB RAM-u i 2GB pamięci,
+uznałem że mimo wszystko ustawię 1GB RAM-u dla pewności
+Po odpaleniu VirtualBoxa i wybraniu opcji eksperta dla własnej wygody,
+zaczynam tworzyć maszynę wirtualną wybierając odpowiednio:
+Nazwa: Debian12
+Typ: Linux
+Wersja: Debian (64x)
+oraz dodając iso pobrane wcześniej
+Zaznaczam "Skip Unattended Installation" ponieważ nie jest mi potrzebne żadne hasło użytkownika
+Następnie przechodzę do zakładki "Hardware" w której wyznaczam Ram na 1024MB (2GB) oraz 2 procesory,
+wystarczył by jeden ale dzięki dwóm wszystko będzie działało sprawniej
+Nie zaznaczam "Enable EFI" ponieważ nie mam możliwości użycia go
+Przechodzę do rubryki "Hard Disc", w której wybieram ile pamięci dysku chcę przekazać dla maszyny wirtualnej
+w moim przypadku będzie to 10GB
+Następnie muszę wybrać jeden z sześciu wariantów obrazu, w moim przypadku będzie to VDI (VirtualBox Disc Image)
+ponieważ będzie on najbardziej kompatybilny
+Nie zaznaczyłem "Pre-allocate Full Size" ponieważ tego nie potrzebuję
+Po stworzeniu wirtualnej maszyny wchodzę w ustawienia
+W podstawowych ustawieniach ogólnych nie muszę nic zmieniać ponieważ wszystko wybrałem wcześniej
+W ustawieniach zaawansowanych mam do wyboru opcje współdzielonego schowka oraz przeciąganie i upuszczanie
+żadna z tych opcji nie będzie mi pootrzebna ponieważ nie będę używać środowiska graficznego
+więc nie będę mógł ich wykorzystać
+Kolejną zakładką jest opis, nie muszę nic narazie wpisywać ponieważ jest to moja jedyna maszyna wirtualna
+i nie potrrzebuję do niej opisu
+Nastepną opcją jest szyfrowanie dysku, nie będzie mi to potrzebne ale,
+jakbym potrzebował mogę ustawić hasło do maszyny żeby nikt nie miał do niej dostępu
+Przechodzę do zakładki "System" gdzie w kolejności bootowania odznaczam dyskietkę,
+ponieważ takowej nie posiadam zostawiam włączony tylko napęd optyczny oraz dysk twardy
+Kolejnym krokiem jest wybranie chipsetu PIIX3 albo ICH9,
+w moim przypadku będzie to PIIX3 ponieważ ICH9 jest chipsetem eksperymentalnym
+i mimo że ma wyższą wydajność wolę nie ryzykować
+Kolejnym krokiem jest wybranie TPM (Trusted Platform Module),
+który nie jest mi potrzebny więc zostawię brak
+Następną rzeczą do wyboru jest "Urządzenie wskazujące",
+nie będzie mi to potrzebne ponieważ mój Debian nie będzie posiadał GUI
+dla tego po prostu wezmę "Mysz PS/2"
+Następnie w rozszerzonych właściwaościach mam do wyboru włączenie EFI,
+mógłbym dzięki temu np zresetować klucz ale nie jest mi to potrzebne
+W zakładce procesor mogę zmienić liczbę procesorów oraz ich wykorzystanie
+a także mogę wybrać VT-x/AMD-y dzięki czemu mógłbym uzyskać zagnieżdżoną wirtualizację
+ja tego nie potrzebuję więc nie będę tego włączać
+Tak samo mam do wyboru PAE/NX czyli rozszerzenie przestrzeni dla procesora,
+ale nie będę z tego korzystał ponieważ mam wybranego Debiana 64-bitowego
+W zakładce "Akceleracja" wybierał domyślny interfejs parawirtualizacji oraz zaztaczam wirtualizację sprzętową
+W ustawieniach ekranu mogę wybrać pamięć wideo ja zostawiam 16MB i jeden monitor
+Nie będę narazie powiększał skalowania, a w razie czego wrócę do ustawień
+Kontroler grafiki ustawiam na VMSVGA czyli preferowany dla Debiana
+akceleracji 3D nie włączam ponieważ nie mam GUI
+Mam także do wyboru Pulpit zdalny dzięki któremu mógłbym się połączyć z maszyną zdalnie,
+nie potrzebuję tego więc nie będę go uruchamiał
+Jest także opcja nagrywania gdybym chciał nagrać wszystko co robię na maszynie ale
+to też nie jest mi potrzebne
+Kolejną kategorią w ustawieniach jest pamięć w której nie muszę nic zmieniać ponieważ
+już dodałem plik iso z Debianem
+W kategorii dźwięk mogę go całkowicie wyłączyć bo nie będzie mi on potrzebny
+W kategorii sieć wybieram tylko jedną kartę bo więcej nie jest mi potrzebnych
+i będzie ona podłączona do NAT
+W opcjach zaawansowanych pozostawiam typ karty domyślny
+Losuję sobie Adres MAC i odznaczam kabel podłączony ponieważ w moim przypadku go nie ma
+Portów szeregowych nie potrzebuję więc nie muszę ich nawet włączać
+USB pozostawiam w ustawieniach domyślnych
+W udostępnionych folderach mogę przenosić pliki z maszyny fizycznej do maszyny wirtualnej
+ale narazie nie muszę nic przesyłać
+Interfejs użytkownika nie jest mi potrzebny
+Tak więc uruchamiam maszynę i zaczynam instalację
+Po uruchomieniu wyświetla mi się kilka opcji do wyboru
+Wybieram opcję instalacji zwykłej, ponieważ nie potrzebuję instalacji graficznej
+ani nie potrzebuję specjanych ustawień dla kolorów ani nie potrzebuję syntezatora mowy
+Oczywiście wybieram język angielski
+Muszę wybrać moją lokalizację, więc wybieram Other>Europe>Poland
+Następnie muszę wybrać w jaki sposób będzie działała klawiatura
+Wybieram United States i przechodzę do mapowania klawiszy i wybieram amerykański anglieski
+Następuje pobieranie danych z pliku iso który dołączyłem wcześniej
+Muszę teraz wpisać nazwę hosta nazywam to "debian12-demo"
+Potrzebuję hasła dla root-a, w moim przymadku będzie to "xyz"
+Następnie należy wpisać nazwę użytkownika, więc ustawiam ją na nazwę "user"
+Ponownie wpisuję "user" i ustawiam hasło na "xyz" i zatwierdzam wpisując je jeszcze raz
+Do wyboru partycji dysku wybieram opcję Guided bez LVM
+Wyświetla mi się tylko jeden dysk do wyboru: "SCSI3 (0, 0, 0) (sda) - 10.7 GB ATA VBOX HARDDISK"
+SCSI oznacza Small Computer Systems Interface czyli równoległa magistrala danych, 
+która służy do przesyłania danych między urządzeniami
+Po wyborze dysku mam do wyboru kolejne opcje tym razem dotyczą one tego jak chcę podzielić pliki na partycjach
+ponieważ nie posiadam jescze odpowiedniej wiedzy żeby się tym zajmować wybieram opcję pierwszą
+czyli tą w której wszystkie pliki będą znajdywały się na jednej partycji
+Mam możliwość usunięcia istniejących partycji i stworzenia własnych,
+dzięki czemu mógłbym każdą partycję ustawić według własnych preferencji
+Np systemy plików takich jak Ext2, ext3, ext 4 które są po prostu różnymi genreacjami systemu ext dzięki który służy do zapisywania
+Jfs czyli system plików z journalingiem
+Xfs czyli tak jak Jfs system plików z journalingiem tylko że z możliwością skalowania
+FAT16, Fat32 które są dość starymi systemami plików z ograniczeniami
+Btrfs który jest dość nowoczesnym systemem plików o dość dużej niezawodności związanej z mechanizmami kotroli integranlości plików
+Ja pozostawiam partycje które utworzyły się automatycznie
+Dostaję zapytanie dotyczące wybrania dodatkowej płyty, ale tego nie potrzebuję
+Następną rzeczą którą trzeba wybrać to na którym terytorium się znajdujemy żeby móc ściągać piki przez internet
+W moim przypadku to jest "Poland" i przechodzę dalej gdzie muszę wybrać miejsce z którego będę pobierać pliki
+Ja wybieram "ftp.task.gda.pl" ponieważ jest to najbliżej mnie i będzie dzieki temu jak najmniej opóźnień
+Nie posiadam proxy więc pomijam kolejny punkt
+Nie chcę brać udziału w ankiecie popularności pakietów więc w następnym punkcie wybieram "NO"
+Instalator pyta jakie oprogramowanie chciałbym doinstalować
+Aktualnie nie potrzebuję tak naprawdę nic, ale instaluję "standard system utilities"
+Ponieważ bez tego byłoby ciężko używać systemu, ze względu na to że są tam zawarte podstawowe narzędzia do pracy w systemie
+Instaluję także "SSH server"
+W następnym kroku instalator pyta o zainstalowanie boot loadera
+Oczywiście klikam "Yes" bo inaczej nie uruchomię systemu i zaznaczam jedyny dysk który aktualnie mam
+Po instalacji system pyta o ponowne uruchomienie, po po zrestatrtowaniu uruchamia się system pytający o nazwę użytkownika
+Wpisuję user i następnie muszę wpisać hasło więc wpisuję xyz
+Dzieki czemu uzyskuję dostęp do systemu
